@@ -60,6 +60,26 @@ def chat():
     return jsonify(session_id=sid, **out)
 
 
+@app.get("/api/opzioni")
+def opzioni():
+    """Elenchi per le schede: profili e documenti dal catalogo, fermate (ds535) e atenei (ds94)."""
+    return jsonify(
+        profili=[{k: p[k] for k in ("id", "nome", "gruppo", "cittadinanza", "criteri")} for p in tools.CAT.profili.values()],
+        documenti=[{k: d[k] for k in ("id", "nome", "name_en")} for d in tools.CAT.documenti.values()],
+        fermate=sorted({s["nome"] for s in tools.DATA[tools.opendata.METRO]}),
+        atenei=sorted({a["ateneo"].title() for a in tools.DATA[tools.opendata.ATENEI]}))
+
+
+@app.post("/api/scheda")
+def scheda():
+    body = _body()
+    sid, session = store.get_session(body.get("session_id"))
+    r = tools.propose_from_form(body.get("scheda") or {}, session)
+    if r.is_error:
+        return jsonify(session_id=sid, error=r.content), 400
+    return jsonify(session_id=sid, card=r.card)
+
+
 @app.post("/api/confirm")
 def confirm():
     sid, session = store.get_session(_body().get("session_id"))

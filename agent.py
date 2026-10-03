@@ -126,6 +126,11 @@ def confirm(session: dict) -> dict:
         raise AgentError("Non c'è ancora una scheda completa da confermare.")
     session["confirmed"] = True
     text = "[Pulsante Conferma] Ho controllato la scheda e la confermo: prepara il mio piano."
+    if not session["messages"]:  # scheda compilata a mano: Claude la vede qui per la prima volta
+        dati = {k: card[k] for k in ("nucleo", "persone", "data_arrivo", "gia_arrivato", "lingua", "strumenti",
+                                     "documenti", "vicino_a")}
+        text = ("[Schede compilate a mano] Ecco la mia scheda, già confermata: "
+                + json.dumps(dati, ensure_ascii=False) + ". Prepara il mio piano nella lingua indicata.")
     return run(session, system_prompt("agent_citizen.md"), tools.CITIZEN_TOOLS, text, max_tokens=12000,
                effort=PLAN_EFFORT)
 

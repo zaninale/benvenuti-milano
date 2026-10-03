@@ -245,3 +245,56 @@ def test_voci_importate_conservano_verifica_del_collega():
             if p["stato_verifica"] == "da_verificare":
                 assert p["scadenza"] is None or p["id"] == "DICHIARAZIONE_PRESENZA"
             assert p["fonti"] and p["priorita"] == "importante"
+
+
+# ---------------------------------------------------------------- schede compilate a mano e documenti posseduti
+
+def scheda_ana(**doc):
+    documenti = {k: False for k in tools.CAT.documenti}
+    documenti.update(passaporto=True, visto=True, iscrizione_o_lavoro=True, **doc)
+    return {"nucleo": "single", "persone": [{"relazione": "self", "minorenne": False, "cittadinanza": "extra",
+                                             "motivo": "study", "profilo": "nonue_studente"}],
+            "data_arrivo": "2026-10-02", "gia_arrivato": True, "lingua": "pt-BR",
+            "strumenti": {"email": True, "telefono": True, "sim_italiana": False, "dispositivo": True, "spid_cie": False},
+            "documenti": documenti, "vicino_a": "PIOLA", "riassunto_it": "Scheda compilata a mano.",
+            "domanda_chiarimento": None, "messaggio": "Ecco la tua scheda."}
+
+
+def test_schede_producono_la_scheda_e_il_piano_di_ana():
+    assert tools.schema_errors(scheda_ana(), tools.T_PROPOSE_PROFILE["input_schema"]) == []
+    assert tools.propose_from_form(dict(scheda_ana(), nucleo="tribu"), {}).is_error
+    session = {}
+    r = tools.propose_from_form(scheda_ana(), session)
+    assert not r.is_error and r.card["completa"] and r.card["documenti"]["passaporto"] is True
+    session["confirmed"] = session["catalog_seen"] = True
+    r = tools.submit_plan({"passi": passi(ANA_PLAN), "messaggio": "Il tuo piano è pronto, con i passi in ordine."},
+                          session)
+    assert not r.is_error and [s["procedure_id"] for s in r.plan["passi"]] == ANA_PLAN
+    by = {s["procedure_id"]: s for s in r.plan["passi"]}
+    assert any(d["nome"].startswith("Permesso") for d in by["RES_S"]["documenti_mancanti"])
+    assert any(d["nome"] == "Codice fiscale" for d in by["T_SIM"]["documenti_mancanti"])
+
+
+def test_codice_fiscale_gia_posseduto_niente_cf():
+    session = {}
+    tools.propose_from_form(scheda_ana(codice_fiscale=True), session)
+    session["confirmed"] = session["catalog_seen"] = True
+    r = tools.submit_plan({"passi": passi(ANA_PLAN), "messaggio": "Il tuo piano è pronto, con i passi in ordine."},
+                          session)
+    ids = [s["procedure_id"] for s in r.plan["passi"]]
+    assert "CF" not in ids and len(ids) == 7
+    assert any(a.startswith("CF: tolto dal piano") for a in r.plan["avvisi"])
+    assert not {s["procedure_id"]: s for s in r.plan["passi"]}["T_SIM"]["documenti_mancanti"]
+
+
+def test_non_ancora_arrivato():
+    assert tools.propose_from_form(dict(scheda_ana(), data_arrivo=None, gia_arrivato=False), {}).card["completa"]
+
+
+def test_endpoint_opzioni_e_scheda():
+    import app
+    c = app.app.test_client()
+    o = c.get("/api/opzioni").get_json()
+    assert len(o["profili"]) == 14 and "PIOLA" in o["fermate"] and len(o["documenti"]) == 7
+    assert c.post("/api/scheda", json={"scheda": scheda_ana()}).get_json()["card"]["completa"]
+    assert c.post("/api/scheda", json={"scheda": {"nucleo": "single"}}).status_code == 400

@@ -1851,3 +1851,69 @@ importazione:
   origine: ArrivareMilano (documento di lavoro del collega, verificato il 2026-10-03)
   procedure_importate: 17
   profili: 14
+documenti:
+- id: passaporto
+  nome: Passaporto o documento d'identità
+  name_en: Passport or ID document
+  ottenuto_con: []
+  richiesto_da:
+  - SUI
+  - PERM_L
+  - PERM_S
+  - PERMESSO_SOGGIORNO_KIT
+  - CF
+  - RES_U
+  - RES_X
+  - RES_S
+  - T_SIM
+- id: visto
+  nome: Visto d'ingresso
+  name_en: Entry visa
+  ottenuto_con:
+  - VISTO_INGRESSO
+  richiesto_da:
+  - SUI
+  - PERM_L
+  - PERM_S
+- id: permesso_o_ricevuta
+  nome: Permesso di soggiorno o ricevuta postale
+  name_en: Residence permit or postal receipt
+  ottenuto_con:
+  - PERM_L
+  - PERM_S
+  - FAM
+  - PERMESSO_SOGGIORNO_KIT
+  richiesto_da:
+  - RES_X
+  - RES_S
+  - SSN_L
+- id: codice_fiscale
+  nome: Codice fiscale
+  name_en: Tax code
+  ottenuto_con:
+  - CF
+  richiesto_da:
+  - T_SIM
+- id: tessera_sanitaria
+  nome: Tessera sanitaria o TEAM/S1
+  name_en: Health card or EHIC/S1
+  ottenuto_con:
+  - TESSERA_TEAM
+  richiesto_da: []
+- id: contratto_casa
+  nome: Contratto d'affitto o titolo abitativo
+  name_en: Lease or housing title
+  ottenuto_con: []
+  richiesto_da:
+  - TARI
+  - RES_U
+  - RES_X
+  - RES_S
+- id: iscrizione_o_lavoro
+  nome: Iscrizione all'università o contratto di lavoro
+  name_en: University enrolment or work contract
+  ottenuto_con:
+  - ISCRIZIONE_ISTITUTO
+  richiesto_da:
+  - RES_S
+  - RES_U

@@ -16,6 +16,8 @@ ANA_MSG = ("Olá! Sou brasileira e cheguei a Milão ontem, dia 2 de outubro, par
            "com visto de estudo. Moro sozinha num quarto perto da estação de metrô Piola. Tenho e-mail, "
            "smartphone e um número de celular brasileiro, mas ainda não tenho chip italiano, nem código fiscal, "
            "nem SPID.")
+ANA_DOC = ("Tenho passaporte, visto de estudo e a matrícula no Politecnico. Ainda não tenho permesso di soggiorno "
+           "nem recibo, nem código fiscal, nem cartão de saúde. O quarto é alugado com contrato no meu nome.")
 ATTESI = ["PERM_S", "SSN_S", "CF", "T_SIM", "RES_S", "CHECK", "T_ID_X", "TARI_S"]
 
 
@@ -28,6 +30,9 @@ def test_ana_dalla_chat_al_piano():
     r = c.post("/api/chat", json={"message": ANA_MSG}).get_json()
     print("\nRisposta:", r.get("reply"))
     assert not r.get("error"), r
+    if not (r.get("card") or {}).get("completa"):  # domanda riassuntiva su strumenti e documenti
+        r = c.post("/api/chat", json={"session_id": r["session_id"], "message": ANA_DOC}).get_json()
+        print("Risposta:", r.get("reply"))
     card = r["card"]
     assert card and card["completa"], r
     p = card["persone"][0]
@@ -56,3 +61,17 @@ def test_ana_dalla_chat_al_piano():
             print("     -", riga)
         assert s["ufficio_suggerito"] is None or "Comune" in s["ufficio"]
     assert not any(pid in ids for pid in ("T_EMAIL", "T_PHONE", "TARI")) and "RES_S" in catalog.RESIDENZA
+
+
+def test_ana_dalle_schede():
+    import app
+    from test_tools import scheda_ana
+
+    c = app.app.test_client()
+    r = c.post("/api/scheda", json={"scheda": scheda_ana()}).get_json()
+    assert r["card"]["completa"]
+    r = c.post("/api/confirm", json={"session_id": r["session_id"]}).get_json()
+    assert not r.get("error"), r
+    ids = [s["procedure_id"] for s in r["plan"]["passi"]]
+    print("\nPiano dalle schede:", ids)
+    assert sorted(ids) == sorted(ATTESI)

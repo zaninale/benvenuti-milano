@@ -40,6 +40,17 @@
         <p class="lead" data-t="lead"></p>
       </section>
 
+      <div class="segs" id="entry" role="group" aria-label="Come vuoi iniziare">
+        <button class="seg" data-entry="chat" aria-pressed="true" data-t="entryChat"></button>
+        <button class="seg" data-entry="form" aria-pressed="false" data-t="entryForm"></button>
+      </div>
+      <section class="panel aipanel" id="formPanel" hidden>
+        <h2 data-t="formTitle"></h2>
+        <p class="hint" data-t="formHint"></p>
+        <div id="formBody" style="display:flex;flex-direction:column;gap:14px"></div>
+        <button class="btn" id="formBtn" style="align-self:flex-start" data-t="formBtn"></button>
+        <p class="hint" id="formStatus" role="status"></p>
+      </section>
       <section class="panel aipanel" id="aiPanel">
         <h2 data-t="aiTitle"></h2>
         <p class="hint" data-t="aiHint"></p>

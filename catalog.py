@@ -66,6 +66,7 @@ class Catalog:
         self.data = data
         self.procs = {p["id"]: p for p in data["procedure"]}
         self.profili = {p["id"]: p for p in data.get("profili") or []}  # profili e criteri di scelta
+        self.documenti = {d["id"]: d for d in data.get("documenti") or []}  # documenti che si possono già avere
         self.deps = {p["id"]: self._deps(p) for p in data["procedure"]}
 
     def _deps(self, proc: dict) -> list[str]:
@@ -91,6 +92,10 @@ def validate(data: dict) -> tuple[list[str], list[str]]:
     procs = data.get("procedure") or []
     ids = [p.get("id") for p in procs]
     profili = {p.get("id") for p in data.get("profili") or []}
+    for doc in data.get("documenti") or []:
+        for pid in (doc.get("ottenuto_con") or []) + (doc.get("richiesto_da") or []):
+            if pid not in ids:
+                errors.append(f"documento {doc.get('id')}: procedura inesistente {pid}")
     for prof in data.get("profili") or []:
         for field in ("id", "nome", "criteri", "gruppo", "procedure", "tag_catalogo"):
             if field not in prof:

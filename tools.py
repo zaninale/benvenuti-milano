@@ -200,6 +200,7 @@ def get_catalog(args: dict, session: dict | None = None) -> Result:
         "punti_in_conflitto": CAT.data["punti_in_conflitto"],
         "procedure": [compact(p) for p in scelte],
         "varianti_della_stessa_pratica": [v for v in per_titolo.values() if len(v) > 1],
+        "documenti": [{k: d[k] for k in ("id", "nome", "ottenuto_con", "richiesto_da")} for d in CAT.documenti.values()],
         "nota": "Catalogo verificato il " + str(CAT.data["versione"]) + ". Le date le calcola il server; "
                 "link e fonti complete li aggiunge il server al piano.",
     })
@@ -297,7 +298,7 @@ def propose_profile(args: dict, session: dict) -> Result:
     if not persone or persone[0].get("relazione") != "self":
         return err("La prima persona deve essere chi scrive, con relazione 'self'.")
     mancano = []
-    if not parse_date(args.get("data_arrivo")):
+    if not parse_date(args.get("data_arrivo")) and args.get("gia_arrivato") is not False:
         mancano.append("data di arrivo")
     for i, p in enumerate(persone, 1):
         chi = "di chi scrive" if i == 1 else f"della persona {i}"
@@ -321,6 +322,8 @@ def propose_profile(args: dict, session: dict) -> Result:
         "data_arrivo": args.get("data_arrivo") if parse_date(args.get("data_arrivo")) else None,
         "lingua": args.get("lingua") or "it",
         "strumenti": args.get("strumenti") or {},
+        "documenti": args.get("documenti") or {},
+        "gia_arrivato": args.get("gia_arrivato"),
         "vicino_a": vicino,
         "riassunto_it": args.get("riassunto_it") or "",
         "mancano": mancano,
@@ -392,7 +395,13 @@ def submit_plan(args: dict, session: dict) -> Result:
         return err("La persona non ha ancora confermato la scheda profilo: aspetta la conferma.")
     if not session.get("catalog_seen"):
         return err("Chiama prima get_catalog e costruisci il piano sui suoi risultati.")
-    passi = args.get("passi") or []
+    posseduti = {k for k, v in (card.get("documenti") or {}).items() if v is True}
+    mancanti = {k for k, v in (card.get("documenti") or {}).items() if v is False}
+    gia_fatti = {pid: CAT.documenti[d]["nome"] for d in posseduti if d in CAT.documenti
+                 for pid in CAT.documenti[d]["ottenuto_con"]}
+    passi = [p for p in args.get("passi") or [] if p.get("procedure_id") not in gia_fatti]
+    tolti = [f"{p.get('procedure_id')}: tolto dal piano, la persona ha già {gia_fatti[p.get('procedure_id')]}"
+             for p in args.get("passi") or [] if p.get("procedure_id") in gia_fatti]
     if not passi:
         return err("Il piano è vuoto.")
     vuoti = [str(p.get("procedure_id")) for p in passi
@@ -416,7 +425,7 @@ def submit_plan(args: dict, session: dict) -> Result:
                    + "\nRiordina i passi e richiama submit_plan.")
 
     # Da qui in poi si accetta il piano: i dubbi diventano avvisi per lo sportello.
-    avvisi, persone = [], len(card["persone"])
+    avvisi, persone = list(tolti), len(card["persone"])
     tutti = list(range(1, persone + 1))
     arrivo = parse_date(card["data_arrivo"])
     res_id = next((i for i in ids if i in catalog.RESIDENZA), None)
@@ -466,6 +475,9 @@ def submit_plan(args: dict, session: dict) -> Result:
             "firmatari": proc.get("firmatari"), "strumento": (proc.get("strumento") or {}).get("necessita"),
             "scadenza": deadline(pid, arrivo, res_data),
             "dopo": [], "link": proc["link"], "fonti": proc["fonti"],
+            "documenti_mancanti": [{"nome": CAT.documenti[d]["nome"], "name_en": CAT.documenti[d]["name_en"]}
+                                   for d in sorted(mancanti) if d in CAT.documenti
+                                   and pid in CAT.documenti[d]["richiesto_da"]],
             "ufficio_suggerito": {k: ufficio[k] for k in ("id", "nome", "indirizzo", "orari")} if ufficio else None,
         })
     numero = {s["procedure_id"]: s["n"] for s in reversed(steps)}
@@ -554,7 +566,9 @@ T_PROPOSE_PROFILE = {
     "description": "Mostra alla persona la scheda di chi si trasferisce, da confermare prima del piano. Chiude il "
                    "tuo turno: 'messaggio' è quello che la persona legge, nella sua lingua. Se manca un dato "
                    "necessario metti null nel campo e una sola domanda in domanda_chiarimento e nel messaggio.",
-    "strict": True,
+    # niente strict: l'API ammette al massimo 16 parametri nullable negli schemi strict; il server valida
+    # comunque con lo stesso schema (schema_errors), come per le schede compilate a mano
+    "strict": False,
     "input_schema": _obj({
         "nucleo": {"type": "string", "enum": ["single", "family", "group"]},
         "persone": {"type": "array", "items": _obj({
@@ -565,9 +579,11 @@ T_PROPOSE_PROFILE = {
             "motivo": _null({"type": "string", "enum": ["work", "study", "family", "other"]}),
         })},
         "data_arrivo": _null({"type": "string", "format": "date"}),
+        "gia_arrivato": _null({"type": "boolean", "description": "false se la persona non è ancora arrivata a Milano"}),
         "lingua": {"type": "string", "description": "Tag BCP-47 della lingua in cui scrive la persona, es. pt-BR"},
         "strumenti": _obj({k: _null({"type": "boolean"}) for k in
                            ("email", "telefono", "sim_italiana", "dispositivo", "spid_cie")}),
+        "documenti": _obj({k: _null({"type": "boolean"}) for k in sorted(CAT.documenti)}),
         "vicino_a": _null({"type": "string", "description": "Fermata metro, quartiere o università. Mai un indirizzo."}),
         "riassunto_it": {"type": "string", "description": "Una frase in italiano per lo sportello: solo fatti utili "
                                                           "alle pratiche, niente nomi, documenti, indirizzi o salute."},
@@ -609,7 +625,7 @@ T_DRAFT_ANSWER = {
 CITIZEN_TOOLS = [T_GET_CATALOG, T_COMPUTE_DEADLINE, T_FIND_OFFICES, T_PROPOSE_PROFILE, T_SUBMIT_PLAN]
 COUNTER_TOOLS = [T_GET_CATALOG, T_DRAFT_ANSWER]
 HANDLERS = {"get_catalog": get_catalog, "compute_deadline": compute_deadline, "find_offices": find_offices,
-            "propose_profile": propose_profile, "submit_plan": submit_plan, "draft_answer": draft_answer}
+            "propose_profile": lambda args, session: propose_from_form(args, session), "submit_plan": submit_plan, "draft_answer": draft_answer}
 
 
 def run_tool(name: str, args: dict, session: dict) -> Result:
@@ -620,3 +636,37 @@ def run_tool(name: str, args: dict, session: dict) -> Result:
         return fn(args, session)
     except Exception as e:  # l'errore torna a Claude invece di far cadere la richiesta
         return err(f"Errore del tool {name}: {e}")
+
+
+def schema_errors(value, schema: dict, path: str = "scheda") -> list[str]:
+    """Controlla un valore con il sottoinsieme di JSON Schema usato negli schemi dei tool."""
+    if "anyOf" in schema:
+        return [] if any(not schema_errors(value, s, path) for s in schema["anyOf"]) else [f"{path}: valore non valido"]
+    tipi = {"object": dict, "array": list, "string": str, "boolean": bool, "integer": int, "null": type(None)}
+    t = schema.get("type")
+    if t and not (isinstance(value, tipi[t]) and not (t == "integer" and isinstance(value, bool))):
+        return [f"{path}: deve essere {t}"]
+    if "enum" in schema and value not in schema["enum"]:
+        return [f"{path}: valore non ammesso {value!r}"]
+    if t == "string" and schema.get("format") == "date" and not parse_date(value):
+        return [f"{path}: data non valida"]
+    errori = []
+    if t == "object":
+        props = schema.get("properties", {})
+        errori += [f"{path}.{k}: manca" for k in schema.get("required", []) if k not in value]
+        errori += [f"{path}.{k}: campo non previsto" for k in value if k not in props]
+        for k, v in value.items():
+            if k in props:
+                errori += schema_errors(v, props[k], f"{path}.{k}")
+    if t == "array":
+        for i, v in enumerate(value):
+            errori += schema_errors(v, schema.get("items", {}), f"{path}[{i}]")
+    return errori
+
+
+def propose_from_form(scheda: dict, session: dict) -> Result:
+    """Le schede compilate a mano producono la stessa scheda di propose_profile, validata dallo stesso schema."""
+    errori = schema_errors(scheda, T_PROPOSE_PROFILE["input_schema"])
+    if errori:
+        return err("Scheda non valida: " + "; ".join(errori[:5]))
+    return propose_profile(scheda, session)

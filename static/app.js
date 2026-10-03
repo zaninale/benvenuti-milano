@@ -46,7 +46,16 @@ var TX = {
   answersTitle: "Risposte dallo sportello", approved: "Approvata dall'operatore il ",
   conflictTitle: "Dove le fonti non concordano", conflictHint: "Su questi punti fatti confermare l'informazione allo sportello.",
   foot: "Demo indipendente, non realizzata dal Comune di Milano. Le informazioni vanno sempre confermate sulle fonti ufficiali indicate.",
-  step: "Passo "
+  step: "Passo ",
+  entryChat: "Scrivi o detta", entryForm: "Compila le schede", formTitle: "Compila le schede",
+  formHint: "Rispondi alle domande: Claude prepara il piano dopo che hai confermato la scheda. Non servono nomi né documenti.",
+  formBtn: "Prepara la scheda", formMsg: "Ecco la tua scheda: controllala e conferma.",
+  citS: {ita: "Italiana", ue: "Paese UE", extra: "Paese extra-UE"}, motS: {work: "Lavoro", study: "Studio", family: "Famiglia", other: "Altro"},
+  relL: "Legame", citL: "Cittadinanza", motL: "Motivo", minorL: "Minorenne", sitL: "La tua situazione", choose: "Scegli…",
+  addP: "Aggiungi persona", remove: "Rimuovi", arrL: "Data di arrivo a Milano", notYet: "Non sono ancora arrivato",
+  nearL: "Fermata della metro o università vicina", nearPh: "Es. Piola o Politecnico", langPlan: "Lingua del piano",
+  toolsL: "Cosa hai già", docsL: "Quali documenti hai già", notArrived: "Non ancora arrivato",
+  docsHas: "Documenti che hai", docsMissing: "Documenti che non hai ancora", missingDoc: "Ti manca: "
  },
  en: {
   demo: "Demo: switch between the two sides of the service", tabCit: "Citizen",
@@ -91,7 +100,16 @@ var TX = {
   answersTitle: "Answers from the desk", approved: "Approved by the officer on ",
   conflictTitle: "Where sources disagree", conflictHint: "Have these points confirmed at the desk.",
   foot: "Independent demo, not made by the City of Milan. Always confirm information on the official sources listed.",
-  step: "Step "
+  step: "Step ",
+  entryChat: "Write or dictate", entryForm: "Fill in the forms", formTitle: "Fill in the forms",
+  formHint: "Answer the questions: Claude builds the plan after you confirm the card. No names or documents needed.",
+  formBtn: "Prepare the card", formMsg: "Here is your card: check it and confirm.",
+  citS: {ita: "Italian", ue: "EU country", extra: "Non-EU country"}, motS: {work: "Work", study: "Study", family: "Family", other: "Other"},
+  relL: "Relationship", citL: "Citizenship", motL: "Reason", minorL: "Under 18", sitL: "Your situation", choose: "Choose…",
+  addP: "Add person", remove: "Remove", arrL: "Arrival date in Milan", notYet: "I haven't arrived yet",
+  nearL: "Nearby metro stop or university", nearPh: "E.g. Piola or Politecnico", langPlan: "Plan language",
+  toolsL: "What you already have", docsL: "Which documents you already have", notArrived: "Not arrived yet",
+  docsHas: "Documents you have", docsMissing: "Documents you don't have yet", missingDoc: "You still need: "
  }
 };
 
@@ -131,6 +149,7 @@ function renderStatic() {
   $("msg").placeholder = S.plan ? t("ph2") : t("ph");
   micUI();
   renderThread();
+  if (S.entry === "form") renderForm();
   if (S.plan) renderPlan();
 }
 
@@ -151,12 +170,18 @@ function cardHTML(c, i, used) {
   }).join("");
   rows.push('<ul class="mlist">' + list + "</ul>");
   if (c.data_arrivo) rows.push("<span>" + T.arrival + ": <b>" + esc(fmtDate(c.data_arrivo)) + "</b></span>");
+  else if (c.gia_arrivato === false) rows.push("<span>" + T.arrival + ": <b>" + T.notArrived + "</b></span>");
   if (c.vicino_a) rows.push("<span>" + T.near + ": <b>" + esc(c.vicino_a) + "</b></span>");
   if (c.lingua) rows.push("<span>" + T.lang + ": <b>" + esc(langName(c.lingua)) + "</b></span>");
   var st = c.strumenti || {}, yes = [], no = [];
   Object.keys(T.tools).forEach(function (k) { if (st[k] === true) yes.push(T.tools[k]); if (st[k] === false) no.push(T.tools[k]); });
   if (yes.length) rows.push("<span>" + T.has + ": " + esc(yes.join(", ")) + "</span>");
   if (no.length) rows.push("<span>" + T.hasNot + ": " + esc(no.join(", ")) + "</span>");
+  var dn = function (id) { var d = (S.opz && S.opz.documenti || []).filter(function (x) { return x.id === id; })[0]; return d ? (S.lang === "en" ? d.name_en : d.nome) : id; };
+  var docs = c.documenti || {}, dy = [], dno = [];
+  Object.keys(docs).forEach(function (k) { if (docs[k] === true) dy.push(dn(k)); if (docs[k] === false) dno.push(dn(k)); });
+  if (dy.length) rows.push("<span>" + T.docsHas + ": " + esc(dy.join(", ")) + "</span>");
+  if (dno.length) rows.push("<span>" + T.docsMissing + ": " + esc(dno.join(", ")) + "</span>");
   if (c.mancano && c.mancano.length) rows.push('<span class="unc">' + T.missing + esc(c.mancano.join(", ")) + "</span>");
   var action = "";
   if (c.completa) action = used ? '<span class="pill p-o" style="align-self:flex-start">' + T.confirmed + "</span>"
@@ -233,6 +258,7 @@ var CAL = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="c
 function dueHTML(s, plan, T, lang) {
   var sc = s.scadenza || {};
   if (sc.data) return '<span class="due">' + CAL + esc(fmtDate(sc.data, lang)) + ' <span class="after">· ' + esc(T.nat[sc.natura] || "") + "</span></span>";
+  if (sc.regola) return '<span class="after">' + CAL + esc(sc.regola) + "</span>";
   if (s.dopo && s.dopo.length) return '<span class="after">' + T.after + Math.max.apply(null, s.dopo) + "</span>";
   return '<span class="after">' + T.asap + "</span>";
 }
@@ -264,6 +290,7 @@ function stepHTML(s, plan, opts) {
     + (scan ? '<span class="scanlabel">QR scansionato a questo sportello</span>' : "")
     + '<div class="phead"><span class="num">' + s.n + '</span><div class="ptitle"><b dir="auto">' + esc(title) + "</b>" + who
     + dueHTML(s, plan, T, opts.op ? "it" : plan.lingua) + '<div class="badges">' + badges + "</div></div></div>"
+    + (s.documenti_mancanti && s.documenti_mancanti.length ? '<span class="unc">' + T.missingDoc + esc(s.documenti_mancanti.map(function (d) { return opts.lang === "en" ? d.name_en : d.nome; }).join(", ")) + "</span>" : "")
     + '<ol class="ins" dir="auto">' + ins.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ol>"
     + '<div class="chan"><span class="pill ' + MODE_CLS[s.canale] + '">' + T.mode[s.canale] + "</span></div>" + office
     + (links ? '<ul class="links">' + links + "</ul>" : "")
@@ -432,6 +459,83 @@ $("opApprove").addEventListener("click", async function () {
   $("draft").hidden = true; $("opOk").hidden = false;
   if (S.plan && S.plan.code === S.op.code) { S.plan.risposte = d.risposte; renderAnswers(); }
 });
+
+/* ---------------------------------------------------------------- schede (ingresso senza chat) */
+
+S.entry = "chat"; S.form = {nucleo: "single", persone: [{relazione: "self", minorenne: false, cittadinanza: "extra", motivo: "study", profilo: ""}]};
+function setEntry(e) {
+  S.entry = e;
+  document.querySelectorAll("[data-entry]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-entry") === e)); });
+  $("formPanel").hidden = e !== "form"; $("aiPanel").hidden = e === "form" && !S.thread.length;
+  if (e === "form") renderForm();
+}
+function sel(name, opts, cur, attrs) {
+  return '<select class="field" ' + (attrs || "") + ' data-f="' + name + '">' + opts.map(function (o) { return '<option value="' + esc(o[0]) + '"' + (o[0] === cur ? " selected" : "") + ">" + esc(o[1]) + "</option>"; }).join("") + "</select>";
+}
+function renderForm() {
+  if (!S.opz) return;
+  var T = TX[S.lang], F = S.form, h = "";
+  h += '<div class="segs" role="group">' + ["single", "family", "group"].map(function (k) { return '<button class="seg" data-nucleo="' + k + '" aria-pressed="' + (F.nucleo === k) + '">' + esc(T.who[k]) + "</button>"; }).join("") + "</div>";
+  h += F.persone.map(function (p, i) {
+    var rels = i === 0 ? [["self", T.rel.self]] : (F.nucleo === "group" ? [["mate", T.rel.mate]] : [["partner", T.rel.partner], ["child", T.rel.child], ["relative", T.rel.relative]]);
+    var profs = [["", T.choose]].concat(S.opz.profili.filter(function (x) { return !x.cittadinanza || x.cittadinanza === p.cittadinanza; }).map(function (x) { return [x.id, x.nome]; }));
+    return '<div class="mrow" data-i="' + i + '"><b class="mname">' + esc(i === 0 ? T.rel.self : T.person + (i + 1)) + "</b>"
+      + "<label>" + T.relL + sel("relazione", rels, p.relazione) + "</label>"
+      + "<label>" + T.citL + sel("cittadinanza", [["ita", T.citS.ita], ["ue", T.citS.ue], ["extra", T.citS.extra]], p.cittadinanza) + "</label>"
+      + "<label>" + T.motL + sel("motivo", [["work", T.motS.work], ["study", T.motS.study], ["family", T.motS.family], ["other", T.motS.other]], p.motivo) + "</label>"
+      + "<label>" + T.sitL + sel("profilo", profs, p.profilo, 'style="max-width:320px"') + "</label>"
+      + (i > 0 ? '<label class="mchk"><input type="checkbox" data-f="minorenne"' + (p.minorenne ? " checked" : "") + "> " + T.minorL + '</label><button class="mdel" data-del="' + i + '">' + T.remove + "</button>" : "") + "</div>";
+  }).join("");
+  if (F.nucleo !== "single") h += '<button class="btn-o2" id="addP" style="align-self:flex-start">' + T.addP + "</button>";
+  h += '<div class="setup"><div class="fieldwrap"><label for="fArr">' + T.arrL + '</label><input id="fArr" class="field" type="date" value="' + esc(F.data_arrivo || "") + '"' + (F.notYet ? " disabled" : "") + "></div>"
+    + '<label class="donebox"><input type="checkbox" id="fNotYet"' + (F.notYet ? " checked" : "") + "> " + T.notYet + "</label></div>";
+  h += '<div class="fieldwrap"><label for="fNear">' + T.nearL + '</label><input id="fNear" class="field" list="luoghi" placeholder="' + esc(T.nearPh) + '" value="' + esc(F.vicino_a || "") + '"><datalist id="luoghi">'
+    + S.opz.fermate.concat(S.opz.atenei).map(function (x) { return '<option value="' + esc(x) + '">'; }).join("") + "</datalist></div>";
+  h += '<div class="fieldwrap"><label for="fLang">' + T.langPlan + '</label><select id="fLang" class="field sel">' + $("micLang").innerHTML + "</select></div>";
+  h += "<fieldset class=\"tools\"><legend><b>" + T.toolsL + '</b></legend><div class="haslist">' + Object.keys(T.tools).map(function (k) { return '<label class="donebox"><input type="checkbox" data-tool="' + k + '"' + ((F.strumenti || {})[k] ? " checked" : "") + "> " + esc(T.tools[k]) + "</label>"; }).join("") + "</div></fieldset>";
+  h += "<fieldset class=\"tools\"><legend><b>" + T.docsL + '</b></legend><div class="haslist">' + S.opz.documenti.map(function (d) { return '<label class="donebox"><input type="checkbox" data-doc="' + d.id + '"' + ((F.documenti || {})[d.id] ? " checked" : "") + "> " + esc(S.lang === "en" ? d.name_en : d.nome) + "</label>"; }).join("") + "</div></fieldset>";
+  $("formBody").innerHTML = h;
+  $("fLang").value = F.lingua || $("micLang").value;
+}
+function readForm() {  // conserva quello che la persona ha già scelto
+  var F = S.form;
+  document.querySelectorAll("#formBody [data-i]").forEach(function (row) {
+    var p = F.persone[+row.getAttribute("data-i")];
+    row.querySelectorAll("[data-f]").forEach(function (el) { p[el.getAttribute("data-f")] = el.type === "checkbox" ? el.checked : el.value; });
+  });
+  if ($("fArr")) { F.data_arrivo = $("fArr").value; F.notYet = $("fNotYet").checked; F.vicino_a = $("fNear").value.trim(); F.lingua = $("fLang").value; }
+  F.strumenti = {}; document.querySelectorAll("#formBody [data-tool]").forEach(function (el) { F.strumenti[el.getAttribute("data-tool")] = el.checked; });
+  F.documenti = {}; document.querySelectorAll("#formBody [data-doc]").forEach(function (el) { F.documenti[el.getAttribute("data-doc")] = el.checked; });
+}
+$("formBody").addEventListener("change", function () { readForm(); renderForm(); });
+$("formBody").addEventListener("click", function (e) {
+  var b = e.target.closest("[data-nucleo],[data-del],#addP"); if (!b) return;
+  readForm();
+  if (b.id === "addP") S.form.persone.push({relazione: S.form.nucleo === "group" ? "mate" : "partner", minorenne: false, cittadinanza: S.form.persone[0].cittadinanza, motivo: "family", profilo: ""});
+  else if (b.hasAttribute("data-del")) S.form.persone.splice(+b.getAttribute("data-del"), 1);
+  else { S.form.nucleo = b.getAttribute("data-nucleo"); if (S.form.nucleo === "single") S.form.persone = S.form.persone.slice(0, 1); else if (S.form.persone.length < 2) S.form.persone.push({relazione: S.form.nucleo === "group" ? "mate" : "partner", minorenne: false, cittadinanza: S.form.persone[0].cittadinanza, motivo: "family", profilo: ""}); }
+  renderForm();
+});
+$("formBtn").addEventListener("click", async function () {
+  readForm();
+  var F = S.form, T = TX[S.lang];
+  var scheda = {
+    nucleo: F.nucleo,
+    persone: F.persone.map(function (p, i) { return {relazione: i === 0 ? "self" : p.relazione, minorenne: i === 0 ? false : !!p.minorenne, cittadinanza: p.cittadinanza, motivo: p.motivo, profilo: p.profilo || null}; }),
+    data_arrivo: F.notYet || !F.data_arrivo ? null : F.data_arrivo, gia_arrivato: F.notYet ? false : (F.data_arrivo ? true : null),
+    lingua: F.lingua || "it-IT", strumenti: F.strumenti, documenti: F.documenti, vicino_a: F.vicino_a || null,
+    riassunto_it: "Scheda compilata a mano: " + F.persone.map(function (p) { var x = S.opz.profili.filter(function (q) { return q.id === p.profilo; })[0]; return x ? x.nome : TX.it.citS[p.cittadinanza]; }).join("; ") + ".",
+    domanda_chiarimento: null, messaggio: T.formMsg
+  };
+  status("formStatus", "");
+  var d = await api("/api/scheda", {session_id: S.sid, scheda: scheda});
+  if (d.error) { status("formStatus", d.error, true); return; }
+  S.sid = d.session_id;
+  push({k: "bot", text: T.formMsg}); push({k: "card", card: d.card});
+  setEntry("chat"); $("thread").scrollIntoView({behavior: "smooth", block: "start"});
+});
+document.querySelectorAll("[data-entry]").forEach(function (b) { b.addEventListener("click", function () { setEntry(b.getAttribute("data-entry")); }); });
+api("/api/opzioni").then(function (d) { if (!d.error) { S.opz = d; if (S.entry === "form") renderForm(); } });
 
 /* ---------------------------------------------------------------- avvio */
 

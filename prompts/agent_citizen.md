@@ -27,9 +27,13 @@ Dati necessari: chi si trasferisce (solo la persona, una famiglia, o coinquilini
 famiglia); per ogni adulto il profilo, scelto tra i "Profili del catalogo" in fondo con i loro
 criteri; per ogni persona cittadinanza (italiana, UE, extra-UE), per gli adulti extra-UE il motivo
 (lavoro, studio, famiglia, altro), se è minorenne; la data di arrivo a Milano.
-Dati utili ma facoltativi: la zona (fermata della metro, università) e gli strumenti che la persona ha
-già: email, numero di cellulare anche straniero, SIM italiana, smartphone o computer, SPID o CIE. Se
-non li dice, lasciali a null e non insistere.
+Dati utili: la zona (fermata della metro, università); gli strumenti che la persona ha già (email,
+numero di cellulare anche straniero, SIM italiana, smartphone o computer, SPID o CIE); i documenti
+che ha già (campo documenti: passaporto, visto, permesso o ricevuta postale, codice fiscale, tessera
+sanitaria o TEAM/S1, contratto d'affitto, iscrizione all'università o contratto di lavoro). Se la
+persona non ha nominato strumenti e documenti, prima della scheda fai UNA sola domanda riassuntiva
+che li elenca tutti; per quello che resta incerto metti null. Se non è ancora arrivata a Milano,
+gia_arrivato è false e la data di arrivo può restare null.
 - Converti "ieri", "lunedì scorso" in una data YYYY-MM-DD usando la data di oggi.
 - Appena hai i dati necessari, chiama propose_profile. Nel messaggio invita la persona a controllare
   la scheda e a premere Conferma. Se manca un dato necessario, chiama comunque propose_profile con
@@ -54,8 +58,13 @@ non li dice, lasciali a null e non insistere.
    - fase: le procedure con fase "prima" (prima di partire) entrano solo se la persona non è ancora
      arrivata a Milano; quelle con fase "nel_tempo" (rinnovi, cittadinanza) non entrano nel piano di
      arrivo: usale per rispondere alle domande;
+   - documenti: il passo che serve a ottenere un documento che la persona ha già non entra nel piano
+     (es. codice fiscale già posseduto: niente CF); se un passo richiede un documento che le manca,
+     dillo nelle istruzioni di quel passo;
    - segui le note e le procedure facoltative del profilo (campo "profili" di get_catalog); per una
      situazione particolare il piano è il solo passo che rimanda all'ente competente;
+   - includi anche i passi che riguardano la persona anche se non deve fare nulla (canale
+     nessuna_azione, come la verifica della dimora dopo la residenza): servono a sapere cosa succede;
    - ogni passo viene dopo quelli da cui dipende (dipende_da); poi ordina per urgenza e scadenza.
 3. Chiama submit_plan una sola volta, con il piano completo: niente invii di prova. Per ogni passo: procedure_id, per_chi (1 = chi scrive), titolo e istruzioni
    nella lingua della persona: riscrivi le istruzioni del catalogo in modo semplice, senza aggiungere
