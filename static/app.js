@@ -55,7 +55,11 @@ var TX = {
   addP: "Aggiungi persona", remove: "Rimuovi", arrL: "Data di arrivo a Milano", notYet: "Non sono ancora arrivato",
   nearL: "Fermata della metro o università vicina", nearPh: "Es. Piola o Politecnico", langPlan: "Lingua del piano",
   toolsL: "Cosa hai già", docsL: "Quali documenti hai già", notArrived: "Non ancora arrivato",
-  docsHas: "Documenti che hai", docsMissing: "Documenti che non hai ancora", missingDoc: "Ti manca: "
+  docsHas: "Documenti che hai", docsMissing: "Documenti che non hai ancora", missingDoc: "Ti manca: ",
+  working: "Claude sta lavorando", usually: "Di solito ci vogliono 20-30 secondi.", seconds: " secondi", busyBtn: "Sto pensando…",
+  phases: {start: "Leggo la tua richiesta", get_catalog: "Leggo le regole del Comune", compute_deadline: "Calcolo le scadenze",
+           find_offices: "Cerco l'ufficio anagrafe più vicino", propose_profile: "Preparo la tua scheda",
+           submit_plan: "Controllo e preparo il piano", draft_answer: "Preparo la bozza con le fonti"}
  },
  en: {
   demo: "Demo: switch between the two sides of the service", tabCit: "Citizen",
@@ -109,7 +113,11 @@ var TX = {
   addP: "Add person", remove: "Remove", arrL: "Arrival date in Milan", notYet: "I haven't arrived yet",
   nearL: "Nearby metro stop or university", nearPh: "E.g. Piola or Politecnico", langPlan: "Plan language",
   toolsL: "What you already have", docsL: "Which documents you already have", notArrived: "Not arrived yet",
-  docsHas: "Documents you have", docsMissing: "Documents you don't have yet", missingDoc: "You still need: "
+  docsHas: "Documents you have", docsMissing: "Documents you don't have yet", missingDoc: "You still need: ",
+  working: "Claude is working", usually: "It usually takes 20-30 seconds.", seconds: " seconds", busyBtn: "Thinking…",
+  phases: {start: "Reading your request", get_catalog: "Reading the City's rules", compute_deadline: "Working out the deadlines",
+           find_offices: "Finding the nearest registry office", propose_profile: "Preparing your card",
+           submit_plan: "Checking and preparing the plan", draft_answer: "Drafting the answer with sources"}
  }
 };
 
@@ -204,6 +212,9 @@ function renderThread() {
 function setBusy(on, msg) {
   S.busy = on;
   $("sendBtn").disabled = on;
+  $("sendBtn").textContent = on ? t("busyBtn") : t("send");
+  if (S.stopWork) { S.stopWork(); S.stopWork = null; }
+  if (on && S.sid) S.stopWork = startWork("work", S.sid);
   document.querySelectorAll("[data-confirm]").forEach(function (b) { b.disabled = on; });
   status("status", on ? msg : "");
 }
@@ -229,6 +240,7 @@ async function send() {
   stopMic();
   push({k: "me", text: txt});
   $("msg").value = "";
+  await ensureSession();
   setBusy(true, t("thinking"));
   var d = await api("/api/chat", {session_id: S.sid, message: txt});
   setBusy(false);
@@ -433,10 +445,12 @@ $("opCode").addEventListener("keydown", function (e) { if (e.key === "Enter") op
 async function askCounter(q) {
   if (!S.op) { status("opStatus", "Apri prima il percorso di un cittadino.", true); return; }
   $("opQ").value = q; $("draft").hidden = true; $("opOk").hidden = true;
-  status("opStatus", "Claude sta preparando una bozza con le fonti…");
-  $("opAsk").disabled = true;
+  status("opStatus", "");
+  $("opAsk").disabled = true; $("opAsk").textContent = TX.it.busyBtn;
+  var stop = startWork("opWork", "sportello-" + S.op.code, "it");
   var d = await api("/api/counter/ask", {code: S.op.code, question: q});
-  $("opAsk").disabled = false;
+  stop();
+  $("opAsk").disabled = false; $("opAsk").textContent = "Chiedi a Claude";
   if (d.error) { status("opStatus", d.error, true); return; }
   status("opStatus", "");
   var dr = S.draft = d.draft; dr.domanda = q;
@@ -459,6 +473,33 @@ $("opApprove").addEventListener("click", async function () {
   $("draft").hidden = true; $("opOk").hidden = false;
   if (S.plan && S.plan.code === S.op.code) { S.plan.risposte = d.risposte; renderAnswers(); }
 });
+
+/* ---------------------------------------------------------------- avanzamento durante l'attesa */
+
+function startWork(boxId, key, lang) {
+  var box = $(boxId), t0 = Date.now(), last = {fasi: [], tool: null}, stopped = false;
+  function draw() {
+    var T = TX[lang || S.lang], P = T.phases, done = last.fasi.slice();
+    if (last.tool) done.pop();
+    var items = ['<li class="' + (done.length || last.tool ? "ok" : "now") + '">' + P.start + "</li>"]
+      .concat(done.map(function (f) { return '<li class="ok">' + esc(P[f] || f) + "</li>"; }))
+      .concat(last.tool ? ['<li class="now">' + esc(P[last.tool] || last.tool) + "</li>"] : []);
+    box.innerHTML = "<b>" + T.working + "</b><ol>" + items.join("") + "</ol><small>" + Math.round((Date.now() - t0) / 1000) + T.seconds + " · " + T.usually + "</small>";
+  }
+  box.hidden = false; draw();
+  var timer = setInterval(async function () {
+    if (stopped) return;
+    var d = await api("/api/progress/" + encodeURIComponent(key));
+    if (!stopped && d && d.attivo) last = d;
+    if (!stopped) draw();
+  }, 700);
+  return function () { stopped = true; clearInterval(timer); box.hidden = true; box.innerHTML = ""; };
+}
+async function ensureSession() {
+  if (S.sid) return;
+  var d = await api("/api/session", {});
+  if (d.session_id) S.sid = d.session_id;
+}
 
 /* ---------------------------------------------------------------- schede (ingresso senza chat) */
 

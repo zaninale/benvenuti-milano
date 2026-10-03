@@ -7,6 +7,7 @@ tool_result parte con il messaggio successivo: una chiamata in meno a ogni passa
 """
 import json
 import os
+import time
 import pathlib
 from datetime import date
 
@@ -20,6 +21,7 @@ MODEL = os.getenv("CLAUDE_MODEL", "claude-sonnet-5-5")
 EFFORT = os.getenv("AGENT_EFFORT", "low")  # non CLAUDE_EFFORT: può essere già impostata nel sistema
 PLAN_EFFORT = os.getenv("AGENT_PLAN_EFFORT", "medium")  # costruire il piano richiede più ragionamento
 MAX_TURNS = 6
+PROGRESS: dict[str, dict] = {}  # avanzamento per la pagina: solo nomi dei tool e tempi, nessun dato personale
 PROMPTS = pathlib.Path(__file__).parent / "prompts"
 _client = None
 
@@ -74,6 +76,10 @@ def run(session: dict, system: str, tool_list: list, user_text: str, max_tokens:
     messages.append({"role": "user", "content": pending + [{"type": "text", "text": user_text}]})
     session["pending"] = []
     out = {"reply": "", "card": None, "plan": None, "draft": None, "error": None}
+    key = session.get("_sid") or session.get("_progress")
+    prog = {"step": 0, "tool": None, "started_at": time.time(), "fasi": [], "finito": False}
+    if key:
+        PROGRESS[key] = prog
     try:
         for turn in range(MAX_TURNS):
             resp = _call(system, tool_list, messages, max_tokens, effort)
@@ -91,7 +97,9 @@ def run(session: dict, system: str, tool_list: list, user_text: str, max_tokens:
             for b in resp.content:
                 if b.type != "tool_use":
                     continue
+                prog.update(step=prog["step"] + 1, tool=b.name)
                 r = tools.run_tool(b.name, b.input, ctx if ctx is not None else session)
+                prog["fasi"].append(b.name)
                 dettaglio = b.input.get("profile_ids") or b.input.get("near") or "" if b.name in (
                     "get_catalog", "find_offices") else ""  # niente dati personali nel log
                 print(f"  tool {b.name} {dettaglio}: {'ERRORE ' + r.content[:200] if r.is_error else 'ok'}", flush=True)
@@ -113,6 +121,8 @@ def run(session: dict, system: str, tool_list: list, user_text: str, max_tokens:
         del messages[start:]  # si torna allo stato di prima: la richiesta non è avvenuta
         session["pending"] = pending
         raise
+    finally:
+        prog.update(finito=True, tool=None)
     return out
 
 
@@ -137,7 +147,7 @@ def confirm(session: dict) -> dict:
 
 def ask_counter(plan: dict, question: str) -> dict:
     """Nuova conversazione a ogni domanda: l'operatore riceve una bozza da approvare."""
-    session = {"messages": [], "pending": []}
+    session = {"messages": [], "pending": [], "_progress": "sportello-" + plan["code"]}
     contesto = {
         "codice": plan["code"], "lingua_cittadino": plan["lingua"], "data_arrivo": plan["data_arrivo"],
         "scheda": {k: plan["scheda"].get(k) for k in ("nucleo", "persone", "strumenti", "riassunto_it")},

@@ -60,6 +60,23 @@ def chat():
     return jsonify(session_id=sid, **out)
 
 
+@app.post("/api/session")
+def new_session():
+    """Id di sessione prima della prima domanda, così la pagina può seguire l'avanzamento."""
+    sid, _ = store.get_session(_body().get("session_id"))
+    return jsonify(session_id=sid)
+
+
+@app.get("/api/progress/<key>")
+def progress(key):
+    """Fasi reali del lavoro di Claude (nomi dei tool), per la pagina durante l'attesa."""
+    p = agent.PROGRESS.get(key)
+    if not p:
+        return jsonify(attivo=False)
+    return jsonify(attivo=not p["finito"], step=p["step"], tool=p["tool"], fasi=p["fasi"],
+                   secondi=round(agent.time.time() - p["started_at"]))
+
+
 @app.get("/api/opzioni")
 def opzioni():
     """Elenchi per le schede: profili e documenti dal catalogo, fermate (ds535) e atenei (ds94)."""

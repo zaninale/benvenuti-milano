@@ -24,7 +24,7 @@ def get_session(sid: str | None) -> tuple[str, dict]:
         SESSIONS[sid]["_t"] = time.time()
         return sid, SESSIONS[sid]
     sid = secrets.token_urlsafe(16)
-    SESSIONS[sid] = {"_t": time.time(), "messages": [], "pending": [], "card": None, "confirmed": False,
+    SESSIONS[sid] = {"_t": time.time(), "_sid": sid, "messages": [], "pending": [], "card": None, "confirmed": False,
                      "plan_code": None}
     return sid, SESSIONS[sid]
 

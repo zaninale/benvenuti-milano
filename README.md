@@ -22,6 +22,10 @@ first. She also struggles to read small text.
 
 One web page with two sides: the citizen and the registry counter.
 
+**Two ways in:** write or dictate in any language, or fill in the forms (who is moving, citizenship,
+reason, arrival, nearest metro stop or university, tools and documents already held); both produce
+the same profile card to confirm, and while Claude works the page shows its real steps.
+
 1. **Ana tells her story** in Portuguese, typed or dictated: *"Sou brasileira, cheguei ontem para um
    mestrado no Politecnico, moro perto da estação Piola…"*. No names, no documents, no address.
 2. **Claude understands and asks only what is missing**, one question at a time, then shows a
@@ -141,6 +145,8 @@ Open data are © Comune di Milano, Creative Commons Attribution, through the CKA
 - **To switch it on:** a City editor who owns `data/procedures.yaml` (41 procedures, 14 profiles,
   3 open conflicts, 3 links to confirm) and the counter staff's flags; an Anthropic API key; HTTPS
   hosting; authenticated access for counter staff (open in this prototype).
+- **Next, the plan as a PDF:** generated on request from the journey code, so the person keeps it
+  and the City stores no personal data (not in this version yet).
 - **What a proactive version 2 needs:** a consented signal that someone has just arrived (for
   example the residence application), and an email or phone number the person chooses to give, for
   reminders before each deadline. Today the .ics file does it without any personal data.

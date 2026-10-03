@@ -298,3 +298,30 @@ def test_endpoint_opzioni_e_scheda():
     assert len(o["profili"]) == 14 and "PIOLA" in o["fermate"] and len(o["documenti"]) == 7
     assert c.post("/api/scheda", json={"scheda": scheda_ana()}).get_json()["card"]["completa"]
     assert c.post("/api/scheda", json={"scheda": {"nucleo": "single"}}).status_code == 400
+
+
+# ---------------------------------------------------------------- avanzamento durante l'attesa
+
+def test_progress_segue_i_tool(monkeypatch):
+    from types import SimpleNamespace as NS
+    import agent
+    import app
+    import store
+    risposte = iter([
+        NS(stop_reason="tool_use", content=[NS(type="tool_use", id="t1", name="get_catalog",
+                                                input={"profile_ids": ["nonue_studente"]})]),
+        NS(stop_reason="end_turn", content=[NS(type="text", text="Fatto.")]),
+    ])
+    visto = []
+    def finto(*a, **k):
+        stato = agent.PROGRESS.get(sid) or {}
+        visto.append(dict(stato, fasi=list(stato.get("fasi", []))))
+        return next(risposte)
+    monkeypatch.setattr(agent, "_call", finto)
+    c = app.app.test_client()
+    sid = c.post("/api/session", json={}).get_json()["session_id"]
+    assert c.get(f"/api/progress/{sid}").get_json() == {"attivo": False}
+    out = agent.run(store.get_session(sid)[1], "sistema", [], "ciao", 100)
+    assert out["reply"] == "Fatto." and visto[1]["fasi"] == ["get_catalog"] and not visto[0]["fasi"]
+    p = c.get(f"/api/progress/{sid}").get_json()
+    assert p["attivo"] is False and p["fasi"] == ["get_catalog"] and p["step"] == 1

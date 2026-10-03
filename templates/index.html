@@ -70,6 +70,7 @@
           <button class="btn-o2" id="listenBtn" hidden><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M19 5a10 10 0 0 1 0 14"></path></svg> <span data-t="listen"></span></button>
         </div>
         <p class="hint" id="status" role="status"></p>
+        <div class="work" id="work" aria-live="polite" hidden></div>
       </section>
 
       <div class="cols" id="planCols" hidden>
@@ -159,6 +160,7 @@
           <textarea id="opQ" class="field area" rows="2" placeholder="Quali documenti servono per la residenza?"></textarea>
           <button class="btn" id="opAsk" style="align-self:flex-start">Chiedi a Claude</button>
           <p class="hint" id="opStatus" role="status"></p>
+          <div class="work" id="opWork" aria-live="polite" hidden></div>
           <div id="draft" hidden style="display:flex;flex-direction:column;gap:10px">
             <label for="draftText">Bozza di risposta (puoi correggerla)</label>
             <textarea id="draftText" class="field area" rows="5"></textarea>
