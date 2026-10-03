@@ -368,6 +368,12 @@ def submit_plan(args: dict, session: dict) -> Result:
     passi = args.get("passi") or []
     if not passi:
         return err("Il piano è vuoto.")
+    vuoti = [str(p.get("procedure_id")) for p in passi
+             if not (p.get("titolo") or "").strip() or not [x for x in p.get("istruzioni") or [] if x.strip()]]
+    if vuoti or len((args.get("messaggio") or "").strip()) < 20:
+        return err("Piano incompleto: ogni passo deve avere titolo e istruzioni nella lingua della persona"
+                   + (f" (mancano in: {', '.join(vuoti)})" if vuoti else "")
+                   + " e il messaggio deve avere 2 o 3 frasi. Manda il piano completo, non una prova.")
     ids = [p.get("procedure_id") for p in passi]
     sconosciuti = [i for i in ids if not CAT.get(i)]
     if sconosciuti:

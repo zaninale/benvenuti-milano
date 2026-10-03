@@ -108,7 +108,7 @@ def test_get_catalog_per_ana():
 
 def test_piano_di_ana_accettato():
     session = ana_session()
-    r = tools.submit_plan({"passi": passi(ANA_PLAN, "ANA03"), "messaggio": "Pronto"}, session)
+    r = tools.submit_plan({"passi": passi(ANA_PLAN, "ANA03"), "messaggio": "Il tuo piano è pronto: il passo più urgente è il permesso."}, session)
     assert not r.is_error and r.terminal
     plan = r.plan
     assert [s["procedure_id"] for s in plan["passi"]] == ANA_PLAN
@@ -132,28 +132,34 @@ def test_piano_di_ana_accettato():
 
 
 def test_ordine_sbagliato_rifiutato():
-    r = tools.submit_plan({"passi": passi(["RES_S", "PERM_S"]), "messaggio": ""}, ana_session())
+    r = tools.submit_plan({"passi": passi(["RES_S", "PERM_S"]), "messaggio": "Ecco il tuo piano, con i passi in ordine."}, ana_session())
     assert r.is_error and "PERM_S deve venire prima" in r.content
-    r = tools.submit_plan({"passi": passi(["PERM_S", "T_SIM", "CF"]), "messaggio": ""}, ana_session())
+    r = tools.submit_plan({"passi": passi(["PERM_S", "T_SIM", "CF"]), "messaggio": "Ecco il tuo piano, con i passi in ordine."}, ana_session())
     assert r.is_error and "CF deve venire prima" in r.content
 
 
+def test_piano_di_prova_rifiutato():
+    vuoto = [{"procedure_id": "PERM_S", "per_chi": [1], "titolo": "Permesso", "istruzioni": [], "ufficio_id": None}]
+    r = tools.submit_plan({"passi": vuoto, "messaggio": "x"}, ana_session())
+    assert r.is_error and "PERM_S" in r.content
+
+
 def test_id_inesistente_rifiutato():
-    r = tools.submit_plan({"passi": passi(["PERM_S", "RES_Z"]), "messaggio": ""}, ana_session())
+    r = tools.submit_plan({"passi": passi(["PERM_S", "RES_Z"]), "messaggio": "Ecco il tuo piano, con i passi in ordine."}, ana_session())
     assert r.is_error and "RES_Z" in r.content
 
 
 def test_piano_senza_conferma_o_senza_catalogo_rifiutato():
     session = ana_session()
     session["confirmed"] = False
-    assert tools.submit_plan({"passi": passi(["PERM_S"]), "messaggio": ""}, session).is_error
+    assert tools.submit_plan({"passi": passi(["PERM_S"]), "messaggio": "Ecco il tuo piano, con i passi in ordine."}, session).is_error
     session = ana_session()
     session["catalog_seen"] = False
-    assert "get_catalog" in tools.submit_plan({"passi": passi(["PERM_S"]), "messaggio": ""}, session).content
+    assert "get_catalog" in tools.submit_plan({"passi": passi(["PERM_S"]), "messaggio": "Ecco il tuo piano, con i passi in ordine."}, session).content
 
 
 def test_passo_non_applicabile_accettato_con_avviso():
-    r = tools.submit_plan({"passi": passi(["PERM_S", "T_EMAIL", "SUI"]), "messaggio": ""}, ana_session())
+    r = tools.submit_plan({"passi": passi(["PERM_S", "T_EMAIL", "SUI"]), "messaggio": "Ecco il tuo piano, con i passi in ordine."}, ana_session())
     assert not r.is_error
     assert any(a.startswith("T_EMAIL: secondo la scheda non risulta applicabile") for a in r.plan["avvisi"])
     assert any(a.startswith("SUI: secondo la scheda non risulta applicabile") for a in r.plan["avvisi"])
@@ -162,7 +168,7 @@ def test_passo_non_applicabile_accettato_con_avviso():
 def test_strumento_non_dichiarato_accettato_con_avviso():
     session = ana_session()
     session["card"]["strumenti"]["dispositivo"] = None
-    r = tools.submit_plan({"passi": passi(["T_DEV"]), "messaggio": ""}, session)
+    r = tools.submit_plan({"passi": passi(["T_DEV"]), "messaggio": "Ecco il tuo piano, con i passi in ordine."}, session)
     assert not r.is_error and any("da verificare" in a for a in r.plan["avvisi"])
 
 

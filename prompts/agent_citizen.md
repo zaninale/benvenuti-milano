@@ -51,7 +51,7 @@ non li dice, lasciali a null e non insistere.
      "tutti". Le condizioni della variante (es. "se intestatario") sono già nelle sue istruzioni:
      riportale;
    - ogni passo viene dopo quelli da cui dipende (dipende_da); poi ordina per urgenza e scadenza.
-3. Chiama submit_plan. Per ogni passo: procedure_id, per_chi (1 = chi scrive), titolo e istruzioni
+3. Chiama submit_plan una sola volta, con il piano completo: niente invii di prova. Per ogni passo: procedure_id, per_chi (1 = chi scrive), titolo e istruzioni
    nella lingua della persona: riscrivi le istruzioni del catalogo in modo semplice, senza aggiungere
    fatti, importi, date o link. Metti ufficio_id (da find_offices) solo nei passi da fare
    all'anagrafe del Comune. Se il server rifiuta il piano, correggi e richiamalo.
