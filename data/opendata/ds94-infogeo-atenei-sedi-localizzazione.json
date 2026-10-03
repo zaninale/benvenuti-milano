@@ -1,0 +1,727 @@
+{
+ "dataset": "ds94-infogeo-atenei-sedi-localizzazione",
+ "url": "https://dati.comune.milano.it/dataset/ds94-infogeo-atenei-sedi-localizzazione",
+ "scaricato": "2026-10-03",
+ "righe": [
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "PZA OSPEDALE MAGGIORE 3",
+   "facolta": "MEDICINA",
+   "quartiere": "NIGUARDA - CA' GRANDA - PRATO CENTENARO - Q.RE FULVIO TESTI",
+   "lat": 45.5092296526866,
+   "lon": 9.18868084450537
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "PZA FERRARI ANDREA CARDINALE 1",
+   "facolta": "MEDICINA",
+   "quartiere": "PORTA VIGENTINA - PORTA LODOVICA",
+   "lat": 45.4553179955712,
+   "lon": 9.19297324638358
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VLE ABRUZZI 42",
+   "facolta": "FARMACIA",
+   "quartiere": "BUENOS AIRES - PORTA VENEZIA - PORTA MONFORTE",
+   "lat": 45.4796430022321,
+   "lon": 9.21732651188301
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "PZA SANT' ALESSANDRO 1",
+   "facolta": "LETTERE E FILOSOFIA",
+   "quartiere": "DUOMO",
+   "lat": 45.4612190660429,
+   "lon": 9.18647705815211
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA DI RUDINI' ANTONIO 8",
+   "facolta": "MEDICINA E CHIRURGIA",
+   "quartiere": "BARONA",
+   "lat": 45.4334672580749,
+   "lon": 9.15800166238689
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA BALZARETTI GIUSEPPE 9",
+   "facolta": "MEDICINA",
+   "quartiere": "BUENOS AIRES - PORTA VENEZIA - PORTA MONFORTE",
+   "lat": 45.4769971483404,
+   "lon": 9.22077889941139
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA BRERA 28",
+   "facolta": "FISICA",
+   "quartiere": "BRERA",
+   "lat": 45.4722451291283,
+   "lon": 9.18766875739009
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA PASCAL CARLO 38",
+   "facolta": "BIOLOGIA",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.4784281715011,
+   "lon": 9.23512389974771
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA CELORIA GIOVANNI 2",
+   "facolta": "AGRARIA",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.4767474049183,
+   "lon": 9.22723669168939
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA CAPECELATRO ALFONSO 66",
+   "facolta": "MEDICINA",
+   "quartiere": "STADIO - IPPODROMI",
+   "lat": 45.4733558900766,
+   "lon": 9.12724128805707
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA CELORIA GIOVANNI 22",
+   "facolta": "SEGRETERIE",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.4767729629137,
+   "lon": 9.23261038916619
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA CELORIA GIOVANNI 16",
+   "facolta": "FISICA",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.4767713337419,
+   "lon": 9.23058308441074
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA CELORIA GIOVANNI 20",
+   "facolta": "AGRARIA",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.4767772020863,
+   "lon": 9.23233064826396
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA CELORIA GIOVANNI 10",
+   "facolta": "MEDICINA VETERINARIA",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.4767549023129,
+   "lon": 9.2287938183285
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA CELORIA GIOVANNI 26",
+   "facolta": "SCIENZE MATEMATICHE, FISICHE E NATURALI",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.4767739313264,
+   "lon": 9.23348876509727
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA COMELICO 39",
+   "facolta": "SCIENZE MATEMATICHE, FISICHE E NATURALI",
+   "quartiere": "XXII MARZO",
+   "lat": 45.4543051814666,
+   "lon": 9.21463426748637
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA CONSERVATORIO 7",
+   "facolta": "SCIENZE POLITICHE",
+   "quartiere": "GUASTALLA",
+   "lat": 45.4657696061155,
+   "lon": 9.20269307424322
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA DELLA COMMENDA 12",
+   "facolta": "MEDICINA",
+   "quartiere": "GUASTALLA",
+   "lat": 45.4587595547957,
+   "lon": 9.19864271139113
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA DELLA COMMENDA 9",
+   "facolta": "MEDICINA",
+   "quartiere": "GUASTALLA",
+   "lat": 45.4585542065093,
+   "lon": 9.19899117477688
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA DELLA COMMENDA 15",
+   "facolta": "MEDICINA",
+   "quartiere": "GUASTALLA",
+   "lat": 45.4580188902071,
+   "lon": 9.19907628601377
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA DELLA COMMENDA 19",
+   "facolta": "MEDICINA",
+   "quartiere": "GUASTALLA",
+   "lat": 45.457440677291,
+   "lon": 9.19916951838857
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA SFORZA FRANCESCO 35",
+   "facolta": "MEDICINA",
+   "quartiere": "GUASTALLA",
+   "lat": 45.4589608372796,
+   "lon": 9.19491748362854
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA GRASSI GIOVANNI BATTISTA 74",
+   "facolta": "MEDICINA",
+   "quartiere": "ROSERIO",
+   "lat": 45.5175261985788,
+   "lon": 9.12017633275699
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA COLOMBO GIUSEPPE 71",
+   "facolta": "FARMACIA",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.4739180670864,
+   "lon": 9.22641377311367
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA GRASSELLI ANNIBALE 7",
+   "facolta": "MEDICINA VETERINARIA",
+   "quartiere": "CORSICA",
+   "lat": 45.4612198226087,
+   "lon": 9.22763099419875
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA GOLGI CAMILLO 19",
+   "facolta": "FARMACIA",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.4755121997861,
+   "lon": 9.23412597756301
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA MANGIAGALLI LUIGI 31",
+   "facolta": "FARMACIA",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.4744062934657,
+   "lon": 9.22821987699149
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA MANGIAGALLI LUIGI 25",
+   "facolta": "FARMACIA",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.4743601511817,
+   "lon": 9.22683160053255
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA VENEZIAN GIACOMO 21",
+   "facolta": "FARMACIA",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.4744050707244,
+   "lon": 9.23306398417927
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA VANVITELLI LUIGI 32",
+   "facolta": "FARMACIA",
+   "quartiere": "BUENOS AIRES - PORTA VENEZIA - PORTA MONFORTE",
+   "lat": 45.4728329764915,
+   "lon": 9.22142185061252
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA SALDINI CESARE 50",
+   "facolta": "MATEMATICA",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.4738807152769,
+   "lon": 9.22743661834748
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA FESTA DEL PERDONO 7",
+   "facolta": "GIURISPRUDENZA",
+   "quartiere": "DUOMO",
+   "lat": 45.4603572864243,
+   "lon": 9.19390378408264
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA NOTO 8",
+   "facolta": "LETTERE E FILOSOFIA",
+   "quartiere": "VIGENTINO - Q.RE FATIMA",
+   "lat": 45.4309412134831,
+   "lon": 9.19910511631208
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA NOTO 6",
+   "facolta": "LETTERE E FILOSOFIA",
+   "quartiere": "VIGENTINO - Q.RE FATIMA",
+   "lat": 45.4311504111968,
+   "lon": 9.20047367896947
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA FESTA DEL PERDONO 3",
+   "facolta": "LETTERE E FILOSOFIA",
+   "quartiere": "DUOMO",
+   "lat": 45.4609509997514,
+   "lon": 9.19444384484542
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA MERCALLI GIUSEPPE 21",
+   "facolta": "LETTERE E FILOSOFIA",
+   "quartiere": "PORTA VIGENTINA - PORTA LODOVICA",
+   "lat": 45.455475179554,
+   "lon": 9.1907411180503
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA MANGIAGALLI LUIGI 34",
+   "facolta": "SCIENZE MATEMATICHE, FISICHE E NATURALI",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.4740946891426,
+   "lon": 9.22934970583958
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA BOTTICELLI SANDRO 23",
+   "facolta": "SCIENZE MATEMATICHE, FISICHE E NATURALI",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.4736914523699,
+   "lon": 9.22880613960604
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA CICOGNARA LEOPOLDO 7",
+   "facolta": "SCIENZE MATEMATICHE, FISICHE E NATURALI",
+   "quartiere": "BUENOS AIRES - PORTA VENEZIA - PORTA MONFORTE",
+   "lat": 45.4687813258205,
+   "lon": 9.22129227785189
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA KRAMER ANTONIO 4A",
+   "facolta": "SCIENZE MOTORIE",
+   "quartiere": "BUENOS AIRES - PORTA VENEZIA - PORTA MONFORTE",
+   "lat": 45.4686875302804,
+   "lon": 9.20872797680484
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA PACE 10",
+   "facolta": "SCIENZE POLITICHE",
+   "quartiere": "GUASTALLA",
+   "lat": 45.4588076262996,
+   "lon": 9.20294814867253
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA PIO II 1",
+   "facolta": "MEDICINA E CHIRURGIA",
+   "quartiere": "FORZE ARMATE",
+   "lat": 45.4697536194812,
+   "lon": 9.11534373389001
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "CSO DI PORTA NUOVA 23",
+   "facolta": "MEDICINA E CHIRURGIA",
+   "quartiere": "BRERA",
+   "lat": 45.4785726225981,
+   "lon": 9.19216311145978
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA VENEZIAN GIACOMO 1",
+   "facolta": "MEDICINA E CHIRURGIA",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.4743852073997,
+   "lon": 9.2313656366853
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA PACE 9",
+   "facolta": "MEDICINA E CHIRURGIA",
+   "quartiere": "GUASTALLA",
+   "lat": 45.4590757774972,
+   "lon": 9.20310156335698
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA PAREA CARLO 4",
+   "facolta": "MEDICINA E CHIRURGIA",
+   "quartiere": "MONLUE' - PONTE LAMBRO",
+   "lat": 45.4440749866288,
+   "lon": 9.2624035984593
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA MANGIAGALLI LUIGI 32",
+   "facolta": "MEDICINA E CHIRURGIA",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.474026008283,
+   "lon": 9.22881184127307
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA TRENTACOSTE DOMENICO 2",
+   "facolta": "SCIENZE MATEMATICHE, FISICHE E NATURALI",
+   "quartiere": "LAMBRATE - ORTICA",
+   "lat": 45.4727365546378,
+   "lon": 9.24232845364509
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA VANZETTI AUGUSTO 7",
+   "facolta": "MEDICINA E CHIRURGIA",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.4738148161604,
+   "lon": 9.23633308542815
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO BICOCCA",
+   "indirizzo": "VIA BICOCCA DEGLI ARCIMBOLDI 8",
+   "facolta": "ECONOMIA",
+   "quartiere": "BICOCCA",
+   "lat": 45.517282692822,
+   "lon": 9.21339878584117
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO BICOCCA",
+   "indirizzo": "VIA TEMOLO LIBERO 3",
+   "facolta": "SEGRETERIE",
+   "quartiere": "BICOCCA",
+   "lat": 45.5119572384695,
+   "lon": 9.21036742971248
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO BICOCCA",
+   "indirizzo": "PZA DELL'ATENEO NUOVO 1",
+   "facolta": "ECONOMIA",
+   "quartiere": "BICOCCA",
+   "lat": 45.5182653346409,
+   "lon": 9.21381298638547
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO BICOCCA",
+   "indirizzo": "PZA DELLA SCIENZA 1",
+   "facolta": "SCIENZE MATEMATICHE, FISICHE E NATURALI",
+   "quartiere": "BICOCCA",
+   "lat": 45.5133573612596,
+   "lon": 9.21187934848581
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO BICOCCA",
+   "indirizzo": "PZA DELLA SCIENZA 3",
+   "facolta": "SCIENZE MATEMATICHE, FISICHE E NATURALI",
+   "quartiere": "BICOCCA",
+   "lat": 45.5137188739471,
+   "lon": 9.21057388415716
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO BICOCCA",
+   "indirizzo": "VLE SARCA 336",
+   "facolta": "SCIENZE MATEMATICHE, FISICHE E NATURAL",
+   "quartiere": "BICOCCA",
+   "lat": 45.5254740815788,
+   "lon": 9.21449704965882
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO BICOCCA",
+   "indirizzo": "VIA COZZI ROBERTO 53",
+   "facolta": "SCIENZE MATEMATICHE, FISICHE E NATURALI",
+   "quartiere": "BICOCCA",
+   "lat": 45.5121244143089,
+   "lon": 9.21250576680963
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO BICOCCA",
+   "indirizzo": "PZA DELLA SCIENZA 4",
+   "facolta": "SCIENZE MATEMATICHE, FISICHE E NATURALI",
+   "quartiere": "BICOCCA",
+   "lat": 45.5139318511188,
+   "lon": 9.21075151846424
+  },
+  {
+   "ateneo": "UNIVERSITA' CATTOLICA DEL SACRO CUORE",
+   "indirizzo": "LGO GEMELLI FRA' AGOSTINO 1",
+   "facolta": "ECONOMIA",
+   "quartiere": "DUOMO",
+   "lat": 45.4628669091731,
+   "lon": 9.1767437346656
+  },
+  {
+   "ateneo": "UNIVERSITA' CATTOLICA DEL SACRO CUORE",
+   "indirizzo": "VIA NECCHI LODOVICO 9",
+   "facolta": "ECONOMIA",
+   "quartiere": "DUOMO",
+   "lat": 45.4623383515014,
+   "lon": 9.17798627341069
+  },
+  {
+   "ateneo": "UNIVERSITA' CATTOLICA DEL SACRO CUORE",
+   "indirizzo": "VIA NECCHI LODOVICO 5",
+   "facolta": "ECONOMIA",
+   "quartiere": "DUOMO",
+   "lat": 45.4625523807968,
+   "lon": 9.17782792804432
+  },
+  {
+   "ateneo": "UNIVERSITA' CATTOLICA DEL SACRO CUORE",
+   "indirizzo": "VIA SANT' AGNESE 2",
+   "facolta": "SCIENZE DELLA FORMAZIONE",
+   "quartiere": "DUOMO",
+   "lat": 45.4652920080069,
+   "lon": 9.1777502074814
+  },
+  {
+   "ateneo": "UNIVERSITA' CATTOLICA DEL SACRO CUORE",
+   "indirizzo": "VIA CARDUCCI GIOSUE' 28",
+   "facolta": "nn",
+   "quartiere": "MAGENTA - S. VITTORE",
+   "lat": 45.4635191171311,
+   "lon": 9.17414081401302
+  },
+  {
+   "ateneo": "UNIVERSITA' CATTOLICA DEL SACRO CUORE",
+   "indirizzo": "VIA SAN VITTORE 18",
+   "facolta": "nn",
+   "quartiere": "MAGENTA - S. VITTORE",
+   "lat": 45.4634311196915,
+   "lon": 9.17038135433193
+  },
+  {
+   "ateneo": "UNIVERSITA' CATTOLICA DEL SACRO CUORE",
+   "indirizzo": "VIA MOROZZO DELLA ROCCA 2A",
+   "facolta": "nn",
+   "quartiere": "MAGENTA - S. VITTORE",
+   "lat": 45.4642572141952,
+   "lon": 9.16885787822676
+  },
+  {
+   "ateneo": "UNIVERSITA' CATTOLICA DEL SACRO CUORE",
+   "indirizzo": "VIA SANTA VALERIA 1",
+   "facolta": "nn",
+   "quartiere": "DUOMO",
+   "lat": 45.4636722467412,
+   "lon": 9.17827116693494
+  },
+  {
+   "ateneo": "UNIVERSITA' CATTOLICA DEL SACRO CUORE",
+   "indirizzo": "VIA PAGLIANO ELEUTERIO 10",
+   "facolta": "nn",
+   "quartiere": "DE ANGELI - MONTE ROSA",
+   "lat": 45.4751654582345,
+   "lon": 9.1468153837578
+  },
+  {
+   "ateneo": "UNIVERSITA' CATTOLICA DEL SACRO CUORE",
+   "indirizzo": "VLE SUZZANI GIOVANNI 279",
+   "facolta": "nn",
+   "quartiere": "NIGUARDA - CA' GRANDA - PRATO CENTENARO - Q.RE FULVIO TESTI",
+   "lat": 45.5267904068031,
+   "lon": 9.20881241440254
+  },
+  {
+   "ateneo": "UNIVERSITA' CATTOLICA DEL SACRO CUORE",
+   "indirizzo": "PZA BUONARROTI MICHELANGELO 30",
+   "facolta": "nn",
+   "quartiere": "PAGANO",
+   "lat": 45.4703155317404,
+   "lon": 9.15588625690941
+  },
+  {
+   "ateneo": "IULM",
+   "indirizzo": "VIA CARLO BO 1",
+   "facolta": "LINGUE, LETTERATURE E CULTURE MODERNE",
+   "quartiere": "MONCUCCO - SAN CRISTOFORO",
+   "lat": 45.4426509217657,
+   "lon": 9.16374622661458
+  },
+  {
+   "ateneo": "IULM",
+   "indirizzo": "VIA CARLO BO 4",
+   "facolta": "LINGUE, LETTERATURE E CULTURE MODERNE",
+   "quartiere": "MONCUCCO - SAN CRISTOFORO",
+   "lat": 45.4429723600043,
+   "lon": 9.16353750610846
+  },
+  {
+   "ateneo": "IULM",
+   "indirizzo": "VIA CARLO BO 8",
+   "facolta": "SCIENZE DELLA COMUNICAZIONE",
+   "quartiere": "MONCUCCO - SAN CRISTOFORO",
+   "lat": 45.4423830076115,
+   "lon": 9.16344862880909
+  },
+  {
+   "ateneo": "UNIVERSITA' COMMERCIALE LUIGI BOCCONI",
+   "indirizzo": "VIA SARFATTI ROBERTO 25",
+   "facolta": "ECONOMIA",
+   "quartiere": "PORTA VIGENTINA - PORTA LODOVICA",
+   "lat": 45.448494280195,
+   "lon": 9.19001074322033
+  },
+  {
+   "ateneo": "POLITECNICO DI MILANO",
+   "indirizzo": "PZA LEONARDO DA VINCI 32",
+   "facolta": "INGEGNERIA",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.4778585946121,
+   "lon": 9.22708269515797
+  },
+  {
+   "ateneo": "POLITECNICO DI MILANO",
+   "indirizzo": "VIA AMPERE ANDREA MARIA 2",
+   "facolta": "ARCHITETTURA E SOCIETA'",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.479718280623,
+   "lon": 9.22671881874838
+  },
+  {
+   "ateneo": "POLITECNICO DI MILANO",
+   "indirizzo": "VIA DURANDO GIOVANNI 10",
+   "facolta": "ARCHITETTURA CIVILE",
+   "quartiere": "BOVISA",
+   "lat": 45.5042977885588,
+   "lon": 9.16420045424775
+  },
+  {
+   "ateneo": "POLITECNICO DI MILANO",
+   "indirizzo": "VIA BONARDI EDOARDO 3",
+   "facolta": "ARCHITETTURA",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.479444384254,
+   "lon": 9.22763585223627
+  },
+  {
+   "ateneo": "POLITECNICO DI MILANO",
+   "indirizzo": "VIA DURANDO GIOVANNI 38",
+   "facolta": "DESIGN",
+   "quartiere": "BOVISA",
+   "lat": 45.5060420791247,
+   "lon": 9.16352603898278
+  },
+  {
+   "ateneo": "POLITECNICO DI MILANO",
+   "indirizzo": "VIA LA MASA GIUSEPPE 34",
+   "facolta": "INGEGNERIA INDUSTRIALE",
+   "quartiere": "BOVISA",
+   "lat": 45.5008208488176,
+   "lon": 9.1553178975127
+  },
+  {
+   "ateneo": "POLITECNICO DI MILANO",
+   "indirizzo": "VIA GOLGI CAMILLO 39",
+   "facolta": "INGEGNERIA",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.4786737629167,
+   "lon": 9.23416073277945
+  },
+  {
+   "ateneo": "POLITECNICO DI MILANO",
+   "indirizzo": "VIA PONZIO GIUSEPPE 34",
+   "facolta": "INGEGNERIA",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.4786314549986,
+   "lon": 9.23303122877211
+  },
+  {
+   "ateneo": "POLITECNICO DI MILANO",
+   "indirizzo": "VIA COLOMBO GIUSEPPE 40",
+   "facolta": "INGEGNERIA",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.4720662926844,
+   "lon": 9.22677217643713
+  },
+  {
+   "ateneo": "POLITECNICO DI MILANO",
+   "indirizzo": "VIA BONARDI EDOARDO 9",
+   "facolta": "INGEGNERIA",
+   "quartiere": "CITTA' STUDI",
+   "lat": 45.479453489883,
+   "lon": 9.2283506172759
+  },
+  {
+   "ateneo": "POLITECNICO DI MILANO",
+   "indirizzo": "VIA LA MASA GIUSEPPE 1",
+   "facolta": "INGEGNERIA",
+   "quartiere": "BOVISA",
+   "lat": 45.5012410901986,
+   "lon": 9.1578242301624
+  },
+  {
+   "ateneo": "VITA-SALUTE SAN RAFFAELE",
+   "indirizzo": "VIA OLGETTINA 58",
+   "facolta": "FILOSOFIA",
+   "quartiere": "CIMIANO - ROTTOLE - Q.RE FELTRE",
+   "lat": 45.5069101894498,
+   "lon": 9.26760542541493
+  },
+  {
+   "ateneo": "VITA-SALUTE SAN RAFFAELE",
+   "indirizzo": "VIA STAMIRA D'ANCONA 20",
+   "facolta": "PSICOLOGIA",
+   "quartiere": "PADOVA - TURRO - CRESCENZAGO",
+   "lat": 45.4997495141677,
+   "lon": 9.22869025417407
+  },
+  {
+   "ateneo": "NABA NUOVA ACCADEMIA DI BELLE ARTI",
+   "indirizzo": "VIA DARWIN CARLO ROBERTO 20",
+   "facolta": "NUOVA ACCADEMIA BELLE ARTI",
+   "quartiere": "PORTA TICINESE - CONCHETTA",
+   "lat": 45.4455474987312,
+   "lon": 9.17446703218054
+  },
+  {
+   "ateneo": "IED ISTITUTO EUROPEO DESIGN",
+   "indirizzo": "VIA SCIESA AMATORE 4",
+   "facolta": "IED ISTITUTO EUROPEO DESIGN",
+   "quartiere": "XXII MARZO",
+   "lat": 45.4615437598319,
+   "lon": 9.20935752663003
+  },
+  {
+   "ateneo": "SAE INSTITUTE",
+   "indirizzo": "VIA MORIMONDO 19",
+   "facolta": "SAE INSTITUTE",
+   "quartiere": "MONCUCCO - SAN CRISTOFORO",
+   "lat": 45.4450321504593,
+   "lon": 9.15138079547624
+  },
+  {
+   "ateneo": "ACCADEMIA DI BELLE ARTI DI BRERA",
+   "indirizzo": "VIA BRERA 28",
+   "facolta": "ACCADEMIA DI BELLE ARTI DI BRERA",
+   "quartiere": "BRERA",
+   "lat": 45.4722451291283,
+   "lon": 9.18766875739009
+  },
+  {
+   "ateneo": "UNIVERSITA' DEGLI STUDI DI MILANO",
+   "indirizzo": "VIA SANT' ANTONIO 5",
+   "facolta": "GIURISPRUDENZA",
+   "quartiere": "DUOMO",
+   "lat": 45.4615541336369,
+   "lon": 9.19349725268074
+  }
+ ]
+}
