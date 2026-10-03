@@ -229,9 +229,9 @@ var PRI_CLS = {urgente: "pri-1", importante: "pri-2", da_pianificare: "pri-3"};
 var MODE_CLS = {online: "mode-online", online_o_di_persona: "mode-mixed", di_persona: "mode-person", nessuna_azione: "mode-none", da_solo: "mode-self", da_verificare: "mode-none"};
 var CAL = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="vertical-align:-2px;margin-right:6px"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>';
 
-function dueHTML(s, plan, T) {
+function dueHTML(s, plan, T, lang) {
   var sc = s.scadenza || {};
-  if (sc.data) return '<span class="due">' + CAL + esc(fmtDate(sc.data, plan.lingua)) + ' <span class="after">· ' + esc(T.nat[sc.natura] || "") + "</span></span>";
+  if (sc.data) return '<span class="due">' + CAL + esc(fmtDate(sc.data, lang)) + ' <span class="after">· ' + esc(T.nat[sc.natura] || "") + "</span></span>";
   if (s.dopo && s.dopo.length) return '<span class="after">' + T.after + Math.max.apply(null, s.dopo) + "</span>";
   return '<span class="after">' + T.asap + "</span>";
 }
@@ -242,7 +242,10 @@ function stepHTML(s, plan, opts) {
     + '<span class="pill ' + PRI_CLS[s.priorita] + '">' + T.pri[s.priorita] + "</span>"
     + '<span class="pill ' + ENTE(s.ente) + '">' + esc(s.ufficio) + "</span>"
     + '<span class="pill ' + ST_CLS[s.stato_verifica] + '">' + T.st[s.stato_verifica] + "</span>";
-  var who = many ? '<span class="wholine">' + T.forWho + s.per_chi.map(function (n) { return n === 1 ? T.rel.self : T.person + n; }).join(", ") + "</span>" : "";
+  var label = function (n) { return n === 1 ? T.rel.self : T.person + n; };
+  var who = many ? '<span class="wholine">' + T.forWho + s.per_chi.map(label).join(", ") + "</span>" : "";
+  var firmano = s.per_chi.filter(function (n) { return !plan.scheda.persone[n - 1].minorenne; });
+  if (many && s.firmatari && firmano.length) who += '<span class="wholine">' + T.signers + firmano.map(label).join(", ") + "</span>";
   var title = opts.it ? s.titolo_it : s.titolo, ins = opts.it ? s.istruzioni_it : s.istruzioni;
   var links = (s.link || []).map(function (l) {
     var extra = (l.requisiti ? esc(l.requisiti) : "") + (l.requisiti && !l.verificato ? ". " : "") + (!l.verificato ? '<span class="unc">' + T.unconf + "</span>" : "");
@@ -259,7 +262,7 @@ function stepHTML(s, plan, opts) {
   return '<li class="pstep' + (S.done[s.n] && !opts.op ? " done" : "") + (scan ? " scan" : "") + '"' + (scan ? ' id="scanned"' : "") + '><div class="pbody">'
     + (scan ? '<span class="scanlabel">QR scansionato a questo sportello</span>' : "")
     + '<div class="phead"><span class="num">' + s.n + '</span><div class="ptitle"><b dir="auto">' + esc(title) + "</b>" + who
-    + dueHTML(s, plan, T) + '<div class="badges">' + badges + "</div></div></div>"
+    + dueHTML(s, plan, T, opts.op ? "it" : plan.lingua) + '<div class="badges">' + badges + "</div></div></div>"
     + '<ol class="ins" dir="auto">' + ins.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ol>"
     + '<div class="chan"><span class="pill ' + MODE_CLS[s.canale] + '">' + T.mode[s.canale] + "</span></div>" + office
     + (links ? '<ul class="links">' + links + "</ul>" : "")
