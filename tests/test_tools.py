@@ -335,3 +335,10 @@ def test_pdf_del_piano_valido():
     res = app.app.test_client().get(f"/api/plan/{r.plan['code']}.pdf")
     assert res.status_code == 200 and res.mimetype == "application/pdf"
     assert res.data.startswith(b"%PDF") and res.data.rstrip().endswith(b"%%EOF") and len(res.data) > 5000
+
+
+def test_invia_per_email_senza_indirizzi_al_server():
+    js = (pathlib.Path(__file__).resolve().parents[1] / "static" / "app.js").read_text(encoding="utf-8")
+    assert "navigator.canShare" in js and 'mailto:?subject=' in js  # destinatario vuoto: lo sceglie la persona
+    import app
+    assert not [r.rule for r in app.app.url_map.iter_rules() if "mail" in r.rule]

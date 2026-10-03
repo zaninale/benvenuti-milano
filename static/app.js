@@ -41,7 +41,9 @@ var TX = {
   officeHere: "Ufficio consigliato: ", sources: "Fonti", checked: "consultata il ", forWho: "Per: ", signers: "Firmano: ",
   codeTitle: "Il tuo codice", codeLabel: "Codice del percorso", codeNote: "Valido 7 giorni. Non contiene dati personali.",
   codeHint: "Ogni passo ha il suo QR: mostralo allo sportello indicato. Il codice apre tutto il percorso.",
-  listenPlan: "Ascolta il piano", ics: "Aggiungi al calendario", pdf: "Scarica PDF",
+  listenPlan: "Ascolta il piano", ics: "Aggiungi al calendario", pdf: "Scarica PDF", mail: "Invia per email",
+  mailSubject: "Il mio piano Benvenuti a Milano", mailBody: "Ecco il mio piano per le pratiche a Milano.",
+  mailAttach: "Allega il PDF appena scaricato.",
   officeTitle: "Anagrafe più vicina", km: "km in linea d'aria da ", officeSrc: "Open data del Comune di Milano: ",
   answersTitle: "Risposte dallo sportello", approved: "Approvata dall'operatore il ",
   conflictTitle: "Dove le fonti non concordano", conflictHint: "Su questi punti fatti confermare l'informazione allo sportello.",
@@ -99,7 +101,9 @@ var TX = {
   officeHere: "Suggested office: ", sources: "Sources", checked: "checked on ", forWho: "For: ", signers: "Signed by: ",
   codeTitle: "Your code", codeLabel: "Journey code", codeNote: "Valid for 7 days. It holds no personal data.",
   codeHint: "Each step has its own QR: show it at the desk listed. The code opens your whole journey.",
-  listenPlan: "Listen to the plan", ics: "Add to calendar", pdf: "Download PDF",
+  listenPlan: "Listen to the plan", ics: "Add to calendar", pdf: "Download PDF", mail: "Send by email",
+  mailSubject: "My Welcome to Milan plan", mailBody: "Here is my plan for the procedures in Milan.",
+  mailAttach: "Attach the PDF you just downloaded.",
   officeTitle: "Nearest registry office", km: "km as the crow flies from ", officeSrc: "City of Milan open data: ",
   answersTitle: "Answers from the desk", approved: "Approved by the officer on ",
   conflictTitle: "Where sources disagree", conflictHint: "Have these points confirmed at the desk.",
@@ -578,6 +582,24 @@ $("formBtn").addEventListener("click", async function () {
 });
 document.querySelectorAll("[data-entry]").forEach(function (b) { b.addEventListener("click", function () { setEntry(b.getAttribute("data-entry")); }); });
 api("/api/opzioni").then(function (d) { if (!d.error) { S.opz = d; if (S.entry === "form") renderForm(); } });
+
+/* ---------------------------------------------------------------- invia per email: il server non riceve indirizzi */
+
+$("mailBtn").addEventListener("click", async function () {
+  if (!S.plan) return;
+  var T = TX[S.lang], name = S.plan.code + ".pdf", subject = T.mailSubject + " " + S.plan.code;
+  try {
+    var blob = await (await fetch("/api/plan/" + S.plan.code + ".pdf")).blob();
+    var file = new File([blob], name, {type: "application/pdf"});
+    if (navigator.canShare && navigator.canShare({files: [file]})) {  // condivisione di sistema con il PDF allegato
+      await navigator.share({files: [file], title: subject, text: T.mailBody});
+      return;
+    }
+    var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+  } catch (e) { if (e && e.name === "AbortError") return; }
+  window.location.href = "mailto:?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(T.mailBody + " " + T.mailAttach);
+});
 
 /* ---------------------------------------------------------------- avvio */
 
