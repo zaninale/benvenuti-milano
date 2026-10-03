@@ -51,24 +51,22 @@ procedure:
   canale: di_persona
   stato_verifica: fonte_secondaria
   istruzioni:
-  - Prendi appuntamento allo Sportello Unico Immigrazione insieme al datore di lavoro
+  - Entro 8 giorni lavorativi dall'arrivo chiedi l'appuntamento allo Sportello Unico Immigrazione, insieme al datore
+    di lavoro
   - Porta il passaporto con il visto d'ingresso
   - 'Firma il contratto di soggiorno: ti serve per chiedere il permesso'
-  - Qui ricevi di norma anche il codice fiscale
+  - Qui ricevi il modulo 209 e di solito anche il codice fiscale
   instructions_en:
-  - Book an appointment at the Immigration Desk together with your employer
+  - Within 8 working days of arrival, book an appointment at the Immigration Desk together with your employer
   - Bring your passport with the entry visa
   - 'Sign the residence contract: you need it to apply for the permit'
-  - You normally get your tax code here too
+  - Here you get form 209 and usually your tax code too
   link: []
   fonti:
-  - url: https://www.trend-online.com/diritto/permesso-soggiorno/
-    tipo: secondaria
-    cosa_dice: Contratto di soggiorno allo Sportello Unico prima del permesso
-    consultata: '2026-10-03'
-  - url: https://www.pmi.it/?p=363174
-    tipo: secondaria
-    cosa_dice: Codice fiscale attribuito dagli Sportelli Unici per il lavoro subordinato
+  - url: https://studyandwork.yesmilano.it/en/work/getting-started-guide/residence-permit
+    tipo: istituzionale
+    cosa_dice: 'Appuntamento allo Sportello Unico da chiedere entro 8 giorni lavorativi dall''arrivo: contratto
+      di soggiorno, modulo 209 e codice fiscale'
     consultata: '2026-10-03'
 - id: PERM_L
   titolo: Chiedi il permesso di soggiorno per lavoro
@@ -90,13 +88,18 @@ procedure:
   stato_verifica: fonte_ufficiale
   istruzioni:
   - Ritira il kit giallo in un ufficio postale Sportello Amico
-  - Compila il modulo e allega copia di passaporto e visto
-  - 'Consegna il kit, paga i costi e conserva la ricevuta: ti serve per residenza e sanità'
+  - Compila il modulo e allega la copia di tutte le pagine del passaporto con dati, visti e timbri
+  - Allega la prova dell'alloggio (prenotazione, contratto d'affitto o dichiarazione di ospitalità), il modulo 209
+    e il contratto di soggiorno
+  - 'Consegna il kit, paga la marca da bollo da 16 € e il bollettino (70,46 € per un permesso fino a un anno, 80,46
+    € da uno a due anni) e conserva la ricevuta: ti serve per residenza e sanità'
   - Vai in Questura il giorno indicato sulla ricevuta per le impronte
   instructions_en:
   - Pick up the yellow kit at a Sportello Amico post office
-  - Fill in the form and attach copies of passport and visa
-  - 'Hand in the kit, pay the fees and keep the receipt: you need it for residence and healthcare'
+  - Fill in the form and attach copies of every passport page with data, visas and stamps
+  - Attach proof of accommodation (booking, lease or hospitality declaration), form 209 and the residence contract
+  - 'Hand in the kit, pay the 16 € revenue stamp and the payment slip (70.46 € for a permit up to one year, 80.46
+    € for one to two years) and keep the receipt: you need it for residence and healthcare'
   - Go to the Police HQ on the date on your receipt for fingerprints
   link:
   - tipo: informazioni
@@ -104,10 +107,20 @@ procedure:
     url: https://www.poste.it/prodotti/guida-rilascio-e-rinnovo-permesso-di-soggiorno.html
     requisiti: null
     verificato: true
+  - tipo: servizio_online
+    etichetta: 'Portale Immigrazione: uffici abilitati e stato della pratica'
+    url: https://www.portaleimmigrazione.it/
+    requisiti: null
+    verificato: true
   fonti:
   - url: https://www.poste.it/prodotti/guida-rilascio-e-rinnovo-permesso-di-soggiorno.html
     tipo: ufficiale
     cosa_dice: Domanda entro 8 giorni dall'ingresso, kit postale, ricevuta e appuntamento in Questura
+    consultata: '2026-10-03'
+  - url: https://poliziadistato.it/articolo/225-Il_rilascio_del_permesso_di_soggiorno
+    tipo: ufficiale
+    cosa_dice: 'Rilascio del permesso di soggiorno: kit postale, documenti e costi (marca da bollo 16 €, bollettino
+      70,46 € o 80,46 €)'
     consultata: '2026-10-03'
 - id: PERM_S
   titolo: Chiedi il permesso di soggiorno per studio
@@ -128,14 +141,18 @@ procedure:
   stato_verifica: fonte_ufficiale
   istruzioni:
   - Ritira il kit giallo in un ufficio postale Sportello Amico
-  - Allega copia di passaporto e visto, prova di mezzi economici e di alloggio
-  - 'Consegna il kit, paga i costi e conserva la ricevuta: ti serve per residenza e sanità'
+  - Allega la copia di tutte le pagine del passaporto con dati, visti e timbri, e la prova di mezzi economici
+  - 'Allega la prova dell''alloggio: prenotazione, contratto d''affitto o dichiarazione di ospitalità'
+  - 'Consegna il kit, paga la marca da bollo da 16 € e il bollettino (70,46 € per un permesso fino a un anno, 80,46
+    € da uno a due anni) e conserva la ricevuta: ti serve per residenza e sanità'
   - 'Vai in Questura il giorno indicato sulla ricevuta per le impronte: se non hai il codice fiscale, di norma te
     lo attribuiscono lì'
   instructions_en:
   - Pick up the yellow kit at a Sportello Amico post office
-  - Attach copies of passport and visa, proof of means and of accommodation
-  - 'Hand in the kit, pay the fees and keep the receipt: you need it for residence and healthcare'
+  - Attach copies of every passport page with data, visas and stamps, and proof of means
+  - 'Attach proof of accommodation: booking, lease or hospitality declaration'
+  - 'Hand in the kit, pay the 16 € revenue stamp and the payment slip (70.46 € for a permit up to one year, 80.46
+    € for one to two years) and keep the receipt: you need it for residence and healthcare'
   - 'Go to the Police HQ on the date on your receipt for fingerprints: if you have no tax code, it is normally assigned
     there'
   link:
@@ -144,10 +161,20 @@ procedure:
     url: https://www.poste.it/prodotti/guida-rilascio-e-rinnovo-permesso-di-soggiorno.html
     requisiti: null
     verificato: true
+  - tipo: servizio_online
+    etichetta: 'Portale Immigrazione: uffici abilitati e stato della pratica'
+    url: https://www.portaleimmigrazione.it/
+    requisiti: null
+    verificato: true
   fonti:
   - url: https://www.poste.it/prodotti/guida-rilascio-e-rinnovo-permesso-di-soggiorno.html
     tipo: ufficiale
     cosa_dice: Domanda entro 8 giorni dall'ingresso, kit postale
+    consultata: '2026-10-03'
+  - url: https://poliziadistato.it/articolo/225-Il_rilascio_del_permesso_di_soggiorno
+    tipo: ufficiale
+    cosa_dice: 'Rilascio del permesso di soggiorno: kit postale, documenti e costi (marca da bollo 16 €, bollettino
+      70,46 € o 80,46 €)'
     consultata: '2026-10-03'
 - id: CF
   titolo: Ottieni il codice fiscale
@@ -200,6 +227,11 @@ procedure:
     tipo: secondaria
     cosa_dice: Invio via PEC; attribuzione da parte della Questura
     consultata: '2026-10-03'
+  - url: https://www.integrazionemigranti.gov.it/it-it/Dettaglio-guida/id/64
+    tipo: ufficiale
+    cosa_dice: Il codice fiscale lo attribuisce l'Agenzia delle Entrate; chi arriva con nulla osta lo riceve di
+      solito dallo Sportello Unico
+    consultata: '2026-10-03'
 - id: RES_I
   titolo: Dichiara la residenza
   title_en: Declare your residence
@@ -229,17 +261,17 @@ procedure:
   link:
   - tipo: servizio_online
     etichetta: Dichiara online su ANPR
-    url: https://www.anagrafenazionale.interno.it/
-    requisiti: Serve SPID, CIE o CNS
+    url: https://www.anagrafenazionale.interno.it/servizi-al-cittadino/
+    requisiti: Serve SPID, CIE, CNS o eIDAS
     verificato: true
   fonti:
   - url: https://www.anagrafenazionale.interno.it/
     tipo: ufficiale
     cosa_dice: Cambio di residenza online per chi è già iscritto in un comune italiano o all'AIRE
     consultata: '2026-10-03'
-  - url: https://www.facile.it/mutui/guida/cambio-residenza-comune-milano.html
-    tipo: secondaria
-    cosa_dice: Entro 20 giorni; iscrizione in 2 giorni lavorativi; verifiche entro 45 giorni
+  - url: https://www.comune.milano.it/servizi/anagrafe/cambio-di-residenza
+    tipo: ufficiale
+    cosa_dice: Entro 20 giorni dal trasferimento; iscrizione nei due giorni lavorativi successivi
     consultata: '2026-10-03'
 - id: RES_U
   titolo: Iscriviti all'anagrafe
@@ -261,20 +293,24 @@ procedure:
   firmatari: tutti i maggiorenni del nucleo; i minori sono inclusi
   istruzioni:
   - Obbligatoria se resti più di 3 mesi
-  - Prepara un documento d'identità valido
+  - Prepara la copia del documento d'identità valido, fronte e retro, e la documentazione sull'abitazione
   - Porta la prova del lavoro, oppure una dichiarazione di risorse sufficienti e un'assicurazione sanitaria
+  - Se entri in una famiglia già residente senza legami di parentela, serve il consenso di chi è già residente
   - Presenta la richiesta online o all'anagrafe
+  - 'Allegati in pdf, jpg, jpeg, gif o tiff, al massimo 7 MB ciascuno: i documenti inviati per email non sono accettati'
   instructions_en:
   - Required if you stay longer than 3 months
-  - Have a valid ID ready
+  - Have a copy of your valid ID, front and back, and documents about your home ready
   - Bring proof of work, or a statement of sufficient means and health insurance
+  - If you join a resident household with no family ties, you need the consent of the person already resident
   - Apply online or at the registry office
+  - 'Attachments in pdf, jpg, jpeg, gif or tiff, up to 7 MB each: documents sent by email are not accepted'
   link:
   - tipo: servizio_online
     etichetta: Richiesta online al Comune di Milano
-    url: https://www.comune.milano.it/aree-tematiche/anagrafe/residenza/richiesta-di-residenza
+    url: https://www.comune.milano.it/servizi/anagrafe/richiesta-di-residenza-per-persone-straniere-provenienti-dall-estero
     requisiti: Procedura per persone straniere dall'estero
-    verificato: false
+    verificato: true
   - tipo: informazioni
     etichetta: 'Your Europe: registrare la residenza'
     url: https://europa.eu/youreurope/citizens/residence/documents-formalities/registering-residence/index_it.htm
@@ -285,9 +321,9 @@ procedure:
     tipo: ufficiale
     cosa_dice: 'Iscrizione oltre 3 mesi: lavoro, oppure risorse sufficienti e assicurazione sanitaria'
     consultata: '2026-10-03'
-  - url: https://www.comune.milano.it/aree-tematiche/anagrafe/residenza/richiesta-di-residenza
-    tipo: link_da_confermare
-    cosa_dice: Procedura del Comune per persone straniere dall'estero
+  - url: https://www.comune.milano.it/servizi/anagrafe/richiesta-di-residenza-per-persone-straniere-provenienti-dall-estero
+    tipo: ufficiale
+    cosa_dice: 'Richiesta di residenza online per persone straniere provenienti dall''estero: documenti e allegati'
     consultata: '2026-10-03'
 - id: RES_X
   titolo: Dichiara la residenza
@@ -311,23 +347,29 @@ procedure:
   stato_verifica: fonte_secondaria
   firmatari: tutti i maggiorenni del nucleo; i minori sono inclusi
   istruzioni:
-  - Tieni pronti passaporto e permesso, o la ricevuta postale
+  - Prepara la copia del documento d'identità valido, fronte e retro, e il permesso o la ricevuta postale
+  - Prepara la documentazione sull'abitazione
+  - Se entri in una famiglia già residente senza legami di parentela, serve il consenso di chi è già residente
   - Presenta la richiesta online o all'anagrafe
+  - 'Allegati in pdf, jpg, jpeg, gif o tiff, al massimo 7 MB ciascuno: i documenti inviati per email non sono accettati'
   - Metti il tuo nome su citofono e cassetta postale
   instructions_en:
-  - Have your passport and permit, or the postal receipt, ready
+  - Have a copy of your valid ID, front and back, and your permit or the postal receipt ready
+  - Have documents about your home ready
+  - If you join a resident household with no family ties, you need the consent of the person already resident
   - Apply online or at the registry office
+  - 'Attachments in pdf, jpg, jpeg, gif or tiff, up to 7 MB each: documents sent by email are not accepted'
   - Put your name on the intercom and mailbox
   link:
   - tipo: servizio_online
     etichetta: Richiesta online al Comune di Milano
-    url: https://www.comune.milano.it/aree-tematiche/anagrafe/residenza/richiesta-di-residenza
+    url: https://www.comune.milano.it/servizi/anagrafe/richiesta-di-residenza-per-persone-straniere-provenienti-dall-estero
     requisiti: Procedura per persone straniere dall'estero
-    verificato: false
+    verificato: true
   fonti:
-  - url: https://www.comune.milano.it/aree-tematiche/anagrafe/residenza/richiesta-di-residenza
-    tipo: link_da_confermare
-    cosa_dice: Procedura del Comune per persone straniere dall'estero
+  - url: https://www.comune.milano.it/servizi/anagrafe/richiesta-di-residenza-per-persone-straniere-provenienti-dall-estero
+    tipo: ufficiale
+    cosa_dice: 'Richiesta di residenza online per persone straniere provenienti dall''estero: documenti e allegati'
     consultata: '2026-10-03'
   - url: https://www.milanofree.it/milano/cronaca/residenza-a-milano-come-richiederla-online-documenti-e-tempi.html
     tipo: secondaria
@@ -353,23 +395,35 @@ procedure:
   stato_verifica: fonte_ufficiale
   firmatari: tutti i maggiorenni del nucleo; i minori sono inclusi
   istruzioni:
+  - Serve se Milano diventa la tua dimora abituale
   - Prepara il certificato di iscrizione all'ateneo
-  - Tieni pronti passaporto e permesso, o la ricevuta postale
-  - 'Invia la domanda online: ricevi una lettera con numero di protocollo, e da quel giorno sei residente'
+  - Prepara la copia del documento d'identità valido, fronte e retro, e il permesso o la ricevuta postale
+  - Prepara la documentazione sull'abitazione. Se entri in una famiglia già residente senza legami di parentela,
+    serve il consenso di chi è già residente
+  - 'Invia la domanda online, con allegati in pdf, jpg, jpeg, gif o tiff (al massimo 7 MB ciascuno; i documenti
+    inviati per email non sono accettati): ricevi una lettera con numero di protocollo, e da quel giorno sei residente'
   instructions_en:
+  - Needed if Milan becomes your habitual residence
   - Get your university enrolment certificate
-  - Have your passport and permit, or the postal receipt, ready
-  - 'Apply online: you get a letter with a protocol number, and your residence starts that day'
+  - Have a copy of your valid ID, front and back, and your permit or the postal receipt ready
+  - Have documents about your home ready. If you join a resident household with no family ties, you need the consent
+    of the person already resident
+  - 'Apply online, with attachments in pdf, jpg, jpeg, gif or tiff (up to 7 MB each; documents sent by email are
+    not accepted): you get a letter with a protocol number, and your residence starts that day'
   link:
   - tipo: servizio_online
     etichetta: Richiesta online al Comune di Milano
-    url: https://www.comune.milano.it/aree-tematiche/anagrafe/residenza/richiesta-di-residenza
+    url: https://www.comune.milano.it/servizi/anagrafe/richiesta-di-residenza-per-persone-straniere-provenienti-dall-estero
     requisiti: Procedura per persone straniere dall'estero
-    verificato: false
+    verificato: true
   fonti:
   - url: https://www.yesmilano.it/en/study/taking-residence-milano-students
     tipo: link_da_confermare
     cosa_dice: 'Percorso YesMilano per studenti: domanda online, lettera con protocollo, visita del messo comunale'
+    consultata: '2026-10-03'
+  - url: https://www.comune.milano.it/servizi/anagrafe/richiesta-di-residenza-per-persone-straniere-provenienti-dall-estero
+    tipo: ufficiale
+    cosa_dice: 'Richiesta di residenza online per persone straniere provenienti dall''estero: documenti e allegati'
     consultata: '2026-10-03'
 - id: CHECK
   titolo: Verifica della dimora
@@ -672,10 +726,20 @@ procedure:
     url: https://www.poste.it/prodotti/guida-rilascio-e-rinnovo-permesso-di-soggiorno.html
     requisiti: null
     verificato: true
+  - tipo: servizio_online
+    etichetta: 'Portale Immigrazione: uffici abilitati e stato della pratica'
+    url: https://www.portaleimmigrazione.it/
+    requisiti: null
+    verificato: true
   fonti:
   - url: https://www.poste.it/prodotti/guida-rilascio-e-rinnovo-permesso-di-soggiorno.html
     tipo: ufficiale
     cosa_dice: 'Familiari di cittadini italiani o UE: Poste Sportello Amico o Questura'
+    consultata: '2026-10-03'
+  - url: https://poliziadistato.it/articolo/225-Il_rilascio_del_permesso_di_soggiorno
+    tipo: ufficiale
+    cosa_dice: 'Rilascio del permesso di soggiorno: kit postale, documenti e costi (marca da bollo 16 €, bollettino
+      70,46 € o 80,46 €)'
     consultata: '2026-10-03'
 - id: PED
   titolo: Scegli il pediatra
@@ -885,11 +949,21 @@ procedure:
   - Ti serve per dichiarare la residenza online e per la TARI
   - Per lo SPID servono documento, tessera sanitaria, email e cellulare
   - Il riconoscimento si può fare anche in un ufficio postale
+  - Dopo l'iscrizione anagrafica a Milano puoi chiedere la carta d'identità elettronica al Comune su appuntamento,
+    con tessera sanitaria o codice fiscale e una fototessera a colori; se hai già la CIE, non va rifatta quando
+    cambi indirizzo
   instructions_en:
   - You need it to declare residence online and for the TARI
   - SPID needs ID, health card, email and a mobile number
   - Identity checks can also be done at a post office
+  - Once registered in Milan you can book the electronic ID card with the City, bringing your health card or tax
+    code and a colour passport photo; if you already have one, you don't need a new one when you change address
   link:
+  - tipo: servizio_online
+    etichetta: 'Comune di Milano: prenota la carta d''identità'
+    url: https://www.comune.milano.it/servizi/anagrafe/carta-d-identita
+    requisiti: Su appuntamento, dopo l'iscrizione anagrafica
+    verificato: true
   - tipo: informazioni
     etichetta: PosteID, lo SPID di Poste Italiane
     url: https://posteid.poste.it/
@@ -899,6 +973,11 @@ procedure:
   - url: https://posteid.poste.it/
     tipo: ufficiale
     cosa_dice: PosteID
+    consultata: '2026-10-03'
+  - url: https://www.comune.milano.it/servizi/anagrafe/carta-d-identita
+    tipo: ufficiale
+    cosa_dice: CIE su appuntamento dopo l'iscrizione anagrafica, con tessera sanitaria o codice fiscale e una fototessera
+      a colori; non va rifatta se cambi indirizzo
     consultata: '2026-10-03'
 - id: T_ID_X
   titolo: Ottieni un'identità digitale
@@ -917,16 +996,23 @@ procedure:
   strumento:
     necessita: consigliato
   istruzioni:
-  - Dopo la residenza puoi chiedere al Comune la carta d'identità elettronica, che vale anche per accedere ai servizi
-    online
+  - 'Dopo l''iscrizione anagrafica puoi chiedere al Comune, su appuntamento, la carta d''identità elettronica, che
+    vale anche per accedere ai servizi online: porta la tessera sanitaria o il codice fiscale e una fototessera
+    a colori recente'
   - 'Per lo SPID le fonti non concordano: secondo alcune basta il permesso di soggiorno, secondo altre serve un
     documento italiano'
   - Servono anche email e cellulare, anche estero
   instructions_en:
-  - After residence you can ask the City for the electronic ID card, which also gives access to online services
+  - 'After registering as a resident you can book the electronic ID card with the City, which also gives access
+    to online services: bring your health card or tax code and a recent colour passport photo'
   - 'For SPID sources disagree: some say the residence permit is enough, others that an Italian document is required'
   - You also need an email and a mobile number, even a foreign one
   link:
+  - tipo: servizio_online
+    etichetta: 'Comune di Milano: prenota la carta d''identità'
+    url: https://www.comune.milano.it/servizi/anagrafe/carta-d-identita
+    requisiti: Su appuntamento, dopo l'iscrizione anagrafica
+    verificato: true
   - tipo: informazioni
     etichetta: PosteID, lo SPID di Poste Italiane
     url: https://posteid.poste.it/
@@ -940,4 +1026,9 @@ procedure:
   - url: https://qds.it/spid-poste-come-ottenerlo-costi-servizi/
     tipo: secondaria
     cosa_dice: 'Basta il permesso di soggiorno: in conflitto'
+    consultata: '2026-10-03'
+  - url: https://www.comune.milano.it/servizi/anagrafe/carta-d-identita
+    tipo: ufficiale
+    cosa_dice: CIE su appuntamento dopo l'iscrizione anagrafica, con tessera sanitaria o codice fiscale e una fototessera
+      a colori; non va rifatta se cambi indirizzo
     consultata: '2026-10-03'

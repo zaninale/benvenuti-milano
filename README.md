@@ -110,10 +110,13 @@ signed by the adults.
 | `ds549-sedi-dei-servizi-anagrafici` (13 offices; dataset updated 8 May 2026, retrieved 3 Oct 2026) | Nearest registry office as the crow flies; opening hours and booking notes |
 | `ds535_atm-fermate-linee-metropolitane` (130 stops; updated 24 Jul 2026, retrieved 3 Oct 2026) | "I live near Piola": a location without an address |
 | `ds94-infogeo-atenei-sedi-localizzazione` (90 sites; updated 8 May 2026, marked as never updated, retrieved 3 Oct 2026) | Students: "near the Politecnico" |
-| comune.milano.it: TARI occupancy declaration; residence for foreign nationals from abroad (link to be confirmed), retrieved 3 Oct 2026 | Waste tax and residence steps |
-| yesmilano.it: residence for students, health service step by step (links to be confirmed), retrieved 3 Oct 2026 | Student residence, home check, health enrolment |
-| ANPR, Poste Italiane (residence permit, PosteID), Agenzia delle Entrate, Regione Lombardia, ATS Milano, Your Europe, retrieved 3 Oct 2026 | Procedures and verification status, listed per step in [`data/procedures.yaml`](data/procedures.yaml) |
+| comune.milano.it: TARI occupancy declaration; residence request for foreign nationals from abroad; change of residence; electronic ID card. Retrieved 3 Oct 2026 | Waste tax, residence and digital identity steps |
+| yesmilano.it: Study & Work guide to the residence permit; residence for students and health service step by step (these two links still to be confirmed). Retrieved 3 Oct 2026 | Immigration Desk, student residence, home check, health enrolment |
+| ANPR, Polizia di Stato, Portale Immigrazione, Poste Italiane (residence permit, PosteID), Agenzia delle Entrate, Portale Integrazione Migranti, Regione Lombardia, ATS Milano, Your Europe. Retrieved 3 Oct 2026 | Procedures, documents, fees and verification status, listed per step in [`data/procedures.yaml`](data/procedures.yaml) |
 | Secondary sources (university pages, third-party guides) | Shown as "secondary" or "conflicting sources", never as official |
+
+Links, documents and fees for residence permits, residence and the electronic ID card were checked
+on 3 Oct 2026 against a second catalogue that a colleague verified on the official pages that day.
 
 Open data are © Comune di Milano, Creative Commons Attribution, through the CKAN API
 ([`opendata.py`](opendata.py)). They are cached in `data/cache/`, with a reduced copy in
@@ -124,7 +127,7 @@ Open data are © Comune di Milano, Creative Commons Attribution, through the CKA
 - **Build on what the City already does:** the welcome emails for new residents can carry the link
   to the plan; the YesMilano student path is already linked in the steps.
 - **To switch it on:** a City editor who owns `data/procedures.yaml` (24 procedures, 3 open
-  conflicts, a few links to confirm) and the counter staff's flags; an Anthropic API key; HTTPS
+  conflicts, 3 links to confirm) and the counter staff's flags; an Anthropic API key; HTTPS
   hosting; authenticated access for counter staff (open in this prototype).
 - **What a proactive version 2 needs:** a consented signal that someone has just arrived (for
   example the residence application), and an email or phone number the person chooses to give, for
@@ -133,9 +136,22 @@ Open data are © Comune di Milano, Creative Commons Attribution, through the CKA
   contextual tips that reuse planned visits ("while you are at the post office…"), the interface
   in more languages (the plan is already in the person's language), officer flags back to the
   catalogue editors, plans that survive a server restart.
-- **Open points to verify with the City:** who carries out the home check; the health-service fee
-  for international students; SPID for foreign nationals with only a residence permit; official
-  URLs for the residence request of foreign nationals and the YesMilano pages.
+- **Version 2: the full catalogue.** A colleague's catalogue, verified on 3 Oct 2026, covers more
+  situations than ours: Italians returning from abroad (AIRE), Italian students from another town,
+  self-employed workers and international protection; the steps before leaving (visa, work and
+  family clearances); renewals, such as the habitual-residence declaration for non-EU citizens;
+  the registration certificate for EU citizens; collecting the residence permit at the Police HQ.
+  Importing it is work on the data, not on the code: the same fields in `data/procedures.yaml`,
+  validated at start-up, and Claude reasons over whatever the catalogue contains.
+- **Open points to verify with the City:**
+  - who carries out the home check;
+  - the health-service fee for international students;
+  - SPID for foreign nationals with only a residence permit;
+  - for EU citizens, whether registering within 90 days is a legal deadline: Your Europe says you
+    register after three months (`RES_U`);
+  - for salaried non-EU workers, whether the 8 working days apply to the Immigration Desk
+    appointment, with the postal kit filed after the residence contract (`PERM_L`);
+  - the YesMilano pages for students' residence and health enrolment, which may have moved.
 
 ## Privacy
 
