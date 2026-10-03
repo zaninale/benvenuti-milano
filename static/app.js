@@ -109,6 +109,7 @@ function fmtDate(iso, lang) {
 function langName(tag) {
   try { return new Intl.DisplayNames([S.lang], {type: "language"}).of(tag); } catch (e) { return tag; }
 }
+function plain(s) { return String(s || "").replace(/\*\*|__/g, "").replace(/^#+\s*/gm, ""); }
 function status(id, txt, isErr) { var el = $(id); el.textContent = txt || ""; el.style.color = isErr ? "var(--x-c)" : ""; }
 
 async function api(url, body) {
@@ -165,7 +166,7 @@ function cardHTML(c, i, used) {
 function renderThread() {
   $("thread").innerHTML = S.thread.map(function (m, i) {
     if (m.k === "me") return '<div class="q-me" dir="auto">' + esc(m.text) + "</div>";
-    if (m.k === "bot") return '<div class="q-bot" dir="auto"><span>' + esc(m.text) + "</span></div>";
+    if (m.k === "bot") return '<div class="q-bot" dir="auto"><span class="bot-txt">' + esc(plain(m.text)) + "</span></div>";
     if (m.k === "card") return cardHTML(m.card, i, m.used);
     if (m.k === "err") return '<p class="err">' + esc(m.text) + "</p>";
     return "";
@@ -339,7 +340,7 @@ function speak(text, btn) {
 }
 $("listenBtn").addEventListener("click", function () {
   var last = S.thread.filter(function (m) { return m.k === "bot"; }).pop();
-  if (last) speak(last.text);
+  if (last) speak(plain(last.text));
 });
 $("listenPlanBtn").addEventListener("click", function () {
   if (!S.plan) return;
