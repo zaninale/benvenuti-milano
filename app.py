@@ -12,6 +12,7 @@ import segno
 from flask import Flask, Response, abort, jsonify, render_template, request
 
 import agent
+import pdf
 import store
 import tools
 
@@ -113,13 +114,16 @@ def confirm():
 
 @app.get("/api/plan/<path:code>")
 def get_plan(code):
-    ics = code.lower().endswith(".ics")
-    base, step = split_code(code[:-4] if ics else code)
+    ics, pdf_ = code.lower().endswith(".ics"), code.lower().endswith(".pdf")
+    base, step = split_code(code[:-4] if ics or pdf_ else code)
     plan = store.get_plan(base)
     if not plan:
         return jsonify(error="Nessun percorso con questo codice. Controlla le lettere con il cittadino."), 404
     if step and not 1 <= step <= len(plan["passi"]):
         return jsonify(error=f"Il percorso ha {len(plan['passi'])} passi: controlla il numero dopo il codice."), 404
+    if pdf_:
+        return Response(pdf.make_pdf(plan), mimetype="application/pdf",
+                        headers={"Content-Disposition": f'attachment; filename="{base}.pdf"'})
     if ics:
         return Response(make_ics(plan), mimetype="text/calendar",
                         headers={"Content-Disposition": f'attachment; filename="{base}.ics"'})

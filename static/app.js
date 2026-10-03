@@ -41,7 +41,7 @@ var TX = {
   officeHere: "Ufficio consigliato: ", sources: "Fonti", checked: "consultata il ", forWho: "Per: ", signers: "Firmano: ",
   codeTitle: "Il tuo codice", codeLabel: "Codice del percorso", codeNote: "Valido 7 giorni. Non contiene dati personali.",
   codeHint: "Ogni passo ha il suo QR: mostralo allo sportello indicato. Il codice apre tutto il percorso.",
-  listenPlan: "Ascolta il piano", ics: "Aggiungi al calendario",
+  listenPlan: "Ascolta il piano", ics: "Aggiungi al calendario", pdf: "Scarica PDF",
   officeTitle: "Anagrafe più vicina", km: "km in linea d'aria da ", officeSrc: "Open data del Comune di Milano: ",
   answersTitle: "Risposte dallo sportello", approved: "Approvata dall'operatore il ",
   conflictTitle: "Dove le fonti non concordano", conflictHint: "Su questi punti fatti confermare l'informazione allo sportello.",
@@ -99,7 +99,7 @@ var TX = {
   officeHere: "Suggested office: ", sources: "Sources", checked: "checked on ", forWho: "For: ", signers: "Signed by: ",
   codeTitle: "Your code", codeLabel: "Journey code", codeNote: "Valid for 7 days. It holds no personal data.",
   codeHint: "Each step has its own QR: show it at the desk listed. The code opens your whole journey.",
-  listenPlan: "Listen to the plan", ics: "Add to calendar",
+  listenPlan: "Listen to the plan", ics: "Add to calendar", pdf: "Download PDF",
   officeTitle: "Nearest registry office", km: "km as the crow flies from ", officeSrc: "City of Milan open data: ",
   answersTitle: "Answers from the desk", approved: "Approved by the officer on ",
   conflictTitle: "Where sources disagree", conflictHint: "Have these points confirmed at the desk.",
@@ -319,6 +319,7 @@ function renderPlan() {
   $("planNote").textContent = p.nota_date;
   $("code").textContent = p.code;
   $("icsLink").href = "/api/plan/" + p.code + ".ics";
+  $("pdfLink").href = "/api/plan/" + p.code + ".pdf";
   var u = p.ufficio_vicino;
   $("officePanel").hidden = !u;
   if (u) $("office").innerHTML = "<p style=\"margin:0\"><b>" + esc(u.nome) + "</b><br>" + esc(u.indirizzo) + "</p>"

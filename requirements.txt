@@ -1,6 +1,7 @@
 flask>=3.0
 anthropic>=0.84
 segno>=1.6
+fpdf2>=2.7
 PyYAML>=6.0
 python-dotenv>=1.0
 pytest>=8.0

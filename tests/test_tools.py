@@ -325,3 +325,13 @@ def test_progress_segue_i_tool(monkeypatch):
     assert out["reply"] == "Fatto." and visto[1]["fasi"] == ["get_catalog"] and not visto[0]["fasi"]
     p = c.get(f"/api/progress/{sid}").get_json()
     assert p["attivo"] is False and p["fasi"] == ["get_catalog"] and p["step"] == 1
+
+
+def test_pdf_del_piano_valido():
+    import app
+    session = ana_session()
+    r = tools.submit_plan({"passi": passi(ANA_PLAN), "messaggio": "Il tuo piano è pronto, con i passi in ordine."},
+                          session)
+    res = app.app.test_client().get(f"/api/plan/{r.plan['code']}.pdf")
+    assert res.status_code == 200 and res.mimetype == "application/pdf"
+    assert res.data.startswith(b"%PDF") and res.data.rstrip().endswith(b"%%EOF") and len(res.data) > 5000
