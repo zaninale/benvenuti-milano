@@ -4,3 +4,6 @@ __pycache__/
 *.pyc
 data/cache/
 _hub/
+ArrivareMilano/
+*.7z
+*.zip
