@@ -142,15 +142,32 @@ def compact(p: dict) -> dict:
     out["link"] = [{"tipo": l["tipo"], "etichetta": l["etichetta"], "requisiti": l.get("requisiti"),
                     "verificato": l.get("verificato")} for l in p.get("link") or []]
     out["fonti"] = [{"tipo": f["tipo"], "sito": _sito(f["url"]), "cosa_dice": f["cosa_dice"]} for f in p["fonti"]]
+    for k in ("fase", "note_verifica"):  # voci importate dal catalogo del collega
+        if p.get(k):
+            out[k] = p[k]
     return out
 
 
+def expand(profile_ids: set[str]) -> set[str]:
+    """Un profilo del catalogo porta con sé i tag dei nostri passi che valgono per la sua situazione."""
+    tags = set(profile_ids)
+    for pid in profile_ids & set(CAT.profili):
+        tags |= set(CAT.profili[pid]["tag_catalogo"])
+    return tags
+
+
 def select(profile_ids: set[str]) -> list[dict]:
-    italiano = "ita_altro_comune" in profile_ids
-    straniero = bool(profile_ids & STRANIERI_TAG)
+    profili = [CAT.profili[p] for p in profile_ids if p in CAT.profili]
+    elencate = {pid for prof in profili for pid in prof["procedure"]}
+    profile_ids = expand(profile_ids)
+    italiano = "ita_altro_comune" in profile_ids or any(p["cittadinanza"] == "ita" for p in profili)
+    straniero = bool(profile_ids & STRANIERI_TAG) or any(p["cittadinanza"] in ("ue", "extra") for p in profili)
     mancano = {STRUMENTI_TAG[t] for t in profile_ids if t in STRUMENTI_TAG}
     scelte = []
     for p in CAT.data["procedure"]:
+        if p["id"] in elencate:
+            scelte.append(p)
+            continue
         for entry in p["si_applica_a"]:
             key, _ = catalog.split_entry(entry)
             if key in catalog.PROFILI and (key == "tutti" or key in profile_ids):
@@ -167,15 +184,17 @@ def select(profile_ids: set[str]) -> list[dict]:
 
 def get_catalog(args: dict, session: dict | None = None) -> Result:
     ids = set(args.get("profile_ids") or [])
-    sconosciuti = ids - catalog.PROFILI - set(STRUMENTI_TAG)
+    sconosciuti = ids - catalog.PROFILI - set(STRUMENTI_TAG) - set(CAT.profili)
     if sconosciuti:
-        return err(f"profile_ids sconosciuti: {sorted(sconosciuti)}. "
-                   f"Validi: {sorted(catalog.PROFILI | set(STRUMENTI_TAG))}")
+        return err(f"profile_ids sconosciuti: {sorted(sconosciuti)}. Validi: {PROFILE_IDS}")
     scelte = select(ids)
     per_titolo = {}
     for p in scelte:
         per_titolo.setdefault(p["titolo"], []).append(p["id"])
+    profili = {pid: {k: CAT.profili[pid][k] for k in ("nome", "procedure", "facoltative", "note", "avvisi")}
+               for pid in sorted(ids & set(CAT.profili))}
     return ok({
+        "profili": profili,
         "regole_nucleo": CAT.data["regole_nucleo"],
         "regole_strumenti": CAT.data["regole_strumenti"],
         "punti_in_conflitto": CAT.data["punti_in_conflitto"],
@@ -282,6 +301,10 @@ def propose_profile(args: dict, session: dict) -> Result:
         mancano.append("data di arrivo")
     for i, p in enumerate(persone, 1):
         chi = "di chi scrive" if i == 1 else f"della persona {i}"
+        if p.get("profilo") is None and not p.get("minorenne"):
+            mancano.append(f"profilo {chi}")
+        elif p.get("profilo"):
+            p["profilo_nome"] = CAT.profili[p["profilo"]]["nome"]
         if p.get("cittadinanza") is None:
             mancano.append(f"cittadinanza {chi}")
         elif p["cittadinanza"] == "extra" and not p.get("minorenne") and p.get("motivo") is None:
@@ -316,6 +339,8 @@ def propose_profile(args: dict, session: dict) -> Result:
 
 def person_tags(p: dict, card: dict) -> set[str]:
     tags = {"tutti"}
+    if p.get("profilo") in CAT.profili:
+        tags |= expand({p["profilo"]})
     cit = p.get("cittadinanza")
     if p.get("minorenne"):
         tags.add("minori")
@@ -336,6 +361,8 @@ def person_tags(p: dict, card: dict) -> set[str]:
 def applies(proc: dict, n: int, card: dict) -> tuple[bool | None, str | None]:
     """Il passo vale per la persona n della scheda? True, False o None (non si sa). Più eventuale condizione."""
     p = card["persone"][n - 1]
+    if proc["id"] in (CAT.profili.get(p.get("profilo")) or {}).get("procedure", []):
+        return True, None  # il profilo del catalogo elenca questo passo
     tags = person_tags(p, card)
     italiano = p.get("cittadinanza") == "ita"
     strumenti = (card.get("strumenti") or {}) if n == 1 else {}  # gli strumenti nella scheda sono di chi scrive
@@ -492,14 +519,16 @@ def _obj(props: dict) -> dict:
     return {"type": "object", "properties": props, "required": list(props), "additionalProperties": False}
 
 
-PROFILE_IDS = sorted(catalog.PROFILI | set(STRUMENTI_TAG))
+CATALOG_PROFILES = sorted(CAT.profili)  # profili e criteri di scelta: dal catalogo, non scritti a mano
+PROFILE_IDS = CATALOG_PROFILES + ["minori", "minore_extra"] + sorted(STRUMENTI_TAG)
 
 T_GET_CATALOG = {
     "name": "get_catalog",
-    "description": "Procedure del catalogo verificato del Comune che valgono per i profili indicati, con regole del "
-                   "nucleo, regole degli strumenti, punti in conflitto e varianti della stessa pratica. È la sola "
-                   "fonte di fatti su pratiche, scadenze, uffici e fonti. Aggiungi i tag senza_* per gli strumenti "
-                   "che la persona NON ha.",
+    "description": "Procedure del catalogo verificato che valgono per i profili indicati (id dei profili della "
+                   "scheda; 'minori' e 'minore_extra' se ci sono minorenni; senza_* per gli strumenti che la "
+                   "persona NON ha), con le note dei profili, le regole del nucleo e degli strumenti, i punti in "
+                   "conflitto e le varianti della stessa pratica. È la sola fonte di fatti su pratiche, scadenze, "
+                   "uffici e fonti.",
     "strict": True,
     "input_schema": _obj({"profile_ids": {"type": "array", "items": {"type": "string", "enum": PROFILE_IDS}}}),
 }
@@ -530,6 +559,7 @@ T_PROPOSE_PROFILE = {
         "nucleo": {"type": "string", "enum": ["single", "family", "group"]},
         "persone": {"type": "array", "items": _obj({
             "relazione": {"type": "string", "enum": ["self", "partner", "child", "relative", "mate"]},
+            "profilo": _null({"type": "string", "enum": CATALOG_PROFILES}),
             "minorenne": _null({"type": "boolean"}),
             "cittadinanza": _null({"type": "string", "enum": ["ita", "ue", "extra"]}),
             "motivo": _null({"type": "string", "enum": ["work", "study", "family", "other"]}),

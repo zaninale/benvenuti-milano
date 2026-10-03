@@ -4,6 +4,8 @@ import pathlib
 import sys
 from datetime import date
 
+import pytest
+
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
 import catalog  # noqa: E402
@@ -15,7 +17,8 @@ import tools  # noqa: E402
 # senza codice fiscale, senza SPID/CIE, abita vicino alla fermata Piola.
 ANA = {
     "nucleo": "single",
-    "persone": [{"relazione": "self", "minorenne": False, "cittadinanza": "extra", "motivo": "study"}],
+    "persone": [{"relazione": "self", "minorenne": False, "cittadinanza": "extra", "motivo": "study",
+                 "profilo": "nonue_studente"}],
     "data_arrivo": "2026-10-02", "lingua": "pt-BR",
     "strumenti": {"email": True, "telefono": True, "sim_italiana": False, "dispositivo": True, "spid_cie": False},
     "vicino_a": "Piola", "riassunto_it": "Studentessa extra-UE, arrivata il 2/10, vive da sola.",
@@ -189,3 +192,56 @@ def test_bozza_sportello_con_fonti_e_conflitti():
     assert any("unive.it" in f["url"] for f in r.draft["fonti"])
     assert r.draft["conflitti"][0]["tema"].startswith("Contributo SSN")
     assert tools.draft_answer({"risposta": "", "procedure_citate": ["NOPE"], "conflitti": []}).is_error
+
+
+# ---------------------------------------------------------------- i 14 profili del catalogo
+
+def ordina(ids):
+    from graphlib import TopologicalSorter
+    return list(TopologicalSorter({i: [d for d in tools.CAT.deps[i] if d in ids] for i in ids}).static_order())
+
+
+def test_quattordici_profili_dal_catalogo():
+    import agent
+    assert len(tools.CAT.profili) == 14
+    schema = tools.T_PROPOSE_PROFILE["input_schema"]["properties"]["persone"]["items"]["properties"]["profilo"]
+    assert schema["anyOf"][0]["enum"] == sorted(tools.CAT.profili)  # niente elenchi scritti a mano
+    prompt = agent.system_prompt("agent_citizen.md")
+    assert all(f"- {pid} (" in prompt and p["criteri"] in prompt for pid, p in tools.CAT.profili.items())
+
+
+@pytest.mark.parametrize("pid", sorted(tools.CAT.profili))
+def test_piano_per_ogni_profilo(pid):
+    prof = tools.CAT.profili[pid]
+    cit = prof["cittadinanza"] or "extra"
+    persona = {"relazione": "self", "minorenne": False, "cittadinanza": cit,
+               "motivo": "other" if cit == "extra" else None, "profilo": pid}
+    session = {}
+    r = tools.propose_profile(dict(ANA, persone=[persona]), session)
+    assert r.card["completa"], r.card["mancano"]
+    session["confirmed"] = session["catalog_seen"] = True
+    trovate = {p["id"] for p in json.loads(tools.get_catalog({"profile_ids": [pid]}).content)["procedure"]}
+    assert set(prof["procedure"]) <= trovate
+    ids = ordina(prof["procedure"])
+    r = tools.submit_plan({"passi": passi(ids), "messaggio": "Ecco il tuo piano, con i passi in ordine."}, session)
+    assert not r.is_error, r.content
+    fatti = [s["procedure_id"] for s in r.plan["passi"]]
+    assert fatti == ids and all(tools.CAT.get(i) for i in fatti)
+    for i, x in enumerate(fatti):
+        assert all(fatti.index(d) < i for d in tools.CAT.deps[x] if d in fatti)
+    assert not any("non risulta applicabile" in a for a in r.plan["avvisi"])
+
+
+def test_situazione_particolare_un_solo_passo():
+    assert tools.CAT.profili["situazione_particolare"]["procedure"] == ["SITUAZIONE_PARTICOLARE"]
+    passo = tools.CAT.get("SITUAZIONE_PARTICOLARE")
+    assert passo["stato_verifica"] == "da_verificare" and any("questure" in l["url"] for l in passo["link"])
+
+
+def test_voci_importate_conservano_verifica_del_collega():
+    for p in tools.CAT.data["procedure"]:
+        if p.get("importata_da"):
+            assert p["stato_verifica"] in ("fonte_ufficiale", "fonte_secondaria", "da_verificare")
+            if p["stato_verifica"] == "da_verificare":
+                assert p["scadenza"] is None or p["id"] == "DICHIARAZIONE_PRESENZA"
+            assert p["fonti"] and p["priorita"] == "importante"

@@ -122,6 +122,10 @@ procedure:
     cosa_dice: 'Rilascio del permesso di soggiorno: kit postale, documenti e costi (marca da bollo 16 €, bollettino
       70,46 € o 80,46 €)'
     consultata: '2026-10-03'
+  - url: https://studyandwork.yesmilano.it/en/work/getting-started-guide/residence-permit
+    tipo: istituzionale
+    cosa_dice: YesMilano Study & Work – Residence permit
+    consultata: '2026-10-03'
 - id: PERM_S
   titolo: Chiedi il permesso di soggiorno per studio
   title_en: Apply for a study permit
@@ -175,6 +179,10 @@ procedure:
     tipo: ufficiale
     cosa_dice: 'Rilascio del permesso di soggiorno: kit postale, documenti e costi (marca da bollo 16 €, bollettino
       70,46 € o 80,46 €)'
+    consultata: '2026-10-03'
+  - url: https://studyandwork.yesmilano.it/en/work/getting-started-guide/residence-permit
+    tipo: istituzionale
+    cosa_dice: YesMilano Study & Work – Residence permit
     consultata: '2026-10-03'
 - id: CF
   titolo: Ottieni il codice fiscale
@@ -325,6 +333,10 @@ procedure:
     tipo: ufficiale
     cosa_dice: 'Richiesta di residenza online per persone straniere provenienti dall''estero: documenti e allegati'
     consultata: '2026-10-03'
+  - url: https://www.comune.milano.it/servizi/anagrafe/richiesta-di-residenza-per-persone-straniere-provenienti-dall-estero/modulistica-richiesta-di-residenza-per-persone-straniere-provenienti-dall-estero
+    tipo: ufficiale
+    cosa_dice: Comune di Milano – Modulistica
+    consultata: '2026-10-03'
 - id: RES_X
   titolo: Dichiara la residenza
   title_en: Declare your residence
@@ -375,6 +387,10 @@ procedure:
     tipo: secondaria
     cosa_dice: Le persone straniere dall'estero usano la procedura specifica del Comune, non ANPR
     consultata: '2026-10-03'
+  - url: https://www.comune.milano.it/servizi/anagrafe/richiesta-di-residenza-per-persone-straniere-provenienti-dall-estero/modulistica-richiesta-di-residenza-per-persone-straniere-provenienti-dall-estero
+    tipo: ufficiale
+    cosa_dice: Comune di Milano – Modulistica
+    consultata: '2026-10-03'
 - id: RES_S
   titolo: Dichiara la residenza
   title_en: Declare your residence
@@ -424,6 +440,10 @@ procedure:
   - url: https://www.comune.milano.it/servizi/anagrafe/richiesta-di-residenza-per-persone-straniere-provenienti-dall-estero
     tipo: ufficiale
     cosa_dice: 'Richiesta di residenza online per persone straniere provenienti dall''estero: documenti e allegati'
+    consultata: '2026-10-03'
+  - url: https://www.comune.milano.it/servizi/anagrafe/richiesta-di-residenza-per-persone-straniere-provenienti-dall-estero/modulistica-richiesta-di-residenza-per-persone-straniere-provenienti-dall-estero
+    tipo: ufficiale
+    cosa_dice: Comune di Milano – Modulistica
     consultata: '2026-10-03'
 - id: CHECK
   titolo: Verifica della dimora
@@ -535,6 +555,10 @@ procedure:
     tipo: ufficiale
     cosa_dice: 'Iscrizione cittadini UE: modulistica S1, altrimenti iscrizione volontaria'
     consultata: '2026-10-03'
+  - url: https://www.salute.gov.it/portale/assistenzaSanitaria/dettaglioContenutiAssistenzaSanitaria.jsp?lingua=italiano&id=1764&area=Assistenza%20sanitaria&menu=vuoto
+    tipo: ufficiale
+    cosa_dice: Ministero della Salute – Assistenza ai cittadini extra UE
+    consultata: null
 - id: SSN_L
   titolo: Iscriviti al servizio sanitario
   title_en: Enrol in the health service
@@ -573,6 +597,10 @@ procedure:
     tipo: ufficiale
     cosa_dice: Iscrizione obbligatoria agli sportelli Scelta e revoca dell'ASST
     consultata: '2026-10-03'
+  - url: https://www.salute.gov.it/portale/assistenzaSanitaria/dettaglioContenutiAssistenzaSanitaria.jsp?lingua=italiano&id=1764&area=Assistenza%20sanitaria&menu=vuoto
+    tipo: ufficiale
+    cosa_dice: Ministero della Salute – Assistenza ai cittadini extra UE
+    consultata: null
 - id: SSN_S
   titolo: Iscrizione sanitaria volontaria
   title_en: Voluntary health enrolment
@@ -619,6 +647,10 @@ procedure:
     tipo: secondaria
     cosa_dice: 'Indica ancora 149,77 euro: in conflitto'
     consultata: '2026-10-03'
+  - url: https://www.salute.gov.it/portale/assistenzaSanitaria/dettaglioContenutiAssistenzaSanitaria.jsp?lingua=italiano&id=1764&area=Assistenza%20sanitaria&menu=vuoto
+    tipo: ufficiale
+    cosa_dice: Ministero della Salute – Assistenza ai cittadini extra UE
+    consultata: null
 - id: TARI
   titolo: Dichiara la tassa rifiuti (TARI)
   title_en: File the waste tax (TARI)
@@ -740,6 +772,10 @@ procedure:
     tipo: ufficiale
     cosa_dice: 'Rilascio del permesso di soggiorno: kit postale, documenti e costi (marca da bollo 16 €, bollettino
       70,46 € o 80,46 €)'
+    consultata: '2026-10-03'
+  - url: https://studyandwork.yesmilano.it/en/work/getting-started-guide/residence-permit
+    tipo: istituzionale
+    cosa_dice: YesMilano Study & Work – Residence permit
     consultata: '2026-10-03'
 - id: PED
   titolo: Scegli il pediatra
@@ -1032,3 +1068,786 @@ procedure:
     cosa_dice: CIE su appuntamento dopo l'iscrizione anagrafica, con tessera sanitaria o codice fiscale e una fototessera
       a colori; non va rifatta se cambi indirizzo
     consultata: '2026-10-03'
+- id: SITUAZIONE_PARTICOLARE
+  titolo: Rivolgiti all'ente competente per la tua situazione
+  ente: Questura, Prefettura o servizio di orientamento
+  ufficio: Questura di Milano, Prefettura di Milano o un servizio di orientamento per stranieri
+  ambito: persona
+  si_applica_a:
+  - situazione_particolare
+  dipende_da: []
+  scadenza: null
+  priorita: importante
+  canale: da_verificare
+  stato_verifica: da_verificare
+  fase: arrivo
+  istruzioni:
+  - 'Familiari di cittadini italiani o UE, protezione internazionale e altri casi: Situazioni con regole dedicate,
+    non ancora descritte in dettaglio in questa guida'
+  - 'Per queste situazioni le procedure dipendono da condizioni specifiche. Questa guida non le copre ancora: rivolgiti
+    alla Questura, alla Prefettura o a un servizio di orientamento per stranieri.'
+  link:
+  - tipo: informazioni
+    etichetta: Questura di Milano
+    url: https://questure.poliziadistato.it/it/Milano
+    requisiti: null
+    verificato: false
+  - tipo: informazioni
+    etichetta: Prefettura di Milano
+    url: https://prefettura.interno.gov.it/it/prefetture/milano
+    requisiti: null
+    verificato: false
+  - tipo: informazioni
+    etichetta: Your Europe – Diritti di soggiorno (anche per i familiari)
+    url: https://europa.eu/youreurope/citizens/residence/residence-rights/index_en.htm
+    requisiti: null
+    verificato: false
+  - tipo: informazioni
+    etichetta: Portale Integrazione Migranti
+    url: https://www.integrazionemigranti.gov.it/
+    requisiti: null
+    verificato: false
+  fonti:
+  - url: https://questure.poliziadistato.it/it/Milano
+    tipo: ufficiale
+    cosa_dice: Questura di Milano
+    consultata: null
+  - url: https://prefettura.interno.gov.it/it/prefetture/milano
+    tipo: ufficiale
+    cosa_dice: Prefettura di Milano
+    consultata: null
+  - url: https://europa.eu/youreurope/citizens/residence/residence-rights/index_en.htm
+    tipo: ufficiale
+    cosa_dice: Your Europe – Diritti di soggiorno (anche per i familiari)
+    consultata: null
+  - url: https://www.integrazionemigranti.gov.it/
+    tipo: ufficiale
+    cosa_dice: Portale Integrazione Migranti
+    consultata: null
+  importata_da: ArrivareMilano
+- id: ISCRIZIONE_ISTITUTO
+  titolo: Ammissione e iscrizione all'università o all'istituto
+  ente: Università o istituto di formazione
+  ufficio: Università o istituto di formazione
+  ambito: persona
+  si_applica_a:
+  - studente_italiano_fuori_sede
+  - ue_studente
+  - nonue_studente
+  dipende_da: []
+  scadenza: null
+  priorita: importante
+  canale: da_verificare
+  stato_verifica: da_verificare
+  fase: prima
+  istruzioni:
+  - L'ammissione e le scadenze dipendono dall'istituto
+  - Gli studenti non UE di solito devono completare le procedure dell'istituto prima di chiedere il visto per studio
+  link: []
+  fonti:
+  - url: https://studyandwork.yesmilano.it/en
+    tipo: istituzionale
+    cosa_dice: YesMilano Study & Work
+    consultata: null
+  importata_da: ArrivareMilano
+- id: DIRITTI_SOGGIORNO_UE
+  titolo: Diritti di soggiorno dei cittadini UE
+  ente: Informazioni
+  ufficio: 'Nessuno sportello: informazioni da sapere'
+  ambito: persona
+  si_applica_a:
+  - ue_soggiorno_breve
+  - ue_lavoratore
+  - ue_altro
+  dipende_da: []
+  scadenza: null
+  priorita: importante
+  canale: da_verificare
+  stato_verifica: fonte_ufficiale
+  fase: prima
+  istruzioni:
+  - Fino a tre mesi basta un documento d'identità valido
+  - Per restare più a lungo devi lavorare, studiare o avere risorse sufficienti e una copertura sanitaria completa;
+  - dopo tre mesi ti iscrivi all'anagrafe del Comune in cui vivi
+  link: []
+  fonti:
+  - url: https://europa.eu/youreurope/citizens/residence/residence-rights/index_en.htm
+    tipo: ufficiale
+    cosa_dice: Your Europe – Diritti di soggiorno
+    consultata: '2026-10-03'
+  importata_da: ArrivareMilano
+- id: TESSERA_TEAM
+  titolo: Tessera europea di assicurazione malattia (TEAM)
+  ente: Informazioni
+  ufficio: 'Nessuno sportello: informazioni da sapere'
+  ambito: persona
+  si_applica_a:
+  - ue_soggiorno_breve
+  dipende_da: []
+  scadenza: null
+  priorita: importante
+  canale: da_verificare
+  stato_verifica: da_verificare
+  fase: prima
+  istruzioni:
+  - Per soggiorni temporanei i cittadini UE possono usare la tessera europea rilasciata dal proprio Paese per le
+    cure necessarie
+  link: []
+  fonti:
+  - url: https://www.salute.gov.it/new/it/tema/cure-nellunione-europea/tessera-europea-assicurazione-malattia-team/
+    tipo: ufficiale
+    cosa_dice: Ministero della Salute – TEAM
+    consultata: null
+  importata_da: ArrivareMilano
+- id: ATTESTAZIONE_SOGGIORNO_UE
+  titolo: Attestazione di soggiorno (cittadini UE)
+  ente: Comune di Milano – Anagrafe
+  ufficio: Comune di Milano – Anagrafe
+  ambito: persona
+  si_applica_a:
+  - ue_lavoratore
+  - ue_studente
+  - ue_altro
+  dipende_da:
+  - residenza
+  scadenza: null
+  priorita: importante
+  canale: di_persona
+  stato_verifica: fonte_ufficiale
+  fase: stabilirsi
+  istruzioni:
+  - Dimostra l'iscrizione anagrafica dei cittadini UE (e di alcuni altri Paesi europei)
+  - È "non permanente" tra tre mesi e cinque anni, "permanente" dopo cinque anni di soggiorno continuativo
+  - 'Documenti: Modulo di richiesta; Documento d''identità valido; Documenti che dimostrano i requisiti per l''iscrizione
+    anagrafica (D.Lgs. 30/2007)'
+  - 'Costi: Marca da bollo da 16 €'
+  - 'Dove: Presentazione allo sportello o tramite l''Ufficio Protocollo, come indicato nella pagina del servizio'
+  link:
+  - tipo: informazioni
+    etichetta: Pagina del servizio e modulo
+    url: https://www.comune.milano.it/servizi/anagrafe/attestazione-di-soggiorno-per-cittadini-ue-non-italiani-e-britannici
+    requisiti: null
+    verificato: true
+  fonti:
+  - url: https://www.comune.milano.it/servizi/anagrafe/attestazione-di-soggiorno-per-cittadini-ue-non-italiani-e-britannici
+    tipo: ufficiale
+    cosa_dice: Comune di Milano – Attestazione di soggiorno
+    consultata: '2026-10-03'
+  importata_da: ArrivareMilano
+- id: CITTADINANZA
+  titolo: Cittadinanza italiana
+  ente: Prefettura di Milano – Sportello Unico per l'Immigrazione
+  ufficio: Prefettura di Milano – Sportello Unico per l'Immigrazione
+  ambito: persona
+  si_applica_a:
+  - ue_lavoratore
+  - ue_altro
+  - nonue_lavoro_subordinato
+  - nonue_lavoro_autonomo
+  dipende_da: []
+  scadenza: null
+  priorita: importante
+  canale: da_verificare
+  stato_verifica: da_verificare
+  fase: nel_tempo
+  istruzioni:
+  - Gli stranieri residenti in Italia da almeno dieci anni (quattro per i cittadini UE) possono chiedere la cittadinanza
+    se hanno i requisiti di reddito e non hanno precedenti penali né motivi ostativi
+  - Si può diventare cittadini anche per matrimonio
+  - L'iter si chiude con il giuramento in Comune entro sei mesi dalla notifica del decreto
+  link:
+  - tipo: informazioni
+    etichetta: Ministero dell'Interno – Cittadinanza
+    url: https://www.interno.gov.it/it/temi/cittadinanza-e-altri-diritti-civili/cittadinanza
+    requisiti: null
+    verificato: false
+  fonti:
+  - url: https://www.interno.gov.it/it/temi/cittadinanza-e-altri-diritti-civili/cittadinanza
+    tipo: ufficiale
+    cosa_dice: Ministero dell'Interno – Cittadinanza
+    consultata: null
+  - url: https://www.comune.milano.it/servizi/anagrafe/cittadinanza-italiana-giuramento-di-fedelta
+    tipo: ufficiale
+    cosa_dice: Comune di Milano – Giuramento di fedeltà
+    consultata: null
+  importata_da: ArrivareMilano
+  note_verifica: Verificare il termine di quattro anni per i cittadini UE (legge 91/1992, art. 9) e il canale online
+    per la domanda.
+- id: DIRITTI_SOGGIORNO_UE_STUDENTI
+  titolo: Condizioni di soggiorno per studenti UE
+  ente: Informazioni
+  ufficio: 'Nessuno sportello: informazioni da sapere'
+  ambito: persona
+  si_applica_a:
+  - ue_studente
+  dipende_da: []
+  scadenza: null
+  priorita: importante
+  canale: da_verificare
+  stato_verifica: fonte_ufficiale
+  fase: prima
+  istruzioni:
+  - Per studiare in Italia oltre tre mesi devi essere iscritto a un istituto riconosciuto, avere risorse sufficienti
+    per non pesare sull'assistenza sociale e una copertura sanitaria completa
+  link: []
+  fonti:
+  - url: https://europa.eu/youreurope/citizens/residence/residence-rights/students/index_en.htm
+    tipo: ufficiale
+    cosa_dice: Your Europe – Studenti
+    consultata: '2026-10-03'
+  importata_da: ArrivareMilano
+- id: VERIFICA_VISTO
+  titolo: Verifica se ti serve un visto
+  ente: Ambasciata o consolato italiano competente
+  ufficio: Ambasciata o consolato italiano competente
+  ambito: persona
+  si_applica_a:
+  - nonue_breve
+  - nonue_studente
+  - nonue_permesso_altro_stato_ue
+  dipende_da: []
+  scadenza: null
+  priorita: importante
+  canale: da_verificare
+  stato_verifica: fonte_ufficiale
+  fase: prima
+  istruzioni:
+  - L'obbligo di visto dipende da cittadinanza, Paese di residenza stabile, durata e motivo del soggiorno
+  - Chi non ha bisogno del visto per brevi periodi può restare in Italia e nell'area Schengen al massimo 90 giorni
+    in un periodo di 180 giorni
+  link:
+  - tipo: informazioni
+    etichetta: Verifica sul portale "Il visto per l'Italia"
+    url: https://vistoperitalia.esteri.it/home.aspx
+    requisiti: null
+    verificato: true
+  fonti:
+  - url: https://www.esteri.it/it/ministero/sportello_info/domandefrequenti/sezione_visti_entrare_in_italia/
+    tipo: ufficiale
+    cosa_dice: MAECI – Entrare in Italia
+    consultata: '2026-10-03'
+  importata_da: ArrivareMilano
+- id: VISTO_INGRESSO
+  titolo: Visto d'ingresso
+  ente: Ambasciata o consolato italiano competente
+  ufficio: Ambasciata o consolato italiano competente
+  ambito: persona
+  si_applica_a:
+  - nonue_breve
+  - nonue_studente
+  - nonue_lavoro_subordinato
+  - nonue_lavoro_autonomo
+  - nonue_famiglia
+  dipende_da:
+  - ISCRIZIONE_ISTITUTO o NULLA_OSTA_LAVORO o AUTORIZZAZIONI_LAVORO_AUTONOMO o NULLA_OSTA_RICONGIUNGIMENTO
+  scadenza: null
+  priorita: importante
+  canale: di_persona
+  stato_verifica: fonte_ufficiale
+  fase: prima
+  istruzioni:
+  - Se il visto è richiesto, lo rilascia l'ambasciata o il consolato italiano competente
+  - Il visto Schengen uniforme vale per soggiorni fino a 90 giorni;
+  - per soggiorni più lunghi serve il visto nazionale per il motivo specifico (studio, lavoro, famiglia…)
+  - 'Dove: Domanda presso l''ambasciata, il consolato o il centro visti indicato dal consolato'
+  link:
+  - tipo: informazioni
+    etichetta: Requisiti e documenti per tipo di visto
+    url: https://vistoperitalia.esteri.it/home.aspx
+    requisiti: null
+    verificato: true
+  fonti:
+  - url: https://www.esteri.it/it/servizi-opportunita/ingressosoggiornoinitalia/visto_ingresso/
+    tipo: ufficiale
+    cosa_dice: MAECI – Il visto di ingresso
+    consultata: '2026-10-03'
+  importata_da: ArrivareMilano
+- id: DICHIARAZIONE_PRESENZA
+  titolo: Dichiarazione di presenza
+  ente: Questura di Milano – Ufficio Immigrazione
+  ufficio: Questura di Milano – Ufficio Immigrazione
+  ambito: persona
+  si_applica_a:
+  - nonue_breve
+  dipende_da: []
+  scadenza:
+    quantita: 8
+    unita: giorni
+    natura: scadenza_di_legge
+    base: data_di_arrivo
+  priorita: importante
+  canale: da_verificare
+  stato_verifica: da_verificare
+  fase: arrivo
+  istruzioni:
+  - Chi viene in Italia per visite, affari, turismo o studio per non più di tre mesi non chiede il permesso di soggiorno,
+    ma dichiara la propria presenza
+  link: []
+  fonti:
+  - url: https://poliziadistato.it/articolo/225-Il_rilascio_del_permesso_di_soggiorno
+    tipo: ufficiale
+    cosa_dice: Polizia di Stato – Il rilascio del permesso di soggiorno
+    consultata: null
+  importata_da: ArrivareMilano
+  note_verifica: Da verificare i casi in cui il timbro di ingresso sul passaporto sostituisce la dichiarazione,
+    e a chi va presentata (Questura o struttura ricettiva).
+- id: RINNOVO_DIMORA_ABITUALE
+  titolo: Rinnovo della dichiarazione di dimora abituale
+  ente: Comune di Milano – Anagrafe
+  ufficio: Comune di Milano – Anagrafe
+  ambito: persona
+  si_applica_a:
+  - nonue_studente
+  - nonue_lavoro_subordinato
+  - nonue_lavoro_autonomo
+  - nonue_famiglia
+  dipende_da: []
+  scadenza: null
+  priorita: importante
+  canale: da_verificare
+  stato_verifica: fonte_ufficiale
+  fase: nel_tempo
+  istruzioni:
+  - Le persone non UE residenti rinnovano al Comune la dichiarazione di dimora abituale dopo ogni rinnovo del permesso
+    o della carta di soggiorno
+  - 'Scadenza: Entro 60 giorni dal rinnovo del permesso o della carta di soggiorno'
+  link:
+  - tipo: informazioni
+    etichetta: Pagina del servizio
+    url: https://www.comune.milano.it/servizi/anagrafe/rinnovo-dichiarazione-dimora-abituale-per-persone-extra-ue
+    requisiti: null
+    verificato: true
+  fonti:
+  - url: https://www.comune.milano.it/servizi/anagrafe/rinnovo-dichiarazione-dimora-abituale-per-persone-extra-ue
+    tipo: ufficiale
+    cosa_dice: Comune di Milano – Rinnovo dichiarazione dimora abituale
+    consultata: '2026-10-03'
+  importata_da: ArrivareMilano
+- id: NULLA_OSTA_LAVORO
+  titolo: Nulla osta al lavoro subordinato
+  ente: Prefettura di Milano – Sportello Unico per l'Immigrazione
+  ufficio: Prefettura di Milano – Sportello Unico per l'Immigrazione
+  ambito: persona
+  si_applica_a:
+  - nonue_lavoro_subordinato
+  dipende_da: []
+  scadenza: null
+  priorita: importante
+  canale: da_verificare
+  stato_verifica: da_verificare
+  fase: prima
+  istruzioni:
+  - Lo chiede il datore di lavoro allo Sportello Unico per l'Immigrazione
+  - Con il nulla osta il lavoratore chiede il visto per lavoro al consolato italiano
+  link: []
+  fonti:
+  - url: https://studyandwork.yesmilano.it/en/work/getting-started-guide/residence-permit
+    tipo: istituzionale
+    cosa_dice: YesMilano Study & Work – Residence permit
+    consultata: null
+  importata_da: ArrivareMilano
+  note_verifica: Verificare quote (decreto flussi), casi fuori quota e canale di presentazione.
+- id: AUTORIZZAZIONI_LAVORO_AUTONOMO
+  titolo: Autorizzazioni per il lavoro autonomo
+  ente: Questura di Milano – Ufficio Immigrazione
+  ufficio: Questura di Milano – Ufficio Immigrazione
+  ambito: persona
+  si_applica_a:
+  - nonue_lavoro_autonomo
+  dipende_da: []
+  scadenza: null
+  priorita: importante
+  canale: da_verificare
+  stato_verifica: da_verificare
+  fase: prima
+  istruzioni:
+  - Per il lavoro autonomo servono il nulla osta della Questura e le attestazioni della Camera di Commercio sui
+    parametri finanziari e sull'attività (o la licenza richiesta), prima di chiedere il visto per lavoro autonomo
+  link: []
+  fonti:
+  - url: https://studyandwork.yesmilano.it/en/work/getting-started-guide/residence-permit
+    tipo: istituzionale
+    cosa_dice: YesMilano Study & Work – Residence permit
+    consultata: null
+  importata_da: ArrivareMilano
+- id: PERMESSO_SOGGIORNO_KIT
+  titolo: Domanda di permesso di soggiorno (kit postale)
+  ente: Uffici postali "Sportello Amico"
+  ufficio: Uffici postali "Sportello Amico"
+  ambito: persona
+  si_applica_a:
+  - nonue_lavoro_autonomo
+  dipende_da: []
+  scadenza:
+    quantita: 8
+    unita: giorni_lavorativi
+    natura: scadenza_di_legge
+    base: data_di_arrivo
+  priorita: importante
+  canale: di_persona
+  stato_verifica: fonte_ufficiale
+  fase: arrivo
+  istruzioni:
+  - La domanda si presenta con il kit postale negli uffici postali abilitati
+  - Ricevi una ricevuta ("assicurata") e la data dell'appuntamento in Questura
+  - All'appuntamento indicato nella ricevuta postale la Questura acquisisce foto e impronte
+  - Quando il permesso è pronto lo ritiri su convocazione
+  - 'Documenti: Passaporto valido (copia di tutte le pagine con dati, visti e timbri); Prenotazione dell''alloggio,
+    contratto d''affitto o dichiarazione di ospitalità; Documenti specifici del motivo (per il lavoro subordinato
+    modulo 209 e contratto di soggiorno)'
+  - 'Costi: Marca da bollo da 16 €; bollettino da 70,46 € (permesso fino a un anno) o 80,46 € (da uno a due anni)'
+  - 'Dove: Ufficio postale "Sportello Amico" abilitato'
+  link:
+  - tipo: informazioni
+    etichetta: Portale Immigrazione – uffici e stato della pratica
+    url: https://www.portaleimmigrazione.it/
+    requisiti: null
+    verificato: true
+  fonti:
+  - url: https://poliziadistato.it/articolo/225-Il_rilascio_del_permesso_di_soggiorno
+    tipo: ufficiale
+    cosa_dice: Polizia di Stato – Il rilascio del permesso di soggiorno
+    consultata: '2026-10-03'
+  - url: https://studyandwork.yesmilano.it/en/work/getting-started-guide/residence-permit
+    tipo: istituzionale
+    cosa_dice: YesMilano Study & Work – Residence permit
+    consultata: '2026-10-03'
+  importata_da: ArrivareMilano
+- id: ASSISTENZA_SANITARIA
+  titolo: Assistenza sanitaria e scelta del medico
+  ente: ATS Città Metropolitana di Milano / ASST – uffici Scelta e Revoca
+  ufficio: ATS Città Metropolitana di Milano / ASST – uffici Scelta e Revoca
+  ambito: persona
+  si_applica_a:
+  - nonue_lavoro_autonomo
+  - nonue_famiglia
+  dipende_da: []
+  scadenza: null
+  priorita: importante
+  canale: di_persona
+  stato_verifica: da_verificare
+  fase: stabilirsi
+  istruzioni:
+  - L'iscrizione al Servizio Sanitario Regionale dipende dal tuo titolo di soggiorno e dalla tua situazione (lavoro,
+    studio, famiglia, coperture del Paese d'origine come il modulo S1 per i cittadini UE)
+  - Dopo l'iscrizione scegli il medico di base
+  - 'Dove: Uffici "Scelta e Revoca" dell''ASST competente'
+  link:
+  - tipo: informazioni
+    etichetta: Regione Lombardia – Assistenza ai cittadini comunitari e stranieri
+    url: https://www.regione.lombardia.it/sanita/prenotazioni-e-tempi-d-attesa/assistenza-sanitaria-ai-cittadini-comunitari-e-stranieri
+    requisiti: null
+    verificato: false
+  fonti:
+  - url: https://www.regione.lombardia.it/sanita/prenotazioni-e-tempi-d-attesa/assistenza-sanitaria-ai-cittadini-comunitari-e-stranieri
+    tipo: ufficiale
+    cosa_dice: Regione Lombardia – Assistenza sanitaria ai cittadini comunitari e stranieri
+    consultata: null
+  - url: https://www.salute.gov.it/portale/assistenzaSanitaria/dettaglioContenutiAssistenzaSanitaria.jsp?lingua=italiano&id=1764&area=Assistenza%20sanitaria&menu=vuoto
+    tipo: ufficiale
+    cosa_dice: Ministero della Salute – Assistenza ai cittadini extra UE
+    consultata: null
+  importata_da: ArrivareMilano
+  note_verifica: Compilare i casi (obbligatoria, volontaria, studenti, S1) e la pagina ASST di Milano.
+- id: NULLA_OSTA_RICONGIUNGIMENTO
+  titolo: Nulla osta al ricongiungimento familiare
+  ente: Prefettura di Milano – Sportello Unico per l'Immigrazione
+  ufficio: Prefettura di Milano – Sportello Unico per l'Immigrazione
+  ambito: persona
+  si_applica_a:
+  - nonue_famiglia
+  dipende_da: []
+  scadenza: null
+  priorita: importante
+  canale: da_verificare
+  stato_verifica: da_verificare
+  fase: prima
+  istruzioni:
+  - Lo chiede il familiare straniero che vive regolarmente in Italia allo Sportello Unico per l'Immigrazione
+  - Con il nulla osta il familiare all'estero chiede il visto per motivi familiari
+  link: []
+  fonti:
+  - url: https://prefettura.interno.gov.it/it/prefetture/milano
+    tipo: ufficiale
+    cosa_dice: Prefettura di Milano
+    consultata: null
+  importata_da: ArrivareMilano
+  note_verifica: Verificare requisiti (reddito, alloggio) e canale di presentazione della domanda.
+- id: MOBILITA_UE
+  titolo: Trasferimento in Italia con un permesso di un altro Stato UE
+  ente: Informazioni
+  ufficio: 'Nessuno sportello: informazioni da sapere'
+  ambito: persona
+  si_applica_a:
+  - nonue_permesso_altro_stato_ue
+  dipende_da: []
+  scadenza: null
+  priorita: importante
+  canale: da_verificare
+  stato_verifica: fonte_ufficiale
+  fase: prima
+  istruzioni:
+  - Con un permesso o un visto per lungo soggiorno di un altro Paese Schengen puoi viaggiare in Italia fino a 90
+    giorni in 180
+  - Per trasferirti per più di 90 giorni serve un visto o un permesso italiano;
+  - per lavorare, studiare o raggiungere la famiglia possono valere condizioni ulteriori, che dipendono dal tipo
+    di permesso
+  link: []
+  fonti:
+  - url: https://home-affairs.ec.europa.eu/policies/migration-and-asylum/eu-immigration-portal/already-eu_en
+    tipo: ufficiale
+    cosa_dice: Commissione europea – Already in the EU?
+    consultata: '2026-10-03'
+  importata_da: ArrivareMilano
+profili:
+- id: italiano_da_altro_comune
+  gruppo: Cittadini italiani
+  cittadinanza: ita
+  nome: Mi trasferisco da un altro Comune italiano
+  criteri: Cittadino italiano che viene a vivere o lavorare a Milano.
+  tag_catalogo:
+  - ita_altro_comune
+  procedure:
+  - RES_I
+  - SSN_I
+  facoltative: []
+  note: {}
+  avvisi: []
+  importato_da: ArrivareMilano
+- id: italiano_rientro_estero
+  gruppo: Cittadini italiani
+  cittadinanza: ita
+  nome: Rientro dall'estero (iscritto all'AIRE)
+  criteri: Cittadino italiano che torna a vivere in Italia, a Milano.
+  tag_catalogo: []
+  procedure:
+  - RES_I
+  - SSN_I
+  - T_ID_I
+  facoltative:
+  - T_ID_I
+  note:
+    RES_I: L'iscrizione nell'anagrafe di Milano comporta la cancellazione dall'AIRE.
+  avvisi: []
+  importato_da: ArrivareMilano
+- id: studente_italiano_fuori_sede
+  gruppo: Cittadini italiani
+  cittadinanza: ita
+  nome: Studente italiano fuori sede
+  criteri: Studio a Milano e mantengo la residenza nel mio Comune.
+  tag_catalogo: []
+  procedure:
+  - ISCRIZIONE_ISTITUTO
+  - SSN_I
+  - RES_I
+  facoltative:
+  - RES_I
+  note:
+    SSN_I: Valuta la scelta temporanea del medico a Milano senza cambiare residenza.
+    RES_I: Se decidi di trasferire la residenza a Milano.
+  avvisi: []
+  importato_da: ArrivareMilano
+- id: ue_soggiorno_breve
+  gruppo: Cittadini UE, SEE e Svizzera
+  cittadinanza: ue
+  nome: Soggiorno fino a tre mesi
+  criteri: Cittadino UE, SEE o svizzero che resta a Milano per non più di tre mesi.
+  tag_catalogo: []
+  procedure:
+  - DIRITTI_SOGGIORNO_UE
+  - TESSERA_TEAM
+  - CF
+  facoltative:
+  - CF
+  note:
+    CF: Serve se firmi contratti (affitto, utenze, lavoro).
+  avvisi: []
+  importato_da: ArrivareMilano
+- id: ue_lavoratore
+  gruppo: Cittadini UE, SEE e Svizzera
+  cittadinanza: ue
+  nome: Lavoro per più di tre mesi
+  criteri: Cittadino UE, SEE o svizzero che lavora a Milano come dipendente o autonomo.
+  tag_catalogo:
+  - ue
+  procedure:
+  - DIRITTI_SOGGIORNO_UE
+  - CF
+  - RES_U
+  - ATTESTAZIONE_SOGGIORNO_UE
+  - SSN_U
+  - T_ID_X
+  - CITTADINANZA
+  facoltative:
+  - T_ID_X
+  note: {}
+  avvisi: []
+  importato_da: ArrivareMilano
+- id: ue_studente
+  gruppo: Cittadini UE, SEE e Svizzera
+  cittadinanza: ue
+  nome: Studio per più di tre mesi
+  criteri: Cittadino UE, SEE o svizzero iscritto a un'università o a un istituto a Milano.
+  tag_catalogo:
+  - ue
+  procedure:
+  - DIRITTI_SOGGIORNO_UE_STUDENTI
+  - ISCRIZIONE_ISTITUTO
+  - CF
+  - RES_U
+  - ATTESTAZIONE_SOGGIORNO_UE
+  - SSN_U
+  facoltative: []
+  note: {}
+  avvisi: []
+  importato_da: ArrivareMilano
+- id: ue_altro
+  gruppo: Cittadini UE, SEE e Svizzera
+  cittadinanza: ue
+  nome: Soggiorno lungo senza lavoro né studio
+  criteri: Cittadino UE, SEE o svizzero con risorse proprie (ad esempio pensionato).
+  tag_catalogo:
+  - ue
+  procedure:
+  - DIRITTI_SOGGIORNO_UE
+  - CF
+  - RES_U
+  - ATTESTAZIONE_SOGGIORNO_UE
+  - SSN_U
+  - CITTADINANZA
+  facoltative: []
+  note: {}
+  avvisi: []
+  importato_da: ArrivareMilano
+- id: nonue_breve
+  gruppo: Cittadini di altri Paesi
+  cittadinanza: extra
+  nome: Visita breve (fino a 90 giorni)
+  criteri: Turismo, affari, visita o breve corso di studio.
+  tag_catalogo: []
+  procedure:
+  - VERIFICA_VISTO
+  - VISTO_INGRESSO
+  - DICHIARAZIONE_PRESENZA
+  facoltative: []
+  note:
+    VISTO_INGRESSO: Solo se la verifica indica che il visto è richiesto.
+  avvisi: []
+  importato_da: ArrivareMilano
+- id: nonue_studente
+  gruppo: Cittadini di altri Paesi
+  cittadinanza: extra
+  nome: Studio per più di 90 giorni
+  criteri: Studente di un Paese non UE iscritto a un'università o a un istituto a Milano.
+  tag_catalogo:
+  - extra_studio
+  procedure:
+  - ISCRIZIONE_ISTITUTO
+  - VERIFICA_VISTO
+  - VISTO_INGRESSO
+  - PERM_S
+  - CF
+  - SSN_S
+  - RES_S
+  - RINNOVO_DIMORA_ABITUALE
+  facoltative:
+  - RES_S
+  note:
+    RES_S: Se Milano diventa la tua dimora abituale.
+  avvisi: []
+  importato_da: ArrivareMilano
+- id: nonue_lavoro_subordinato
+  gruppo: Cittadini di altri Paesi
+  cittadinanza: extra
+  nome: Lavoro dipendente
+  criteri: Vengo a Milano per lavorare con un contratto di lavoro dipendente.
+  tag_catalogo:
+  - extra_lavoro
+  procedure:
+  - NULLA_OSTA_LAVORO
+  - VISTO_INGRESSO
+  - SUI
+  - CF
+  - PERM_L
+  - RES_X
+  - SSN_L
+  - RINNOVO_DIMORA_ABITUALE
+  - CITTADINANZA
+  facoltative: []
+  note:
+    CF: Di solito te lo rilascia lo Sportello Unico per l'Immigrazione.
+  avvisi: []
+  importato_da: ArrivareMilano
+- id: nonue_lavoro_autonomo
+  gruppo: Cittadini di altri Paesi
+  cittadinanza: extra
+  nome: Lavoro autonomo o libera professione
+  criteri: Vengo a Milano per avviare un'attività o lavorare come libero professionista.
+  tag_catalogo: []
+  procedure:
+  - AUTORIZZAZIONI_LAVORO_AUTONOMO
+  - VISTO_INGRESSO
+  - PERMESSO_SOGGIORNO_KIT
+  - CF
+  - RES_X
+  - ASSISTENZA_SANITARIA
+  - RINNOVO_DIMORA_ABITUALE
+  - CITTADINANZA
+  facoltative: []
+  note: {}
+  avvisi: []
+  importato_da: ArrivareMilano
+- id: nonue_famiglia
+  gruppo: Cittadini di altri Paesi
+  cittadinanza: extra
+  nome: Ricongiungimento familiare
+  criteri: Raggiungo un familiare straniero che vive regolarmente in Italia.
+  tag_catalogo:
+  - extra_familiare
+  procedure:
+  - NULLA_OSTA_RICONGIUNGIMENTO
+  - VISTO_INGRESSO
+  - FAM
+  - CF
+  - RES_X
+  - ASSISTENZA_SANITARIA
+  - RINNOVO_DIMORA_ABITUALE
+  facoltative: []
+  note:
+    FAM: Verifica se prima devi presentarti allo Sportello Unico per l'Immigrazione.
+  avvisi: []
+  importato_da: ArrivareMilano
+- id: nonue_permesso_altro_stato_ue
+  gruppo: Cittadini di altri Paesi
+  cittadinanza: extra
+  nome: Ho un permesso di soggiorno di un altro Paese UE
+  criteri: Vivo in un altro Paese UE e voglio trasferirmi a Milano.
+  tag_catalogo: []
+  procedure:
+  - MOBILITA_UE
+  - VERIFICA_VISTO
+  facoltative: []
+  note: {}
+  avvisi:
+  - 'Il permesso di un altro Stato UE non dà automaticamente il diritto di trasferirsi e lavorare in Italia: dipende
+    dal tipo di titolo (ad esempio soggiornante di lungo periodo UE, Carta blu UE, ricercatore). Chiedi una verifica
+    a un ente competente.'
+  importato_da: ArrivareMilano
+- id: situazione_particolare
+  gruppo: Situazioni particolari
+  cittadinanza: null
+  nome: Familiari di cittadini italiani o UE, protezione internazionale e altri casi
+  criteri: Situazioni con regole dedicate, non ancora descritte in dettaglio in questa guida.
+  tag_catalogo: []
+  procedure:
+  - SITUAZIONE_PARTICOLARE
+  facoltative: []
+  note: {}
+  avvisi:
+  - 'Per queste situazioni le procedure dipendono da condizioni specifiche. Questa guida non le copre ancora: rivolgiti
+    alla Questura, alla Prefettura o a un servizio di orientamento per stranieri.'
+  importato_da: ArrivareMilano
+importazione:
+  origine: ArrivareMilano (documento di lavoro del collega, verificato il 2026-10-03)
+  procedure_importate: 17
+  profili: 14

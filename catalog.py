@@ -65,6 +65,7 @@ class Catalog:
     def __init__(self, data: dict):
         self.data = data
         self.procs = {p["id"]: p for p in data["procedure"]}
+        self.profili = {p["id"]: p for p in data.get("profili") or []}  # profili e criteri di scelta
         self.deps = {p["id"]: self._deps(p) for p in data["procedure"]}
 
     def _deps(self, proc: dict) -> list[str]:
@@ -89,6 +90,17 @@ def validate(data: dict) -> tuple[list[str], list[str]]:
             errors.append(f"manca la sezione {key}")
     procs = data.get("procedure") or []
     ids = [p.get("id") for p in procs]
+    profili = {p.get("id") for p in data.get("profili") or []}
+    for prof in data.get("profili") or []:
+        for field in ("id", "nome", "criteri", "gruppo", "procedure", "tag_catalogo"):
+            if field not in prof:
+                errors.append(f"profilo {prof.get('id')}: manca il campo {field}")
+        for pid in prof.get("procedure") or []:
+            if pid not in ids:
+                errors.append(f"profilo {prof.get('id')}: procedura inesistente {pid}")
+        for tag in prof.get("tag_catalogo") or []:
+            if tag not in PROFILI:
+                errors.append(f"profilo {prof.get('id')}: tag sconosciuto {tag}")
     for pid in {i for i in ids if ids.count(i) > 1}:
         errors.append(f"id duplicato: {pid}")
     known = set(ids)
@@ -119,14 +131,14 @@ def validate(data: dict) -> tuple[list[str], list[str]]:
                     errors.append(f"{pid}: dipende_da non riconosciuto '{entry}'")
         for entry in p.get("si_applica_a") or []:
             key, _ = split_entry(entry)
-            if key not in PROFILI and key not in STRUMENTI:
+            if key not in PROFILI and key not in STRUMENTI and key not in profili:
                 warnings.append(f"{pid}: si_applica_a non tradotto in regola '{entry}' (verrà accettato con avviso)")
         for link in p.get("link") or []:
             if link.get("tipo") not in TIPI_LINK or not str(link.get("url", "")).startswith("https://"):
                 errors.append(f"{pid}: link non valido {link}")
         for fonte in p.get("fonti") or []:
             if fonte.get("tipo") not in TIPI_FONTE or not str(fonte.get("url", "")).startswith("https://") \
-                    or not fonte.get("consultata"):
+                    or "consultata" not in fonte:  # null se il collega non indica una data di verifica
                 errors.append(f"{pid}: fonte non valida {fonte}")
     return errors, warnings
 

@@ -35,8 +35,20 @@ def client() -> anthropic.Anthropic:
     return _client
 
 
+def profili_del_catalogo() -> str:
+    """Elenco dei profili e criteri di scelta, presi dal catalogo (data/procedures.yaml)."""
+    righe = ["## Profili del catalogo: scegline uno per ogni adulto, con questi criteri"]
+    for p in tools.CAT.data.get("profili") or []:
+        riga = f"- {p['id']} ({p['gruppo']}): {p['nome']}. {p['criteri']}"
+        if p.get("avvisi"):
+            riga += " Attenzione: " + " ".join(p["avvisi"])
+        righe.append(riga)
+    return "\n".join(righe)
+
+
 def system_prompt(name: str) -> str:
-    return (PROMPTS / name).read_text(encoding="utf-8") + f"\n\nOggi è {date.today().isoformat()}."
+    return ((PROMPTS / name).read_text(encoding="utf-8") + "\n\n" + profili_del_catalogo()
+            + f"\n\nOggi è {date.today().isoformat()}.")
 
 
 def _call(system: str, tool_list: list, messages: list, max_tokens: int, effort: str):

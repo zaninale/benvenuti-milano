@@ -144,6 +144,7 @@ function cardHTML(c, i, used) {
   var list = c.persone.map(function (p, k) {
     var who = p.relazione === "self" ? T.rel.self : T.person + (k + 1) + " (" + (T.rel[p.relazione] || p.relazione) + ")";
     var bits = [p.cittadinanza ? T.cit[p.cittadinanza] : "?"];
+    if (p.profilo_nome) bits.unshift(p.profilo_nome);
     if (p.cittadinanza === "extra" && !p.minorenne && p.motivo) bits.push(T.mot[p.motivo]);
     if (p.minorenne) bits.push(T.minor);
     return "<li>" + esc(who) + ": " + esc(bits.join(", ")) + "</li>";
@@ -252,7 +253,7 @@ function stepHTML(s, plan, opts) {
     return '<li class="lk' + (l.tipo === "servizio_online" ? " lk-online" : "") + '"><a href="' + esc(l.url) + '" target="_blank" rel="noopener noreferrer"><span class="lkk">' + T.lk[l.tipo] + '</span><span class="lkl">' + esc(l.etichetta) + "</span></a>" + (extra ? "<small>" + extra + "</small>" : "") + "</li>";
   }).join("");
   var fonti = (s.fonti || []).map(function (f) {
-    return '<li><a href="' + esc(f.url) + '" target="_blank" rel="noopener noreferrer">' + esc(f.url.replace(/^https:\/\/(www\.)?/, "").split("/")[0]) + "</a> · " + esc(T.ftipo[f.tipo] || f.tipo) + ": " + esc(f.cosa_dice) + " (" + T.checked + esc(fmtDate(f.consultata, opts.lang)) + ")</li>";
+    return '<li><a href="' + esc(f.url) + '" target="_blank" rel="noopener noreferrer">' + esc(f.url.replace(/^https:\/\/(www\.)?/, "").split("/")[0]) + "</a> · " + esc(T.ftipo[f.tipo] || f.tipo) + ": " + esc(f.cosa_dice) + (f.consultata ? " (" + T.checked + esc(fmtDate(f.consultata, opts.lang)) + ")" : "") + "</li>";
   }).join("");
   var office = s.ufficio_suggerito ? '<p class="hint" style="margin:0"><b>' + T.officeHere + "</b>" + esc(s.ufficio_suggerito.nome + ", " + s.ufficio_suggerito.indirizzo) + "</p>" : "";
   var right = opts.op
@@ -390,7 +391,7 @@ async function openCase() {
   S.op = d.plan; S.opStep = d.step;
   var p = S.op, T = TX.it;
   $("opCodeTxt").textContent = p.code;
-  $("opProf").textContent = T.who[p.scheda.nucleo] + ": " + p.scheda.persone.map(function (x) { return T.cit[x.cittadinanza] + (x.motivo && x.cittadinanza === "extra" ? " " + T.mot[x.motivo] : ""); }).join("; ");
+  $("opProf").textContent = T.who[p.scheda.nucleo] + ": " + p.scheda.persone.map(function (x) { return x.profilo_nome || (T.cit[x.cittadinanza] || "?") + (x.motivo && x.cittadinanza === "extra" ? " " + T.mot[x.motivo] : ""); }).join("; ");
   $("opLang").textContent = (function () { try { return new Intl.DisplayNames(["it"], {type: "language"}).of(p.lingua); } catch (e) { return p.lingua; } })();
   $("opArr").textContent = fmtDate(p.data_arrivo, "it");
   $("opSum").hidden = !p.scheda.riassunto_it; $("opSumText").textContent = p.scheda.riassunto_it;

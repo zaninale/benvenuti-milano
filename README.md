@@ -52,6 +52,13 @@ The second invented case, Vikram (engineer from India, with his wife and 6-year-
 also runs end to end: one plan for the family, steps marked per person, one residence declaration
 signed by the adults.
 
+The catalogue covers **14 profiles**: Italians moving from another town, returning from abroad
+(AIRE) or studying away from home; EU citizens for short stays, work, study or with their own
+resources; non-EU citizens for short visits, study, employment, self-employment, family
+reunification, or with a permit from another EU country; and special situations (family members of
+Italian or EU citizens, international protection, other cases), which get a single step that
+refers the person to the competent office.
+
 ## Where Claude works
 
 *What Claude does every time someone uses this.*
@@ -65,6 +72,9 @@ signed by the adults.
     plain words;
   - works out who is moving and each person's situation, never inferring citizenship from a name
     or a language, and asks one question at a time for what is missing;
+  - picks one of the catalogue's 14 profiles for each adult, using the criteria in the catalogue
+    (the list and the criteria are read from `data/procedures.yaml` into the system prompt and the
+    `propose_profile` schema);
   - maps the person to the catalogue profiles and reasons over the catalogue's rules: which
     procedures apply, which variant (e.g. the student variant of the waste tax), which enabling
     tools are needed only because the person lacks them, and in which order;
@@ -114,6 +124,8 @@ signed by the adults.
 | yesmilano.it: Study & Work guide to the residence permit; residence for students and health service step by step (these two links still to be confirmed). Retrieved 3 Oct 2026 | Immigration Desk, student residence, home check, health enrolment |
 | ANPR, Polizia di Stato, Portale Immigrazione, Poste Italiane (residence permit, PosteID), Agenzia delle Entrate, Portale Integrazione Migranti, Regione Lombardia, ATS Milano, Your Europe. Retrieved 3 Oct 2026 | Procedures, documents, fees and verification status, listed per step in [`data/procedures.yaml`](data/procedures.yaml) |
 | Secondary sources (university pages, third-party guides) | Shown as "secondary" or "conflicting sources", never as official |
+| A colleague's working document "Arrivare a Milano" (profiles, procedures and offices in YAML), verified 3 Oct 2026 | 14 profiles with their selection criteria and 17 procedures, imported with their sources, verification date and status by [`scripts/import_catalogo.py`](scripts/import_catalogo.py) |
+| esteri.it and "Il visto per l'Italia", Ministero dell'Interno, Ministero della Salute, European Commission, Your Europe, Prefettura and Questura di Milano (retrieved by the colleague, 3 Oct 2026, where a date is given) | Visa, clearances, EU residence rights, health cover, citizenship, special situations |
 
 Links, documents and fees for residence permits, residence and the electronic ID card were checked
 on 3 Oct 2026 against a second catalogue that a colleague verified on the official pages that day.
@@ -126,8 +138,8 @@ Open data are © Comune di Milano, Creative Commons Attribution, through the CKA
 
 - **Build on what the City already does:** the welcome emails for new residents can carry the link
   to the plan; the YesMilano student path is already linked in the steps.
-- **To switch it on:** a City editor who owns `data/procedures.yaml` (24 procedures, 3 open
-  conflicts, 3 links to confirm) and the counter staff's flags; an Anthropic API key; HTTPS
+- **To switch it on:** a City editor who owns `data/procedures.yaml` (41 procedures, 14 profiles,
+  3 open conflicts, 3 links to confirm) and the counter staff's flags; an Anthropic API key; HTTPS
   hosting; authenticated access for counter staff (open in this prototype).
 - **What a proactive version 2 needs:** a consented signal that someone has just arrived (for
   example the residence application), and an email or phone number the person chooses to give, for
@@ -136,13 +148,22 @@ Open data are © Comune di Milano, Creative Commons Attribution, through the CKA
   contextual tips that reuse planned visits ("while you are at the post office…"), the interface
   in more languages (the plan is already in the person's language), officer flags back to the
   catalogue editors, plans that survive a server restart.
-- **Version 2: the full catalogue.** A colleague's catalogue, verified on 3 Oct 2026, covers more
-  situations than ours: Italians returning from abroad (AIRE), Italian students from another town,
-  self-employed workers and international protection; the steps before leaving (visa, work and
-  family clearances); renewals, such as the habitual-residence declaration for non-EU citizens;
-  the registration certificate for EU citizens; collecting the residence permit at the Police HQ.
-  Importing it is work on the data, not on the code: the same fields in `data/procedures.yaml`,
-  validated at start-up, and Claude reasons over whatever the catalogue contains.
+- **The catalogue includes content imported from a colleague's working document**, with its
+  sources: the profiles for Italians returning from abroad (AIRE), Italian students from another
+  town, self-employed workers and special situations; the steps before leaving (visa, work and
+  family clearances); renewals and citizenship; the EU registration certificate; the presence
+  declaration for short stays. Our entries take precedence: where a procedure was already ours, only
+  the new sources were added (the Police HQ appointment and the permit collection stay inside our
+  permit steps). Imported entries keep the colleague's verification date and status: the 9 marked
+  "to be verified" stay so. Deadlines, dependencies and channels were taken only from explicit
+  sentences; otherwise no deadline, channel "to be verified", priority "important". Steps "before
+  leaving" enter a plan only if the person has not arrived yet; renewals and citizenship are used to
+  answer questions. The import is a script over the data ([`scripts/import_catalogo.py`](scripts/import_catalogo.py)),
+  not new code.
+- **Version 2 would also add:** dedicated procedures for family members of Italian or EU citizens
+  and for international protection (today a single step refers to the competent office);
+  deadlines that start from a permit renewal; checking the 9 imported entries still "to be
+  verified".
 - **Open points to verify with the City:**
   - who carries out the home check;
   - the health-service fee for international students;
@@ -175,11 +196,12 @@ copy .env.example .env   # add your ANTHROPIC_API_KEY
 python app.py            # open http://localhost:5000
 ```
 
-Tests, and the live acceptance test on Ana's case (it calls Claude):
+Tests (one per profile), and the live tests on Ana's case and on three imported profiles (they call
+Claude):
 
 ```powershell
 python -m pytest -q
-$env:RUN_LIVE=1; python -m pytest -q tests/test_live_ana.py -s
+$env:RUN_LIVE=1; python -m pytest -q tests/test_live_ana.py tests/test_live_profili.py -s
 ```
 
 `python opendata.py` downloads the three datasets again.
@@ -189,7 +211,8 @@ $env:RUN_LIVE=1; python -m pytest -q tests/test_live_ana.py -s
 | `app.py` | Flask endpoints: `/api/chat`, `/api/confirm`, `/api/plan/<code>`, `/api/plan/<code>.ics`, `/qr/<code>/<n>.svg`, `/api/counter/ask`, `/api/counter/approve` |
 | `agent.py` | Claude tool-use loop for the citizen and the counter |
 | `tools.py` | Deterministic tools, date rules, checks on the plan |
-| `catalog.py` | Loads and validates `data/procedures.yaml` at start-up |
+| `catalog.py` | Loads and validates `data/procedures.yaml` (procedures and profiles) at start-up |
+| `scripts/import_catalogo.py` | Converts the colleague's YAML content into our schema and merges it |
 | `opendata.py` | City open data via CKAN, cache and offline copy |
 | `store.py` | In-memory state with expiry |
 | `templates/`, `static/` | The single page, from the validated mockup in `docs/mockup.html` |
