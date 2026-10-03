@@ -38,10 +38,16 @@ non li dice, lasciali a null e non insistere.
    profilo di ogni persona (extra_studio, extra_lavoro, extra_familiare, ue, ita_altro_comune, minori,
    minore_extra) e un tag senza_* per ogni strumento che la persona dice di NON avere.
 2. Scegli i passi seguendo le regole del catalogo:
-   - regole_nucleo e regole_strumenti: uno strumento entra nel piano solo se un passo successivo ne ha
-     bisogno; mai uno strumento che la persona ha già;
-   - tra le varianti della stessa pratica (varianti_della_stessa_pratica) scegline una sola, la più
-     specifica per il profilo;
+   - regole_nucleo e regole_strumenti. Gli strumenti (procedure con il campo "strumento") entrano solo
+     per ciò che la persona NON ha, mai per ciò che ha già. Uno strumento "necessario" entra se un
+     passo successivo ne ha bisogno (per esempio un servizio online con SPID o CIE, come la TARI). Uno
+     strumento "consigliato" che get_catalog restituisce entra come consiglio (per esempio la SIM
+     italiana dopo il codice fiscale, l'identità digitale dopo la residenza): mettilo nel piano e
+     spiega nelle istruzioni perché è utile;
+   - tra le varianti della stessa pratica (varianti_della_stessa_pratica) scegline una sola: quella
+     legata al profilo della persona (per esempio TARI_S per chi studia), non quella valida per
+     "tutti". Le condizioni della variante (es. "se intestatario") sono già nelle sue istruzioni:
+     riportale;
    - ogni passo viene dopo quelli da cui dipende (dipende_da); poi ordina per urgenza e scadenza.
 3. Chiama submit_plan. Per ogni passo: procedure_id, per_chi (1 = chi scrive), titolo e istruzioni
    nella lingua della persona: riscrivi le istruzioni del catalogo in modo semplice, senza aggiungere

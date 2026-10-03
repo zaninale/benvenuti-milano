@@ -1,1 +1,169 @@
-<!doctype html><meta charset="utf-8"><title>Benvenuti a Milano</title><p>Benvenuti a Milano: interfaccia in arrivo (T2).</p>
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Benvenuti a Milano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+</head>
+<body>
+<div class="switch">
+  <div class="wrap">
+    <p data-t="demo"></p>
+    <div class="tabs" role="tablist" aria-label="Vista">
+      <button class="tab" role="tab" id="tab-cit" aria-selected="true" aria-controls="view-cit" data-t="tabCit"></button>
+      <button class="tab" role="tab" id="tab-op" aria-selected="false" aria-controls="view-op">Sportello</button>
+    </div>
+  </div>
+</div>
+
+<div id="view-cit" role="tabpanel" aria-labelledby="tab-cit">
+  <header class="site">
+    <div class="wrap">
+      <div class="brand"><b data-t="brand"></b><span class="tag" data-t="tag"></span></div>
+      <div class="lang">
+        <button class="lbtn" id="bigBtn" aria-pressed="false" data-t="big" title=""></button>
+        <button class="lbtn" id="contrastBtn" aria-pressed="false" data-t="contrast"></button>
+        <span data-t="langLabel"></span>
+        <button class="lbtn" data-lang="it" aria-pressed="true">IT</button>
+        <button class="lbtn" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="wrap">
+      <section style="display:flex;flex-direction:column;gap:12px">
+        <h1 data-t="h1"></h1>
+        <p class="lead" data-t="lead"></p>
+      </section>
+
+      <section class="panel aipanel" id="aiPanel">
+        <h2 data-t="aiTitle"></h2>
+        <p class="hint" data-t="aiHint"></p>
+        <div class="thread" id="thread" aria-live="polite" hidden></div>
+        <label for="msg" data-t="aiLabel"></label>
+        <textarea id="msg" class="field area" rows="3" dir="auto"></textarea>
+        <div class="row" style="align-items:center">
+          <button class="btn" id="sendBtn" data-t="send"></button>
+          <button class="btn-o2" id="micBtn" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0"></path><path d="M12 18v3"></path></svg> <span id="micTxt"></span></button>
+          <label for="micLang" class="sr" data-t="micLang"></label>
+          <select id="micLang" class="field sel">
+            <option value="it-IT">Italiano</option><option value="en-US">English</option><option value="pt-BR">Português</option>
+            <option value="es-ES">Español</option><option value="fr-FR">Français</option><option value="ro-RO">Română</option>
+            <option value="uk-UA">Українська</option><option value="ar-EG">العربية</option><option value="zh-CN">中文</option>
+            <option value="tl-PH">Filipino</option><option value="bn-BD">বাংলা</option><option value="hi-IN">हिन्दी</option>
+          </select>
+          <button class="btn-o2" id="listenBtn" hidden><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M19 5a10 10 0 0 1 0 14"></path></svg> <span data-t="listen"></span></button>
+        </div>
+        <p class="hint" id="status" role="status"></p>
+      </section>
+
+      <div class="cols" id="planCols" hidden>
+        <section class="panel main-col" id="planPanel">
+          <div class="panel-head"><h2 data-t="planTitle"></h2><span class="hint" id="planWho"></span></div>
+          <div class="legend" id="legend"></div>
+          <ol class="plan" id="plan"></ol>
+          <p class="plan-note" id="planNote"></p>
+        </section>
+        <aside class="side-col">
+          <section class="panel">
+            <h2 data-t="codeTitle"></h2>
+            <div class="ticket">
+              <small data-t="codeLabel"></small>
+              <span class="code" id="code"></span>
+              <small data-t="codeNote"></small>
+            </div>
+            <p class="hint" data-t="codeHint"></p>
+            <div class="row">
+              <button class="btn-o2" id="listenPlanBtn"><span data-t="listenPlan"></span></button>
+              <a class="btn-o2" id="icsLink" href="#" download><span data-t="ics"></span></a>
+            </div>
+          </section>
+          <section class="panel" id="officePanel" hidden>
+            <h2 data-t="officeTitle"></h2>
+            <div id="office"></div>
+          </section>
+          <section class="panel" id="answersPanel" hidden>
+            <h2 data-t="answersTitle"></h2>
+            <div id="answers" style="display:flex;flex-direction:column;gap:10px"></div>
+          </section>
+          <section class="panel" id="conflictPanel" hidden>
+            <h2 data-t="conflictTitle"></h2>
+            <p class="hint" data-t="conflictHint"></p>
+            <div id="conflicts" style="display:flex;flex-direction:column;gap:10px"></div>
+          </section>
+        </aside>
+      </div>
+      <p class="foot" data-t="foot"></p>
+    </div>
+  </main>
+</div>
+
+<div id="view-op" class="view-op" role="tabpanel" aria-labelledby="tab-op" hidden>
+  <div class="op-head">
+    <div class="wrap">
+      <div class="brand"><b>Console sportello</b><span class="tag">Prototipo non ufficiale</span></div>
+      <span class="who">Anagrafe, Comune di Milano</span>
+    </div>
+  </div>
+  <main>
+    <div class="wrap">
+      <div class="cols">
+        <section class="main-col" style="display:flex;flex-direction:column;gap:20px">
+          <div class="panel">
+            <h1 style="font-size:24px">Apri il percorso di un cittadino</h1>
+            <label for="opCode">Codice o QR mostrato dal cittadino</label>
+            <div class="row">
+              <input id="opCode" class="field" type="text" placeholder="MI-7K4Q oppure MI-7K4Q-3" autocomplete="off" style="height:48px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:18px;letter-spacing:.06em">
+              <button class="btn" id="opOpen" style="height:48px">Apri percorso</button>
+            </div>
+            <p class="err" id="opErr" hidden></p>
+            <p class="hint" id="opEmpty">Digita il codice o scansiona il QR di un passo: si apre direttamente su quel passo. Nessun dato personale viene trasferito.</p>
+          </div>
+          <div class="panel" id="opCase" hidden>
+            <div class="facts">
+              <div class="fact"><small>Codice</small><span class="code" id="opCodeTxt"></span></div>
+              <div class="fact"><small>Nucleo</small><b id="opProf"></b></div>
+              <div class="fact"><small>Lingua del cittadino</small><b id="opLang"></b></div>
+              <div class="fact"><small>Arrivo dichiarato</small><b id="opArr"></b></div>
+            </div>
+            <div class="lastq" id="opSum" hidden><small>Situazione riassunta da Claude in italiano, senza dati personali</small><span id="opSumText"></span></div>
+            <div class="conflict" id="opWarn" hidden><b>Avvisi del controllo automatico</b><span id="opWarnText"></span></div>
+            <h2 style="font-size:18px">Piano del cittadino</h2>
+            <ol class="plan" id="opPlan"></ol>
+            <p class="hint">I passi con fonti in conflitto vanno verificati prima di confermarli al cittadino.</p>
+          </div>
+        </section>
+        <aside class="panel side-col" style="gap:14px">
+          <h2>Assistente operatore</h2>
+          <p class="hint">Claude prepara una bozza dal catalogo verificato, con le fonti. Decidi tu: approvi o correggi prima che arrivi al cittadino.</p>
+          <div class="row">
+            <button class="chip" data-q="Quanto costa l'iscrizione sanitaria volontaria per uno studente extra-UE?">Quota SSN per studenti extra-UE</button>
+            <button class="chip" data-q="Chi verifica la dimora dopo la dichiarazione di residenza?">Chi verifica la dimora?</button>
+          </div>
+          <label for="opQ">Fai una domanda</label>
+          <textarea id="opQ" class="field area" rows="2" placeholder="Quali documenti servono per la residenza?"></textarea>
+          <button class="btn" id="opAsk" style="align-self:flex-start">Chiedi a Claude</button>
+          <p class="hint" id="opStatus" role="status"></p>
+          <div id="draft" hidden style="display:flex;flex-direction:column;gap:10px">
+            <label for="draftText">Bozza di risposta (puoi correggerla)</label>
+            <textarea id="draftText" class="field area" rows="5"></textarea>
+            <label for="draftTr" id="draftTrLabel">Traduzione per il cittadino</label>
+            <textarea id="draftTr" class="field area" rows="4" dir="auto"></textarea>
+            <div class="conflict" id="draftConf" hidden></div>
+            <div id="draftSrc"></div>
+            <button class="btn" id="opApprove" style="align-self:flex-start">Approva e invia al cittadino</button>
+          </div>
+          <p class="ok" id="opOk" hidden>Risposta approvata: il cittadino la vede nel suo piano, con le fonti.</p>
+        </aside>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

@@ -8,3 +8,4 @@ ArrivareMilano/
 *.7z
 *.zip
 .pytest_cache/
+.claude/

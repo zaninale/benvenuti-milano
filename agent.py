@@ -18,6 +18,7 @@ import tools
 load_dotenv()
 MODEL = os.getenv("CLAUDE_MODEL", "claude-sonnet-5-5")
 EFFORT = os.getenv("AGENT_EFFORT", "low")  # non CLAUDE_EFFORT: può essere già impostata nel sistema
+PLAN_EFFORT = os.getenv("AGENT_PLAN_EFFORT", "medium")  # costruire il piano richiede più ragionamento
 MAX_TURNS = 6
 PROMPTS = pathlib.Path(__file__).parent / "prompts"
 _client = None
@@ -38,11 +39,11 @@ def system_prompt(name: str) -> str:
     return (PROMPTS / name).read_text(encoding="utf-8") + f"\n\nOggi è {date.today().isoformat()}."
 
 
-def _call(system: str, tool_list: list, messages: list, max_tokens: int):
+def _call(system: str, tool_list: list, messages: list, max_tokens: int, effort: str):
     try:
         return client().messages.create(
             model=MODEL, max_tokens=max_tokens, system=system, tools=tool_list, messages=messages,
-            thinking={"type": "adaptive"}, output_config={"effort": EFFORT},
+            thinking={"type": "adaptive"}, output_config={"effort": effort},
         )
     except anthropic.AuthenticationError:
         raise AgentError("Chiave API Anthropic mancante o non valida: controlla il file .env.")
@@ -54,7 +55,8 @@ def _call(system: str, tool_list: list, messages: list, max_tokens: int):
         raise AgentError(f"Claude ha risposto con un errore ({e.status_code}). Riprova tra poco.")
 
 
-def run(session: dict, system: str, tool_list: list, user_text: str, max_tokens: int, ctx=None) -> dict:
+def run(session: dict, system: str, tool_list: list, user_text: str, max_tokens: int, ctx=None,
+        effort: str = EFFORT) -> dict:
     messages = session["messages"]
     start, pending = len(messages), list(session.get("pending") or [])
     messages.append({"role": "user", "content": pending + [{"type": "text", "text": user_text}]})
@@ -62,7 +64,7 @@ def run(session: dict, system: str, tool_list: list, user_text: str, max_tokens:
     out = {"reply": "", "card": None, "plan": None, "draft": None, "error": None}
     try:
         for turn in range(MAX_TURNS):
-            resp = _call(system, tool_list, messages, max_tokens)
+            resp = _call(system, tool_list, messages, max_tokens, effort)
             if resp.stop_reason == "refusal":
                 raise AgentError("L'assistente non può rispondere a questa richiesta. Per le pratiche puoi "
                                  "rivolgerti allo sportello anagrafe del Comune.")
@@ -78,11 +80,15 @@ def run(session: dict, system: str, tool_list: list, user_text: str, max_tokens:
                 if b.type != "tool_use":
                     continue
                 r = tools.run_tool(b.name, b.input, ctx if ctx is not None else session)
-                print(f"  tool {b.name}: {'ERRORE ' + r.content[:200] if r.is_error else 'ok'}")
+                dettaglio = b.input.get("profile_ids") or b.input.get("near") or "" if b.name in (
+                    "get_catalog", "find_offices") else ""  # niente dati personali nel log
+                print(f"  tool {b.name} {dettaglio}: {'ERRORE ' + r.content[:200] if r.is_error else 'ok'}", flush=True)
                 results.append({"type": "tool_result", "tool_use_id": b.id, "content": r.content,
                                 "is_error": r.is_error})
                 if r.terminal and not r.is_error:
                     stop = r
+            if any(b.type == "tool_use" and b.name == "get_catalog" for b in resp.content):
+                session["catalog_seen"] = True  # submit_plan vale solo dopo aver letto il catalogo
             if stop or turn == MAX_TURNS - 1:
                 session["pending"] = results  # partiranno con il prossimo messaggio
                 if stop:
@@ -108,7 +114,8 @@ def confirm(session: dict) -> dict:
         raise AgentError("Non c'è ancora una scheda completa da confermare.")
     session["confirmed"] = True
     text = "[Pulsante Conferma] Ho controllato la scheda e la confermo: prepara il mio piano."
-    return run(session, system_prompt("agent_citizen.md"), tools.CITIZEN_TOOLS, text, max_tokens=8000)
+    return run(session, system_prompt("agent_citizen.md"), tools.CITIZEN_TOOLS, text, max_tokens=12000,
+               effort=PLAN_EFFORT)
 
 
 def ask_counter(plan: dict, question: str) -> dict:

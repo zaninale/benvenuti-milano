@@ -28,7 +28,7 @@ def ana_session():
     session = {}
     r = tools.propose_profile(dict(ANA), session)
     assert r.terminal and r.card["completa"]
-    session["confirmed"] = True
+    session["confirmed"] = session["catalog_seen"] = True
     tools.find_offices({"near": "Piola"}, session)
     return session
 
@@ -143,10 +143,13 @@ def test_id_inesistente_rifiutato():
     assert r.is_error and "RES_Z" in r.content
 
 
-def test_piano_senza_conferma_rifiutato():
+def test_piano_senza_conferma_o_senza_catalogo_rifiutato():
     session = ana_session()
     session["confirmed"] = False
     assert tools.submit_plan({"passi": passi(["PERM_S"]), "messaggio": ""}, session).is_error
+    session = ana_session()
+    session["catalog_seen"] = False
+    assert "get_catalog" in tools.submit_plan({"passi": passi(["PERM_S"]), "messaggio": ""}, session).content
 
 
 def test_passo_non_applicabile_accettato_con_avviso():

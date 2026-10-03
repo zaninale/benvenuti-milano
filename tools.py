@@ -363,6 +363,8 @@ def submit_plan(args: dict, session: dict) -> Result:
     card = session.get("card")
     if not card or not session.get("confirmed"):
         return err("La persona non ha ancora confermato la scheda profilo: aspetta la conferma.")
+    if not session.get("catalog_seen"):
+        return err("Chiama prima get_catalog e costruisci il piano sui suoi risultati.")
     passi = args.get("passi") or []
     if not passi:
         return err("Il piano è vuoto.")
@@ -411,6 +413,11 @@ def submit_plan(args: dict, session: dict) -> Result:
             if esito and cond and cond.startswith("se "):
                 avvisi.append(f"{pid}: vale {cond}, da confermare con la persona")
                 break
+        if "tutti" in proc["si_applica_a"]:
+            for alt in CAT.data["procedure"]:
+                if alt["id"] != pid and alt["titolo"] == proc["titolo"] and "tutti" not in alt["si_applica_a"] \
+                        and any(applies(alt, n, card)[0] for n in tutti):
+                    avvisi.append(f"{pid}: esiste la variante {alt['id']}, più specifica per il profilo")
         ufficio = None
         if p.get("ufficio_id"):
             ufficio = uffici.get(p["ufficio_id"])
